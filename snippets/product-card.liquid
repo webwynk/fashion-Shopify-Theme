@@ -15,7 +15,11 @@
   assign show_wishlist   = show_wishlist   | default: true
   assign show_quick_view = show_quick_view | default: true
   assign show_vendor     = show_vendor     | default: true
-  assign img_loading     = lazy | default: true | ternary: 'lazy', 'eager'
+
+  assign img_loading     = 'lazy'
+  if lazy == false
+    assign img_loading   = 'eager'
+  endif
 
   assign first_image  = product.featured_image
   assign second_image = product.images[1]
