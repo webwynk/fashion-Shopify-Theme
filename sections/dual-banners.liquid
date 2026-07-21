@@ -1,0 +1,268 @@
+{%- comment -%}
+  Section: Dual Promo Banners (Modern Editorial Edition)
+  Features:
+  - 2 side-by-side large rounded cards with lifestyle backgrounds (Unsplash fallbacks)
+  - Bottom-Left or Centered luxury text layouts
+  - Directional overlay gradient for maximum text visibility
+  - High performance smooth hover scaling & pill CTA buttons
+{%- endcomment -%}
+
+<section class="ds-dual-banners-modern ds-section" id="section-{{ section.id }}">
+  <div class="ds-container">
+    <div class="ds-dual-banners-modern__grid" data-animate-stagger>
+
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- assign img_idx = forloop.index0 | modulo: 2 -%}
+          {%- assign fallbacks = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1000&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1000&auto=format&fit=crop&q=80" | split: ',' -%}
+          
+          <div class="ds-dual-card-modern" {{ block.shopify_attributes }}>
+            <div class="ds-dual-card-modern__media">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 1000 }}"
+                  class="ds-dual-card-modern__img"
+                  loading="lazy"
+                  alt="{{ block.settings.title | default: 'Promo Banner' | escape }}"
+                  onerror="this.onerror=null; this.src='{{ fallbacks[img_idx] }}';"
+                >
+              {%- else -%}
+                <img
+                  src="{{ fallbacks[img_idx] }}"
+                  class="ds-dual-card-modern__img"
+                  loading="lazy"
+                  alt="{{ block.settings.title | default: 'Promo Banner' | escape }}"
+                >
+              {%- endif -%}
+            </div>
+
+            <div class="ds-dual-card-modern__content">
+              {%- if block.settings.subheading != blank -%}
+                <span class="ds-dual-card-modern__subheading">{{ block.settings.subheading }}</span>
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <h3 class="ds-dual-card-modern__title">{{ block.settings.title }}</h3>
+              {%- endif -%}
+
+              {%- if block.settings.button_label != blank -%}
+                <a href="{{ block.settings.button_url | default: '/collections/all' }}" class="ds-btn-modern-dual">
+                  <span>{{ block.settings.button_label }}</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Default 2 Modern Luxury Banners {%- endcomment -%}
+        <div class="ds-dual-card-modern">
+          <div class="ds-dual-card-modern__media">
+            <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1000&auto=format&fit=crop&q=80" alt="Spring Collection" class="ds-dual-card-modern__img" loading="lazy">
+          </div>
+          <div class="ds-dual-card-modern__content">
+            <span class="ds-dual-card-modern__subheading">Free Shipping Over Order $120</span>
+            <h3 class="ds-dual-card-modern__title">Spring Collection</h3>
+            <a href="/collections/all" class="ds-btn-modern-dual">
+              <span>Explore Now</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="ds-dual-card-modern">
+          <div class="ds-dual-card-modern__media">
+            <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1000&auto=format&fit=crop&q=80" alt="Special Offer" class="ds-dual-card-modern__img" loading="lazy">
+          </div>
+          <div class="ds-dual-card-modern__content">
+            <span class="ds-dual-card-modern__subheading">New Weekend Sale Offer</span>
+            <h3 class="ds-dual-card-modern__title">-25% Off Items</h3>
+            <a href="/collections/all" class="ds-btn-modern-dual">
+              <span>Explore Now</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═════════════════════════════════════════════════════════════
+   DUAL PROMO BANNERS (MODERN EDITORIAL EDITION)
+   ═════════════════════════════════════════════════════════════ */
+.ds-dual-banners-modern {
+  padding: 4.5rem 0;
+  background: #FFFFFF;
+}
+
+.ds-dual-banners-modern__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.ds-dual-card-modern {
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  min-height: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 3rem;
+  color: #FFFFFF;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+}
+
+.ds-dual-card-modern__media {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* Pseudo-element Overlay for Text Contrast */
+.ds-dual-card-modern__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(18, 19, 22, 0.85) 0%, rgba(18, 19, 22, 0.3) 50%, rgba(18, 19, 22, 0.1) 100%);
+  z-index: 2;
+  transition: background 300ms ease;
+  pointer-events: none;
+}
+
+.ds-dual-card-modern:hover .ds-dual-card-modern__media::after {
+  background: linear-gradient(to top, rgba(18, 19, 22, 0.92) 0%, rgba(18, 19, 22, 0.45) 50%, rgba(18, 19, 22, 0.15) 100%);
+}
+
+.ds-dual-card-modern__img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  position: relative;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-dual-card-modern:hover .ds-dual-card-modern__img {
+  transform: scale(1.06);
+}
+
+/* Content */
+.ds-dual-card-modern__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.65rem;
+}
+
+.ds-dual-card-modern__subheading {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-orange, #E05A2B);
+}
+
+.ds-dual-card-modern__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 2.5vw, 2.35rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0 0 0.85rem 0;
+  line-height: 1.25;
+}
+
+.ds-btn-modern-dual {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #FFFFFF;
+  color: #121316;
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 800;
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 300ms ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.ds-btn-modern-dual:hover {
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+  box-shadow: 0 8px 24px rgba(224, 90, 43, 0.4);
+  transform: translateY(-2px);
+}
+
+.ds-btn-modern-dual svg {
+  transition: transform 250ms ease;
+}
+
+.ds-btn-modern-dual:hover svg {
+  transform: translateX(4px);
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+  .ds-dual-banners-modern__grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .ds-dual-card-modern { min-height: 350px; padding: 2rem; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Dual Promo Banners",
+  "tag": "section",
+  "class": "section-dual-banners",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Promo Banner",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Promo Banner"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Special Offer"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Explore Now"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner Background Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dual Promo Banners"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,40 @@
+{%- comment -%}
+  Snippet: product-badge
+  Renders sale/new/hot/best-seller badge on product card.
+  Accepts:
+    - product: {Object} Product Liquid object (required)
+{%- endcomment -%}
+
+{%- liquid
+  assign show_badge = false
+  assign badge_class = ''
+  assign badge_text = ''
+
+  if product.compare_at_price > product.price and product.available
+    assign show_badge = true
+    assign badge_class = 'ds-badge--sale'
+    assign discount_amount = product.compare_at_price | minus: product.price
+    assign discount_pct = discount_amount | times: 100 | divided_by: product.compare_at_price | round
+    assign badge_text = '-' | append: discount_pct | append: '%'
+  elsif product.tags contains 'best-seller'
+    assign show_badge = true
+    assign badge_class = 'ds-badge--best'
+    assign badge_text = 'Best Seller'
+  elsif product.tags contains 'new'
+    assign show_badge = true
+    assign badge_class = 'ds-badge--new'
+    assign badge_text = 'New'
+  elsif product.tags contains 'trending' or product.tags contains 'hot'
+    assign show_badge = true
+    assign badge_class = 'ds-badge--hot'
+    assign badge_text = '🔥 Hot'
+  elsif product.available == false
+    assign show_badge = true
+    assign badge_class = 'ds-badge--low'
+    assign badge_text = 'Sold Out'
+  endif
+-%}
+
+{%- if show_badge -%}
+  <span class="ds-badge {{ badge_class }}">{{ badge_text }}</span>
+{%- endif -%}

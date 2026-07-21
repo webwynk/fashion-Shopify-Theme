@@ -1,0 +1,172 @@
+{%- comment -%}
+  Section: Trending Products Grid (Redesigned Next-Gen Luxury Edition)
+  4-column responsive grid featuring discount badges, wishlist glass buttons,
+  slide-up action bars, star ratings, and price callouts.
+{%- endcomment -%}
+
+{%- liquid
+  assign section_collection = collections[section.settings.collection]
+  assign product_limit = section.settings.products_to_show | default: 8
+-%}
+
+<section class="ds-trending-next" id="section-{{ section.id }}">
+  <div class="ds-container">
+
+    {%- comment -%} Centered Section Heading {%- endcomment -%}
+    <div class="ds-trending-next__header">
+      <span class="ds-trending-next__eyebrow">✦ MOST POPULAR DROPS ✦</span>
+      <h2 class="ds-trending-next__title">
+        {{ section.settings.title | default: 'Trending Products' }}
+      </h2>
+      <p class="ds-trending-next__subtitle">
+        {{ section.settings.subtitle | default: 'Follow the most popular trends and get exclusive items from foesta.' }}
+      </p>
+    </div>
+
+    {%- comment -%} Product Grid {%- endcomment -%}
+    <div class="ds-trending-next__grid">
+      {%- if section_collection != blank and section_collection.products.size > 0 -%}
+        {%- for product in section_collection.products limit: product_limit -%}
+          {%- render 'product-card',
+            product: product,
+            show_badge: true,
+            show_rating: true,
+            show_wishlist: true,
+            show_quick_view: true,
+            show_vendor: true,
+            lazy: true
+          -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Fallback 8 Luxury Product Cards Preview {%- endcomment -%}
+        {%- for i in (1..8) -%}
+          {%- render 'product-card',
+            product: nil,
+            show_badge: true,
+            show_rating: true,
+            show_wishlist: true,
+            show_quick_view: true,
+            show_vendor: true,
+            lazy: true
+          -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ═════════════════════════════════════════════
+   TRENDING PRODUCTS (NEXT-GEN MODERN EDITION)
+   ═════════════════════════════════════════════ */
+.ds-trending-next {
+  background: #FFFFFF;
+  padding: 5rem 0 5.5rem;
+}
+
+.ds-trending-next__header {
+  text-align: center;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ds-trending-next__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--accent-orange, #E05A2B);
+  text-transform: uppercase;
+}
+
+.ds-trending-next__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-weight: 800;
+  color: #121316;
+  margin: 0;
+  letter-spacing: -0.03em;
+}
+
+.ds-trending-next__subtitle {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  color: #555B68;
+  margin: 0;
+  max-width: 540px;
+}
+
+.ds-trending-next__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1199px) {
+  .ds-trending-next__grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+}
+
+@media (max-width: 899px) {
+  .ds-trending-next { padding: 3.5rem 0 4rem; }
+  .ds-trending-next__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-trending-next__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Trending Products",
+  "tag": "section",
+  "class": "section-trending-products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Trending Products"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Follow the most popular trends and get exclusive items from foesta."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "default": 8,
+      "label": "Products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trending Products"
+    }
+  ]
+}
+{% endschema %}

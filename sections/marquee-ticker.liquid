@@ -1,0 +1,162 @@
+{%- comment -%}
+  Section: Marquee Text Ticker (Massive X-Cross Edition)
+  High-energy streetwear aesthetic with massive text and intersecting scrolling banners.
+{%- endcomment -%}
+
+<div class="ds-dual-ribbons-wrapper" id="section-{{ section.id }}">
+  
+  {%- comment -%} TOP RIBBON (ORANGE) - SCROLLING LEFT {%- endcomment -%}
+  <div class="ds-ribbon ds-ribbon--orange ds-ribbon--tilt-left">
+    <div class="ds-ribbon__track ds-ribbon__track--left">
+      {%- assign phrases_top = "LIMITED OFFER SALES,HOT DEAL PRODUCTS,BEST SELLING ITEMS,SPRING COLLECTIONS,FREE WORLDWIDE SHIPPING,EXCLUSIVE NEW DROPS" | split: ',' -%}
+      {%- for i in (1..6) -%}
+        {%- for phrase in phrases_top -%}
+          <span class="ds-ribbon__text">{{ phrase }}</span>
+          <span class="ds-ribbon__dot">✦</span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- comment -%} BOTTOM RIBBON (BLACK) - SCROLLING RIGHT {%- endcomment -%}
+  <div class="ds-ribbon ds-ribbon--black ds-ribbon--tilt-right">
+    <div class="ds-ribbon__track ds-ribbon__track--right">
+      {%- assign phrases_bottom = "PREMIUM QUALITY,LUXURY MATERIALS,EXPERT CRAFTSMANSHIP,DESIGNED IN STUDIO,ULTIMATE COMFORT,STREETWEAR ESSENTIALS" | split: ',' -%}
+      {%- for i in (1..6) -%}
+        {%- for phrase in phrases_bottom -%}
+          <span class="ds-ribbon__text">{{ phrase }}</span>
+          <span class="ds-ribbon__dot">✦</span>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+</div>
+
+<style>
+/* ═════════════════════════════════════════════════════════════
+   MASSIVE X-CROSS RIBBON TICKER
+   ═════════════════════════════════════════════════════════════ */
+.ds-dual-ribbons-wrapper {
+  position: relative;
+  overflow: hidden;
+  /* Massive vertical padding to fit the massive X-cross */
+  padding: 8rem 0; 
+  background-color: var(--color-background, #FAFAFA);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-ribbon {
+  width: 150vw; /* Massively wider than viewport to prevent empty corners when rotated heavily */
+  margin-left: -25vw;
+  /* Huge padding for thick ribbons */
+  padding: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  user-select: none;
+  white-space: nowrap;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ━━ TILT CONFIGURATIONS (Perfect Center Cross) ━━ */
+.ds-ribbon--tilt-left {
+  /* Center vertically, then rotate */
+  transform: translateY(-50%) rotate(-4deg);
+  z-index: 1;
+}
+
+.ds-ribbon--tilt-right {
+  /* Center vertically, then rotate opposite */
+  transform: translateY(-50%) rotate(4deg);
+  z-index: 2; /* Crosses over the orange ribbon */
+}
+
+/* ━━ COLOR THEMES ━━ */
+.ds-ribbon--orange {
+  background: var(--accent-orange, #E05A2B);
+}
+.ds-ribbon--orange .ds-ribbon__text { color: #FFFFFF; }
+.ds-ribbon--orange .ds-ribbon__dot { color: #FFE5D9; opacity: 0.9; }
+
+.ds-ribbon--black {
+  background: #121316;
+  border-top: 3px solid #FFFFFF; /* Sharp separator */
+  border-bottom: 3px solid #FFFFFF;
+}
+.ds-ribbon--black .ds-ribbon__text { color: #FFFFFF; }
+.ds-ribbon--black .ds-ribbon__dot { color: var(--accent-orange, #E05A2B); }
+
+/* ━━ TRACKS & ANIMATIONS ━━ */
+.ds-ribbon__track {
+  display: inline-flex;
+  align-items: center;
+  gap: 3.5rem;
+  will-change: transform;
+}
+
+.ds-ribbon__track--left {
+  animation: ds-ribbon-scroll-left 45s linear infinite;
+}
+
+.ds-ribbon__track--right {
+  animation: ds-ribbon-scroll-right 45s linear infinite;
+}
+
+
+
+/* ━━ MASSIVE TYPOGRAPHY ━━ */
+.ds-ribbon__text {
+  font-family: var(--font-heading);
+  /* Massive Text */
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.ds-ribbon__dot {
+  /* Larger sparkles to match */
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  line-height: 1;
+}
+
+@keyframes ds-ribbon-scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes ds-ribbon-scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 767px) {
+  .ds-dual-ribbons-wrapper { padding: 6rem 0; }
+  .ds-ribbon { padding: 1rem 0; }
+  .ds-ribbon__text { font-size: 1.5rem; }
+  .ds-ribbon__track { gap: 2rem; }
+  .ds-ribbon--tilt-left { transform: translateY(-50%) rotate(-5deg); }
+  .ds-ribbon--tilt-right { transform: translateY(-50%) rotate(5deg); }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Marquee Text Ticker",
+  "tag": "section",
+  "class": "section-marquee-ticker",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Marquee Text Ticker"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,482 @@
+{%- comment -%}
+  Snippet: product-card (Concept 2: App-Style Split Pill Card)
+  Features:
+  - Floating Integrated Split Pill Bar at bottom of media (Price + Quick Add Button)
+  - Curated Unsplash Luxury Product Photography fallbacks
+  - Discount Sale Badges (-38% OFF) & Wishlist Glass Heart Button
+  - Star Rating Pill Badge (★ 4.9)
+  - Vendor Category Tag & Color Swatches
+  - 100% Mobile-first App-style UX with 3D spring hover lift
+{%- endcomment -%}
+
+{%- liquid
+  assign show_badge      = show_badge      | default: true
+  assign show_rating     = show_rating     | default: true
+  assign show_wishlist   = show_wishlist   | default: true
+  assign show_quick_view = show_quick_view | default: true
+  assign show_vendor     = show_vendor     | default: true
+  assign img_loading     = lazy | default: true | ternary: 'lazy', 'eager'
+
+  assign first_image  = product.featured_image
+  assign second_image = product.images[1]
+
+  assign has_sale = false
+  if product.compare_at_price > product.price and product.available
+    assign has_sale = true
+  endif
+
+  # Fallback Unsplash Luxury Catalog Photos for preview
+  assign fallback_urls = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&auto=format&fit=crop&q=80" | split: ','
+  assign fallback_hovers = "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1484704849700-f032a568e944?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1552346154-21d32810aba3?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&auto=format&fit=crop&q=80" | split: ','
+
+  assign pid_hash = product.id | default: 1
+  assign img_idx  = pid_hash | modulo: 8
+-%}
+
+<div
+  class="ds-card-app {% if card_class %}{{ card_class }}{% endif %}"
+  data-product-id="{{ product.id }}"
+>
+  {%- comment -%}━━━ MEDIA CONTAINER ━━━{%- endcomment -%}
+  <div class="ds-card-app__media">
+    <a href="{{ product.url | default: '/collections/all' }}" class="ds-card-app__link" aria-label="{{ product.title | default: 'Product' | escape }}">
+      {%- if first_image != blank -%}
+        {{
+          first_image
+          | image_url: width: 800
+          | image_tag:
+            class: 'ds-card-app__img ds-card-app__img--primary',
+            loading: img_loading,
+            alt: first_image.alt | default: product.title | escape
+        }}
+        {%- if second_image != blank -%}
+          {{
+            second_image
+            | image_url: width: 800
+            | image_tag:
+              class: 'ds-card-app__img ds-card-app__img--hover',
+              loading: 'lazy',
+              alt: second_image.alt | default: product.title | escape
+          }}
+        {%- endif -%}
+      {%- else -%}
+        {%- comment -%} Unsplash Catalog Fallbacks {%- endcomment -%}
+        <img
+          src="{{ fallback_urls[img_idx] }}"
+          alt="{{ product.title | default: 'Luxury Item' }}"
+          class="ds-card-app__img ds-card-app__img--primary"
+          loading="{{ img_loading }}"
+        >
+        <img
+          src="{{ fallback_hovers[img_idx] }}"
+          alt="{{ product.title | default: 'Luxury Item' }}"
+          class="ds-card-app__img ds-card-app__img--hover"
+          loading="lazy"
+        >
+      {%- endif -%}
+    </a>
+
+    {%- comment -%} Top Badges {%- endcomment -%}
+    {%- if show_badge -%}
+      <div class="ds-card-app__badges">
+        {%- if has_sale -%}
+          {%- assign save_percent = product.compare_at_price | minus: product.price | times: 100.0 | divided_by: product.compare_at_price | round -%}
+          <span class="ds-card-app__badge ds-card-app__badge--sale">-{{ save_percent }}% OFF</span>
+        {%- else -%}
+          {%- assign mock_sale = img_idx | modulo: 3 -%}
+          {%- if mock_sale == 0 -%}
+            <span class="ds-card-app__badge ds-card-app__badge--sale">-38% OFF</span>
+          {%- elsif mock_sale == 1 -%}
+            <span class="ds-card-app__badge ds-card-app__badge--new">NEW</span>
+          {%- else -%}
+            <span class="ds-card-app__badge ds-card-app__badge--hot">BEST SELLER</span>
+          {%- endif -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Wishlist Glass Heart Button (Top Right) {%- endcomment -%}
+    {%- if show_wishlist -%}
+      <button
+        class="ds-card-app__wishlist"
+        aria-label="Add to wishlist"
+        type="button"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+    {%- endif -%}
+
+    {%- comment -%} Integrated Floating App-Style Split Pill Bar (Bottom of Media) {%- endcomment -%}
+    <div class="ds-card-app__split-pill">
+      <div class="ds-card-app__price-group">
+        {%- if product.price > 0 -%}
+          <span class="ds-card-app__price">{{ product.price | money }}</span>
+          {%- if has_sale -%}
+            <span class="ds-card-app__compare">{{ product.compare_at_price | money }}</span>
+          {%- endif -%}
+        {%- else -%}
+          {%- assign mock_prices = "$49.99,$59.99,$69.99,$39.99,$44.99,$34.99,$54.99,$29.99" | split: ',' -%}
+          {%- assign mock_compares = "$79.99,$89.99,$119.99,$64.99,$69.99,$54.99,$84.99,$49.99" | split: ',' -%}
+          <span class="ds-card-app__price">{{ mock_prices[img_idx] }}</span>
+          <span class="ds-card-app__compare">{{ mock_compares[img_idx] }}</span>
+        {%- endif -%}
+      </div>
+
+      <button
+        class="ds-card-app__add-btn"
+        data-product-id="{{ product.variants.first.id | default: 12345 }}"
+        type="button"
+        aria-label="Add to cart"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Add</span>
+      </button>
+    </div>
+  </div>
+
+  {%- comment -%}━━━ PRODUCT DETAILS ━━━{%- endcomment -%}
+  <div class="ds-card-app__info">
+
+    <div class="ds-card-app__header-row">
+      <span class="ds-card-app__vendor">{{ product.vendor | default: 'FOESTA LUXURY' }}</span>
+      {%- if show_rating -%}
+        <div class="ds-card-app__rating-pill">
+          <span class="ds-card-app__star">★</span>
+          <span>4.9</span>
+        </div>
+      {%- endif -%}
+    </div>
+
+    <h3 class="ds-card-app__title">
+      <a href="{{ product.url | default: '/collections/all' }}">
+        {{ product.title | default: 'Vintage Minimalist Apparel & Accessory Drop' }}
+      </a>
+    </h3>
+
+    <div class="ds-card-app__footer-row">
+      <span class="ds-card-app__stock">In Stock — Ships in 24h</span>
+      
+      <div class="ds-card-app__swatches">
+        <span class="ds-card-app__swatch ds-card-app__swatch--1 is-active" title="Cream / Off-White"></span>
+        <span class="ds-card-app__swatch ds-card-app__swatch--2" title="Midnight Black"></span>
+        <span class="ds-card-app__swatch ds-card-app__swatch--3" title="Emerald Green"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+/* ═════════════════════════════════════════════════════════════
+   CONCEPT 2: APP-STYLE SPLIT PILL PRODUCT CARD — ds-card-app
+   ═════════════════════════════════════════════════════════════ */
+.ds-card-app {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1.5px solid rgba(18, 19, 22, 0.08);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 400ms ease,
+              border-color 300ms ease;
+}
+
+.ds-card-app:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+  border-color: rgba(224, 90, 43, 0.35);
+}
+
+/* Media Container */
+.ds-card-app__media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #F4F5FE;
+}
+
+.ds-card-app__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ds-card-app__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 750ms cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 400ms ease;
+}
+
+.ds-card-app__img--primary {
+  position: relative;
+  z-index: 1;
+}
+
+.ds-card-app__img--hover {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  z-index: 2;
+}
+
+.ds-card-app:hover .ds-card-app__img--hover {
+  opacity: 1;
+}
+
+.ds-card-app:hover .ds-card-app__img {
+  transform: scale(1.1);
+}
+
+/* Badges Top Left */
+.ds-card-app__badges {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.ds-card-app__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.ds-card-app__badge--sale {
+  background: #E05A2B;
+  color: #FFFFFF;
+}
+
+.ds-card-app__badge--new {
+  background: #121316;
+  color: #FFFFFF;
+}
+
+.ds-card-app__badge--hot {
+  background: #C9A96E;
+  color: #FFFFFF;
+}
+
+/* Wishlist Heart Top Right */
+.ds-card-app__wishlist {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  color: #121316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-card-app__wishlist:hover {
+  background: #E05A2B;
+  color: #FFFFFF;
+  border-color: #E05A2B;
+  transform: scale(1.12);
+}
+
+/* Integrated Floating App-Style Split Pill Bar */
+.ds-card-app__split-pill {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  right: 14px;
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 9999px;
+  padding: 0.45rem 0.5rem 0.45rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 300ms ease;
+}
+
+.ds-card-app:hover .ds-card-app__split-pill {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.ds-card-app__price-group {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.ds-card-app__price {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: #121316;
+}
+
+.ds-card-app__compare {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: #8E95A2;
+  text-decoration: line-through;
+}
+
+/* Vibrant Orange Add Button inside Split Pill */
+.ds-card-app__add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #E05A2B;
+  color: #FFFFFF;
+  padding: 0.5rem 1.15rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 800;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(224, 90, 43, 0.38);
+  transition: all 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+}
+
+.ds-card-app__add-btn:hover {
+  background: #C84B1F;
+  transform: scale(1.06);
+  box-shadow: 0 6px 18px rgba(224, 90, 43, 0.5);
+}
+
+/* ── PRODUCT DETAILS ── */
+.ds-card-app__info {
+  padding: 1.25rem 1.35rem 1.35rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: #FFFFFF;
+}
+
+.ds-card-app__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ds-card-app__vendor {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #E05A2B;
+}
+
+.ds-card-app__rating-pill {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  background: #FFF8EB;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #78350F;
+}
+
+.ds-card-app__star {
+  color: #F59E0B;
+  font-size: 0.75rem;
+}
+
+.ds-card-app__title {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ds-card-app__title a {
+  color: #121316;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.ds-card-app__title a:hover {
+  color: #E05A2B;
+}
+
+/* Footer Row (Stock indicator + Color Swatches) */
+.ds-card-app__footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid rgba(18, 19, 22, 0.05);
+}
+
+.ds-card-app__stock {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #059669;
+}
+
+.ds-card-app__swatches {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ds-card-app__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(18, 19, 22, 0.2);
+  cursor: pointer;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.ds-card-app__swatch:hover,
+.ds-card-app__swatch.is-active {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 2px #E05A2B;
+}
+
+.ds-card-app__swatch--1 { background: #F5F2EB; }
+.ds-card-app__swatch--2 { background: #121316; }
+.ds-card-app__swatch--3 { background: #064E3B; }
+</style>

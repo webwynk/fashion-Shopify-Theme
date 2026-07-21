@@ -1,0 +1,245 @@
+{%- comment -%}
+  Section: Promotional Banner
+  Full-width promotional banner with background image, gradient overlay,
+  eyebrow, high-impact headline, subtext, and CTA button.
+{%- endcomment -%}
+
+<section
+  class="ds-promo-banner"
+  id="section-{{ section.id }}"
+  style="min-height: {{ section.settings.min_height }}px;"
+>
+  {%- comment -%} Background Image {%- endcomment -%}
+  <div class="ds-promo-banner__media">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2000
+        | image_tag:
+          class: 'ds-promo-banner__img',
+          loading: 'lazy',
+          alt: section.settings.image.alt | default: section.settings.heading | escape
+      }}
+    {%- else -%}
+      <div class="ds-promo-banner__placeholder">
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'ds-promo-banner__placeholder-svg' }}
+      </div>
+    {%- endif -%}
+
+    {%- comment -%} Dark Overlay {%- endcomment -%}
+    <div
+      class="ds-promo-banner__overlay"
+      style="background: rgba(15, 15, 15, {{ section.settings.overlay_opacity | divided_by: 100.0 }});"
+    ></div>
+  </div>
+
+  {%- comment -%} Content {%- endcomment -%}
+  <div class="ds-container ds-promo-banner__inner">
+    <div class="ds-promo-banner__content" data-animate>
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="ds-promo-banner__eyebrow">
+          {{ section.settings.eyebrow }}
+        </span>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="ds-promo-banner__heading">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+
+      {%- if section.settings.subheading != blank -%}
+        <p class="ds-promo-banner__subheading">
+          {{ section.settings.subheading }}
+        </p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="ds-promo-banner__cta">
+          <a
+            href="{{ section.settings.button_url | default: '/collections/all' }}"
+            class="ds-btn ds-btn--outline-white ds-btn--lg"
+          >
+            {{ section.settings.button_label }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══ PROMOTIONAL BANNER ═══ */
+.ds-promo-banner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-bg-dark);
+  min-height: 480px;
+}
+
+.ds-promo-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.ds-promo-banner__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.ds-promo-banner__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1f1f1f;
+}
+
+.ds-promo-banner__placeholder-svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.25;
+}
+
+.ds-promo-banner__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.ds-promo-banner__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-16);
+  padding-bottom: var(--space-16);
+}
+
+.ds-promo-banner__content {
+  max-width: 680px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ds-promo-banner__eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--font-size-3xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-accent-light);
+  display: inline-block;
+}
+
+.ds-promo-banner__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: var(--weight-bold);
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--tracking-tight);
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.ds-promo-banner__subheading {
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  font-weight: var(--weight-light);
+  line-height: var(--line-height-relaxed);
+  color: rgba(255, 255, 255, 0.88);
+  margin: 0;
+  max-width: 540px;
+}
+
+.ds-promo-banner__cta {
+  margin-top: var(--space-4);
+}
+
+@media (max-width: 767px) {
+  .ds-promo-banner { min-height: 380px !important; }
+  .ds-promo-banner__inner { padding-top: var(--space-10); padding-bottom: var(--space-10); }
+  .ds-promo-banner__subheading { font-size: var(--font-size-base); }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Promo Banner",
+  "tag": "section",
+  "class": "section-promo-banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Limited Time Offer"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Up to 50% Off Seasonal Favorites"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover curated deals on trending fashion, home décor, and accessories before stock runs out."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop the Sale"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 10,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay darkness",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 350,
+      "max": 700,
+      "step": 50,
+      "unit": "px",
+      "label": "Minimum section height",
+      "default": 500
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Banner"
+    }
+  ]
+}
+{% endschema %}

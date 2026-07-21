@@ -1,0 +1,209 @@
+{%- comment -%}
+  Section: Why Choose Us
+  A grid of 6 key value propositions/USPs with SVG icons, headings, and descriptions.
+{%- endcomment -%}
+
+<section class="ds-section ds-section--alt ds-why-us" id="section-{{ section.id }}">
+  <div class="ds-container">
+    {%- comment -%} Section heading {%- endcomment -%}
+    <div class="section-heading" data-animate>
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="section-heading__eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.title != blank -%}
+        <h2 class="section-heading__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="section-heading__subtitle">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- comment -%} Grid of features {%- endcomment -%}
+    <div class="ds-why-us__grid" data-animate-stagger>
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          <div class="ds-why-card" {{ block.shopify_attributes }}>
+            <div class="ds-why-card__icon" aria-hidden="true">
+              {%- case forloop.index -%}
+                {%- when 1 -%}
+                  {%- comment -%} Star / Quality {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                {%- when 2 -%}
+                  {%- comment -%} Fast delivery / Zap {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                {%- when 3 -%}
+                  {%- comment -%} Refresh / Returns {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                {%- when 4 -%}
+                  {%- comment -%} Shield / Lock {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                {%- when 5 -%}
+                  {%- comment -%} Smile / Support {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                {%- else -%}
+                  {%- comment -%} Tag / Best Price {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+              {%- endcase -%}
+            </div>
+            <h3 class="ds-why-card__title">{{ block.settings.title }}</h3>
+            <p class="ds-why-card__text">{{ block.settings.text }}</p>
+          </div>
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign titles = 'Curated Premium Quality,Fast Dispatch,30-Day Easy Returns,100% Secure Checkout,Dedicated 24/7 Support,Best Value Guarantee' | split: ',' -%}
+        {%- assign texts = 'Every product is handpicked and thoroughly checked for durability and luxury feel.,Orders are processed within 24-48 hours with full tracking capability.,Not satisfied with your order? Send it back within 30 days hassle-free.,Shop with confidence using our 256-bit SSL encrypted checkout system.,Our customer care team is always available to answer your questions.,We offer competitive pricing without ever compromising on product quality.' | split: ',' -%}
+        {%- for t in titles -%}
+          <div class="ds-why-card">
+            <div class="ds-why-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <h3 class="ds-why-card__title">{{ t }}</h3>
+            <p class="ds-why-card__text">{{ texts[forloop.index0] }}</p>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═══ WHY CHOOSE US ═══ */
+.ds-why-us { }
+
+.ds-why-us__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--grid-gap-lg);
+}
+
+.ds-why-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.ds-why-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+  border-color: var(--color-border);
+}
+
+.ds-why-card__icon {
+  width: 44px;
+  height: 44px;
+  color: var(--color-accent);
+  margin-bottom: var(--space-2);
+  transition: transform var(--transition-base);
+}
+
+.ds-why-card:hover .ds-why-card__icon {
+  transform: scale(1.12);
+}
+
+.ds-why-card__icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.ds-why-card__title {
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  font-weight: var(--weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.ds-why-card__text {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .ds-why-us__grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--grid-gap-md);
+  }
+}
+
+@media (max-width: 639px) {
+  .ds-why-us__grid {
+    grid-template-columns: 1fr;
+    gap: var(--grid-gap-sm);
+  }
+  .ds-why-card {
+    padding: var(--space-6) var(--space-4);
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Why Choose Us",
+  "tag": "section",
+  "class": "section-why-choose-us",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Why Choose Us"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "The Standards We Live By"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "We focus on delivering premium quality and reliable service every step of the way."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Curated Premium Quality"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Every product is handpicked and thoroughly checked for durability and luxury feel."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Choose Us",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Curated Premium Quality", "text": "Every product is handpicked and thoroughly checked for durability and luxury feel." } },
+        { "type": "feature", "settings": { "title": "Fast Dispatch", "text": "Orders are processed within 24-48 hours with full tracking capability." } },
+        { "type": "feature", "settings": { "title": "30-Day Easy Returns", "text": "Not satisfied with your order? Send it back within 30 days hassle-free." } },
+        { "type": "feature", "settings": { "title": "100% Secure Checkout", "text": "Shop with confidence using our 256-bit SSL encrypted checkout system." } },
+        { "type": "feature", "settings": { "title": "Dedicated 24/7 Support", "text": "Our customer care team is always available to answer your questions." } },
+        { "type": "feature", "settings": { "title": "Best Value Guarantee", "text": "We offer competitive pricing without ever compromising on product quality." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

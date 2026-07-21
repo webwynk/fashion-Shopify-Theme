@@ -1,0 +1,424 @@
+{%- comment -%}
+  Section: Hot Deals & Editorial Showcase (4-Card Modern Mosaic Edition)
+  Features:
+  - 4-Card Asymmetric Luxury Grid with high-res Unsplash editorial photography
+  - Card 1: Hot Deals Main Feature (-20% OFF)
+  - Card 2: Lookbook Video Reel (Pulse Play Button)
+  - Card 3: New Drop Highlight (Spring Collection)
+  - Card 4: Best Sellers Showcase (Top Rated)
+{%- endcomment -%}
+
+<section class="ds-deals-mosaic-section ds-section" id="section-{{ section.id }}">
+  <div class="ds-container">
+    
+    {%- comment -%} SECTION HEADER {%- endcomment -%}
+    <div class="ds-deals-mosaic__header">
+      <span class="ds-deals-mosaic__eyebrow">✦ EXCLUSIVE SHOWCASE ✦</span>
+      <h2 class="ds-deals-mosaic__main-title">Hot Deals & Lookbook Highlights</h2>
+    </div>
+
+    {%- comment -%} 4-CARD MOSAIC GRID {%- endcomment -%}
+    <div class="ds-deals-mosaic__grid">
+
+      {%- comment -%} ━━━ CARD 1: MAIN HOT DEALS (LARGE FEATURE) ━━━ {%- endcomment -%}
+      <div class="ds-mosaic-card ds-mosaic-card--main" data-animate>
+        <div class="ds-mosaic-card__bg-wrapper">
+          <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200&auto=format&fit=crop&q=80" alt="Hot Deals Banner" class="ds-mosaic-card__bg" loading="lazy">
+          <div class="ds-mosaic-card__overlay"></div>
+        </div>
+
+        <div class="ds-mosaic-card__badge-disc">
+          <span class="ds-mosaic-card__badge-num">-20%</span>
+          <span class="ds-mosaic-card__badge-sub">OFF</span>
+        </div>
+
+        <div class="ds-mosaic-card__content">
+          <div class="ds-mosaic-card__pill-tag">
+            <span>🔥 LIMITED TIME OFFER</span>
+          </div>
+          <h3 class="ds-mosaic-card__title">Hot Deals You Can't Miss</h3>
+          <p class="ds-mosaic-card__desc">Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.</p>
+          <a href="/collections/all" class="ds-mosaic-card__btn">
+            <span>Discover Now</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      {%- comment -%} ━━━ CARD 2: VIDEO REEL ━━━ {%- endcomment -%}
+      <div class="ds-mosaic-card ds-mosaic-card--video" data-animate>
+        <div class="ds-mosaic-card__bg-wrapper">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=80" alt="Lookbook Reel Cover" class="ds-mosaic-card__bg" loading="lazy">
+          <div class="ds-mosaic-card__overlay ds-mosaic-card__overlay--dark"></div>
+        </div>
+
+        <div class="ds-mosaic-card__top-tag">
+          <span>✦ LOOKBOOK REEL</span>
+        </div>
+
+        <div class="ds-mosaic-card__video-center">
+          <button class="ds-mosaic-card__play-btn" aria-label="Play video" type="button">
+            <span class="ds-mosaic-card__pulse-ring"></span>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
+          </button>
+          <span class="ds-mosaic-card__video-caption">WATCH BRAND FILM</span>
+        </div>
+      </div>
+
+      {%- comment -%} ━━━ CARD 3: NEW DROP ━━━ {%- endcomment -%}
+      <div class="ds-mosaic-card ds-mosaic-card--small" data-animate>
+        <div class="ds-mosaic-card__bg-wrapper">
+          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80" alt="New Season Drop" class="ds-mosaic-card__bg" loading="lazy">
+          <div class="ds-mosaic-card__overlay"></div>
+        </div>
+
+        <div class="ds-mosaic-card__top-tag">
+          <span>✨ NEW ARRIVALS</span>
+        </div>
+
+        <div class="ds-mosaic-card__content">
+          <h4 class="ds-mosaic-card__sub-title">Spring / Summer '26</h4>
+          <a href="/collections/all" class="ds-mosaic-card__link-text">Explore Drop →</a>
+        </div>
+      </div>
+
+      {%- comment -%} ━━━ CARD 4: BEST SELLERS ━━━ {%- endcomment -%}
+      <div class="ds-mosaic-card ds-mosaic-card--small" data-animate>
+        <div class="ds-mosaic-card__bg-wrapper">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=80" alt="Best Sellers Showcase" class="ds-mosaic-card__bg" loading="lazy">
+          <div class="ds-mosaic-card__overlay"></div>
+        </div>
+
+        <div class="ds-mosaic-card__top-tag ds-mosaic-card__top-tag--gold">
+          <span>★ TOP RATED</span>
+        </div>
+
+        <div class="ds-mosaic-card__content">
+          <h4 class="ds-mosaic-card__sub-title">Community Favorites</h4>
+          <a href="/collections/all" class="ds-mosaic-card__link-text">Shop Best Sellers →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ═════════════════════════════════════════════════════════════
+   4-CARD MODERN MOSAIC SHOWCASE
+   ═════════════════════════════════════════════════════════════ */
+.ds-deals-mosaic-section {
+  padding: 5rem 0;
+  background: #FFFFFF;
+}
+
+.ds-deals-mosaic__header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.ds-deals-mosaic__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--accent-orange, #E05A2B);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.ds-deals-mosaic__main-title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #121316;
+  margin: 0;
+}
+
+/* ━━ 4-CARD MOSAIC GRID ━━ */
+.ds-deals-mosaic__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-rows: 240px 240px;
+  gap: 1.5rem;
+}
+
+/* ━━ CARD BASE STYLES ━━ */
+.ds-mosaic-card {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.75rem;
+  color: #FFFFFF;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.ds-mosaic-card__bg-wrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.ds-mosaic-card__bg {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-mosaic-card:hover .ds-mosaic-card__bg {
+  transform: scale(1.08);
+}
+
+.ds-mosaic-card__overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  /* Heavy bottom gradient to ensure text at the bottom is highly visible */
+  background: linear-gradient(to top, rgba(10, 10, 12, 0.85) 0%, rgba(10, 10, 12, 0.3) 50%, rgba(10, 10, 12, 0.15) 100%);
+  z-index: 2;
+  transition: background 300ms ease;
+}
+
+.ds-mosaic-card:hover .ds-mosaic-card__overlay {
+  background: linear-gradient(to top, rgba(10, 10, 12, 0.92) 0%, rgba(10, 10, 12, 0.45) 50%, rgba(10, 10, 12, 0.2) 100%);
+}
+
+.ds-mosaic-card__overlay--dark {
+  background: linear-gradient(to top, rgba(10, 10, 12, 0.9) 0%, rgba(10, 10, 12, 0.5) 100%);
+}
+
+.ds-mosaic-card:hover .ds-mosaic-card__overlay--dark {
+  background: linear-gradient(to top, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.6) 100%);
+}
+
+/* ━━ CARD 1: MAIN DEALS (SPANS 2 ROWS) ━━ */
+.ds-mosaic-card--main {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  padding: 2.75rem 2.25rem;
+  justify-content: flex-end;
+}
+
+.ds-mosaic-card__badge-disc {
+  position: absolute;
+  top: 1.75rem;
+  left: 1.75rem;
+  z-index: 3;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #121316;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform: rotate(-6deg);
+}
+
+.ds-mosaic-card__badge-num {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--accent-orange, #E05A2B);
+  line-height: 1;
+}
+
+.ds-mosaic-card__badge-sub {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #121316;
+}
+
+.ds-mosaic-card__pill-tag {
+  display: inline-flex;
+  background: rgba(224, 90, 43, 0.35);
+  border: 1px solid rgba(224, 90, 43, 0.7);
+  color: #FFD1C1;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.9rem;
+  border-radius: 50px;
+  margin-bottom: 0.85rem;
+}
+
+.ds-mosaic-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0 0 0.65rem 0;
+  line-height: 1.25;
+}
+
+.ds-mosaic-card__desc {
+  font-size: 0.95rem;
+  color: #F3F4F6;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+}
+
+.ds-mosaic-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #FFFFFF;
+  color: #121316;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 0.85rem 1.85rem;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 300ms ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ds-mosaic-card__btn:hover {
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+/* ━━ CARD 2: VIDEO REEL ━━ */
+.ds-mosaic-card--video {
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-mosaic-card__top-tag {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 3;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.95rem;
+  border-radius: 50px;
+}
+
+.ds-mosaic-card__top-tag--gold {
+  background: rgba(0, 0, 0, 0.45);
+  border-color: rgba(245, 158, 11, 0.5);
+  color: #FDE68A;
+}
+
+.ds-mosaic-card__video-center {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ds-mosaic-card__play-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: none;
+  color: var(--accent-orange, #E05A2B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  transition: transform 300ms ease;
+}
+
+.ds-mosaic-card__pulse-ring {
+  position: absolute;
+  top: -8px; left: -8px; right: -8px; bottom: -8px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  animation: ds-video-pulse 2s infinite;
+}
+
+.ds-mosaic-card__play-btn:hover {
+  transform: scale(1.1);
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+}
+
+.ds-mosaic-card__video-caption {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: #FFFFFF;
+}
+
+/* ━━ CARD 3 & 4: SMALL BOTTOM CARDS ━━ */
+.ds-mosaic-card--small {
+  justify-content: flex-end;
+}
+
+.ds-mosaic-card__content {
+  position: relative;
+  z-index: 3;
+}
+
+.ds-mosaic-card__sub-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0 0 0.35rem 0;
+}
+
+.ds-mosaic-card__link-text {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #FFD1C1;
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.ds-mosaic-card__link-text:hover {
+  color: #FFFFFF;
+}
+
+.ds-mosaic-card__link-text:hover {
+  color: #FFFFFF;
+}
+
+/* Mobile Responsive */
+@media (max-width: 1023px) {
+  .ds-deals-mosaic__grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .ds-mosaic-card--main { grid-column: 1; grid-row: auto; min-height: 380px; }
+  .ds-mosaic-card--video { grid-column: 1; grid-row: auto; min-height: 280px; }
+  .ds-mosaic-card--small { min-height: 220px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "Hot Deals Mosaic Showcase",
+  "tag": "section",
+  "class": "section-hot-deals-mosaic",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Hot Deals Mosaic Showcase"
+    }
+  ]
+}
+{% endschema %}

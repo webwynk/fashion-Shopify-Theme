@@ -1,0 +1,451 @@
+{%- comment -%}
+  Section: Latest Blog Articles (Modern Editorial Poster Edition)
+  Features:
+  - Frameless high-end luxury poster card design (images cover 100% height)
+  - 5 Premium Demo Blog Articles with Unsplash fashion photography
+  - Continuous loop slider carousel track with touch swipe scroll-snap
+  - Interactive bottom controls (< > arrows + auto-scroll loop)
+{%- endcomment -%}
+
+{%- assign blog = blogs[section.settings.blog] -%}
+
+<section class="ds-blog-editorial-section ds-section" id="section-{{ section.id }}">
+  <div class="ds-container">
+
+    {%- comment -%} Centered Section Header {%- endcomment -%}
+    <div class="ds-blog-editorial__header" data-animate>
+      <span class="ds-blog-editorial__eyebrow">✦ JOURNAL & INSIGHTS ✦</span>
+      <h2 class="ds-blog-editorial__title">
+        {{ section.settings.title | default: 'Our Latest Stories' }}
+      </h2>
+      <p class="ds-blog-editorial__subtitle">
+        {{ section.settings.subtitle | default: 'Follow the most popular trends and get exclusive fashion tips.' }}
+      </p>
+    </div>
+
+    {%- comment -%} Loop Slider Track {%- endcomment -%}
+    <div class="ds-blog-editorial__track-wrapper">
+      <div class="ds-blog-editorial__track" id="BlogSliderTrack-{{ section.id }}">
+        
+        {%- if blog != blank and blog.articles.size > 0 -%}
+          {%- for article in blog.articles limit: 5 -%}
+            {%- assign img_idx = forloop.index0 | modulo: 5 -%}
+            {%- assign fallbacks = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80" | split: ',' -%}
+            
+            <article class="ds-blog-poster-card">
+              <a href="{{ article.url }}" class="ds-blog-poster-card__link">
+                <div class="ds-blog-poster-card__bg-wrapper">
+                  {%- if article.image != blank -%}
+                    <img
+                      src="{{ article.image | image_url: width: 800 }}"
+                      class="ds-blog-poster-card__img"
+                      loading="lazy"
+                      alt="{{ article.title | escape }}"
+                      onerror="this.onerror=null; this.src='{{ fallbacks[img_idx] }}';"
+                    >
+                  {%- else -%}
+                    <img
+                      src="{{ fallbacks[img_idx] }}"
+                      class="ds-blog-poster-card__img"
+                      loading="lazy"
+                      alt="{{ article.title | escape }}"
+                    >
+                  {%- endif -%}
+                </div>
+
+                <div class="ds-blog-poster-card__top">
+                  <span class="ds-blog-poster-card__tag">STYLE</span>
+                  <span class="ds-blog-poster-card__read-time">5 Min Read</span>
+                </div>
+
+                <div class="ds-blog-poster-card__content">
+                  <span class="ds-blog-poster-card__date">{{ article.published_at | date: '%b %d, %Y' }}</span>
+                  <h3 class="ds-blog-poster-card__title">{{ article.title }}</h3>
+                  <div class="ds-blog-poster-card__btn">
+                    <span>Read Article</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </div>
+                </div>
+              </a>
+            </article>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment -%} Default 5 Premium Demo Blog Cards {%- endcomment -%}
+          {%- assign titles = 'A Guide to Cultivating Your Place in New High-End Trend,Maximizing Efficiency Without Sacrificing Style or Quality,Thriving in the Age of Fashion Shift and Culture,The Art of Layering: Streetwear Meets Luxury Tailoring,Curating a Capsule Wardrobe: Sustainable Style Essentials' | split: ',' -%}
+          {%- assign dates = '12 Mar 2026,15 Mar 2026,20 Mar 2026,24 Mar 2026,28 Mar 2026' | split: ',' -%}
+          {%- assign tags = 'INSPIRATION,EDITORIAL,CULTURE,STYLE EDIT,SUSTAINABLE' | split: ',' -%}
+          {%- assign read_times = '4 Min Read,6 Min Read,5 Min Read,7 Min Read,8 Min Read' | split: ',' -%}
+          {%- assign fallbacks = "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80" | split: ',' -%}
+          
+          {%- for t in titles -%}
+            <article class="ds-blog-poster-card">
+              <a href="#" class="ds-blog-poster-card__link">
+                <div class="ds-blog-poster-card__bg-wrapper">
+                  <img src="{{ fallbacks[forloop.index0] }}" alt="{{ t }}" class="ds-blog-poster-card__img" loading="lazy">
+                </div>
+
+                <div class="ds-blog-poster-card__top">
+                  <span class="ds-blog-poster-card__tag">{{ tags[forloop.index0] }}</span>
+                  <span class="ds-blog-poster-card__read-time">{{ read_times[forloop.index0] }}</span>
+                </div>
+
+                <div class="ds-blog-poster-card__content">
+                  <span class="ds-blog-poster-card__date">{{ dates[forloop.index0] }}</span>
+                  <h3 class="ds-blog-poster-card__title">{{ t }}</h3>
+                  <div class="ds-blog-poster-card__btn">
+                    <span>Read Article</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                  </div>
+                </div>
+              </a>
+            </article>
+          {%- endfor -%}
+        {%- endif -%}
+
+      </div>
+    </div>
+
+    {%- comment -%} Slider Arrow Controls {%- endcomment -%}
+    <div class="ds-blog-editorial__controls">
+      <button class="ds-blog-editorial__arrow ds-blog-editorial__arrow--prev" aria-label="Previous Articles" id="BlogPrevBtn-{{ section.id }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      
+      <div class="ds-blog-editorial__indicator">
+        <span>← Swipe or scroll to read →</span>
+      </div>
+
+      <button class="ds-blog-editorial__arrow ds-blog-editorial__arrow--next" aria-label="Next Articles" id="BlogNextBtn-{{ section.id }}">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ═════════════════════════════════════════════════════════════
+   LATEST BLOG ARTICLES (MODERN EDITORIAL POSTER CAROUSEL)
+   ═════════════════════════════════════════════════════════════ */
+.ds-blog-editorial-section {
+  background: #FFFFFF;
+  padding: 6rem 0;
+  overflow: hidden;
+}
+
+.ds-blog-editorial__header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.ds-blog-editorial__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  color: var(--accent-orange, #E05A2B);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.ds-blog-editorial__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: #121316;
+  margin: 0 0 0.85rem 0;
+}
+
+.ds-blog-editorial__subtitle {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: #555B68;
+  margin: 0;
+}
+
+/* ━━ SLIDER TRACK ━━ */
+.ds-blog-editorial__track-wrapper {
+  position: relative;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 1rem 0 2rem 0;
+}
+
+.ds-blog-editorial__track-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.ds-blog-editorial__track {
+  display: flex;
+  gap: 2rem;
+  width: max-content;
+}
+
+/* ━━ MODERN EDITORIAL POSTER CARD ━━ */
+.ds-blog-poster-card {
+  width: 360px;
+  max-width: 85vw;
+  height: 480px;
+  position: relative;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 450ms ease;
+}
+
+.ds-blog-poster-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+}
+
+.ds-blog-poster-card__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 2.25rem 2rem;
+  text-decoration: none;
+  color: #FFFFFF;
+  position: relative;
+  z-index: 5;
+}
+
+.ds-blog-poster-card__bg-wrapper {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/* CSS Pseudo-element Overlay (Guaranteed to paint on top of image) */
+.ds-blog-poster-card__bg-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10, 10, 12, 0.95) 0%, rgba(10, 10, 12, 0.5) 45%, rgba(10, 10, 12, 0) 85%);
+  z-index: 2;
+  transition: background 300ms ease;
+  pointer-events: none;
+}
+
+.ds-blog-poster-card:hover .ds-blog-poster-card__bg-wrapper::after {
+  background: linear-gradient(to top, rgba(10, 10, 12, 0.98) 0%, rgba(10, 10, 12, 0.6) 45%, rgba(10, 10, 12, 0) 85%);
+}
+
+.ds-blog-poster-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  position: relative;
+  transition: transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-blog-poster-card:hover .ds-blog-poster-card__img {
+  transform: scale(1.08);
+}
+
+/* Top Floating Glass Badges */
+.ds-blog-poster-card__top {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ds-blog-poster-card__tag {
+  background: #FFFFFF;
+  color: #121316;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.95rem;
+  border-radius: 50px;
+}
+
+.ds-blog-poster-card__read-time {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #E5E7EB;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  padding: 0.35rem 0.8rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Content Bottom */
+.ds-blog-poster-card__content {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.ds-blog-poster-card__date {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #9CA3AF;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ds-blog-poster-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  line-height: 1.35;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ds-blog-poster-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--accent-orange, #E05A2B);
+  transition: all 250ms ease;
+  margin-top: 0.5rem;
+}
+
+.ds-blog-poster-card__btn svg {
+  transition: transform 250ms ease;
+}
+
+.ds-blog-poster-card:hover .ds-blog-poster-card__btn {
+  color: #FFFFFF;
+}
+
+.ds-blog-poster-card:hover .ds-blog-poster-card__btn svg {
+  transform: translateX(4px);
+  color: #FFFFFF;
+}
+
+/* ━━ NAVIGATION CONTROLS ━━ */
+.ds-blog-editorial__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.ds-blog-editorial__arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid rgba(18, 19, 22, 0.1);
+  color: #121316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 250ms ease;
+}
+
+.ds-blog-editorial__arrow:hover {
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+  border-color: var(--accent-orange, #E05A2B);
+  box-shadow: 0 6px 16px rgba(224, 90, 43, 0.3);
+  transform: scale(1.05);
+}
+
+.ds-blog-editorial__indicator {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #9CA3AF;
+  letter-spacing: 0.05em;
+}
+
+/* Mobile Responsive */
+@media (max-width: 767px) {
+  .ds-blog-editorial-section { padding: 4rem 0; }
+  .ds-blog-poster-card { width: 300px; height: 420px; }
+  .ds-blog-editorial__indicator { display: none; }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const wrapper = document.querySelector('.ds-blog-editorial__track-wrapper');
+  const prevBtn = document.getElementById('BlogPrevBtn-{{ section.id }}');
+  const nextBtn = document.getElementById('BlogNextBtn-{{ section.id }}');
+
+  if (!wrapper || !prevBtn || !nextBtn) return;
+
+  const cardWidth = 360 + 32;
+
+  nextBtn.addEventListener('click', function() {
+    wrapper.scrollBy({ left: cardWidth, behavior: 'smooth' });
+  });
+
+  prevBtn.addEventListener('click', function() {
+    wrapper.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+  });
+
+  let autoScroll = setInterval(() => {
+    if (wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 10) {
+      wrapper.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      wrapper.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    }
+  }, 5000);
+
+  wrapper.addEventListener('mouseenter', () => clearInterval(autoScroll));
+  wrapper.addEventListener('touchstart', () => clearInterval(autoScroll), { passive: true });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Latest Blog Slider",
+  "tag": "section",
+  "class": "section-featured-blog",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Our Latest Stories"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Follow the most popular trends and get exclusive fashion tips."
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Select Blog"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Latest Blog Slider"
+    }
+  ]
+}
+{% endschema %}

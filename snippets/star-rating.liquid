@@ -1,0 +1,82 @@
+{%- comment -%}
+  Snippet: star-rating
+  Renders gold star rating row.
+  Accepts:
+    - rating:       {Number} Rating value 0–5 (optional, default 4.5)
+    - review_count: {Number} Number of reviews (optional)
+    - size:         {String} 'sm' | 'md' (optional, default 'sm')
+{%- endcomment -%}
+
+{%- liquid
+  assign star_rating = rating | default: 4.5
+  assign star_count = review_count | default: 0
+  assign star_size = size | default: 'sm'
+  assign full_stars = star_rating | floor
+  assign has_half = false
+  assign decimal = star_rating | minus: full_stars
+  if decimal >= 0.25 and decimal < 0.75
+    assign has_half = true
+  elsif decimal >= 0.75
+    assign full_stars = full_stars | plus: 1
+  endif
+  assign empty_stars = 5 | minus: full_stars
+  if has_half
+    assign empty_stars = empty_stars | minus: 1
+  endif
+-%}
+
+<div class="ds-star-rating ds-star-rating--{{ star_size }}" aria-label="{{ star_rating }} out of 5 stars">
+  {%- comment -%} Full stars {%- endcomment -%}
+  {%- for i in (1..full_stars) -%}
+    <svg class="ds-star ds-star--full" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="currentColor" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  {%- endfor -%}
+
+  {%- comment -%} Half star {%- endcomment -%}
+  {%- if has_half -%}
+    <svg class="ds-star ds-star--half" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <defs>
+        <linearGradient id="half-grad-{{ section.id }}" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="50%" stop-color="currentColor"/>
+          <stop offset="50%" stop-color="transparent"/>
+        </linearGradient>
+      </defs>
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="url(#half-grad-{{ section.id }})" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  {%- endif -%}
+
+  {%- comment -%} Empty stars {%- endcomment -%}
+  {%- for i in (1..empty_stars) -%}
+    <svg class="ds-star ds-star--empty" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  {%- endfor -%}
+
+  {%- if star_count > 0 -%}
+    <span class="ds-star-rating__count">({{ star_count }})</span>
+  {%- endif -%}
+</div>
+
+<style>
+  .ds-star-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    color: var(--color-accent);
+  }
+  .ds-star {
+    display: block;
+    flex-shrink: 0;
+  }
+  .ds-star--empty { color: var(--color-border-dark); }
+  .ds-star-rating--sm .ds-star { width: 12px; height: 12px; }
+  .ds-star-rating--md .ds-star { width: 16px; height: 16px; }
+  .ds-star-rating__count {
+    font-family: var(--font-body);
+    font-size: var(--font-size-3xs);
+    color: var(--color-text-muted);
+    margin-left: var(--space-1);
+    line-height: 1;
+  }
+</style>

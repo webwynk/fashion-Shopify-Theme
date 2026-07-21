@@ -1,0 +1,246 @@
+{
+  "sections": {
+    "hero_banner": {
+      "type": "hero-banner",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "watermark_text": "FAITH",
+            "eyebrow": "A DEVOTIONAL NON-PROFIT BRAND",
+            "heading": "Wear Your <span>Faith.</span><br>Serve With <span>Purpose.</span>",
+            "subheading": "Spiritual t-shirts inspired by devotion, karma, and kindness — created to spread goodness and support charitable causes.",
+            "button_1_label": "Shop Collection",
+            "button_1_url": "/collections/all",
+            "button_2_label": "Explore Meaning",
+            "button_2_url": "/collections",
+            "show_social_proof": true,
+            "social_proof_text": "Join thousands of devotees who <strong>wear their faith</strong> with pride.",
+            "badge_top_text": "100% Organic Cotton",
+            "bg_color_start": "#FFF4ED",
+            "bg_color_end": "#FDEEE4"
+          }
+        },
+        "slide_2": {
+          "type": "slide",
+          "settings": {
+            "watermark_text": "LUXURY",
+            "eyebrow": "PREMIUM CURATED FASHION",
+            "heading": "Discover <span>Elegance.</span><br>Define Your <span>Style.</span>",
+            "subheading": "Handcrafted apparel and luxury accessories designed for timeless comfort and modern sophistication.",
+            "button_1_label": "Explore Apparel",
+            "button_1_url": "/collections/all",
+            "button_2_label": "View Lookbook",
+            "button_2_url": "/collections",
+            "show_social_proof": true,
+            "social_proof_text": "Join over <strong>10,000+ fashion lovers</strong> worldwide.",
+            "badge_top_text": "Limited Edition Drops",
+            "bg_color_start": "#EAEBFB",
+            "bg_color_end": "#F4F5FE"
+          }
+        },
+        "slide_3": {
+          "type": "slide",
+          "settings": {
+            "watermark_text": "DESIGN",
+            "eyebrow": "MODERN HOME & DECOR",
+            "heading": "Transform Your <span>Space.</span><br>Elevate Your <span>Home.</span>",
+            "subheading": "Curated Scandinavian ceramics, ambient LED lighting, and statement showpieces crafted for modern living.",
+            "button_1_label": "Shop Home Décor",
+            "button_1_url": "/collections/all",
+            "button_2_label": "Discover Showpieces",
+            "button_2_url": "/collections",
+            "show_social_proof": true,
+            "social_proof_text": "Rated <strong>4.9 / 5 stars</strong> by happy homeowners.",
+            "badge_top_text": "Scandinavian Craft",
+            "bg_color_start": "#EBFBEA",
+            "bg_color_end": "#F4FEF5"
+          }
+        }
+      },
+      "block_order": ["slide_1", "slide_2", "slide_3"],
+      "settings": {}
+    },
+    "trust_bar": {
+      "type": "trust-bar",
+      "blocks": {
+        "trust_1": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Worldwide Shipping",
+            "subtitle": "World Wide Free Shipping"
+          }
+        },
+        "trust_2": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Secured Payment",
+            "subtitle": "Safe & Secured Payments"
+          }
+        },
+        "trust_3": {
+          "type": "trust_item",
+          "settings": {
+            "title": "30 Days Free Returns",
+            "subtitle": "Within 30 Days For Exchange"
+          }
+        },
+        "trust_4": {
+          "type": "trust_item",
+          "settings": {
+            "title": "Surprise Gift",
+            "subtitle": "Free gift worth for customers"
+          }
+        }
+      },
+      "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"],
+      "settings": {}
+    },
+    "featured_collections": {
+      "type": "featured-collections",
+      "blocks": {
+        "col_1": { "type": "collection", "settings": { "label": "Girls Fashion" } },
+        "col_2": { "type": "collection", "settings": { "label": "Men's Fashion" } },
+        "col_3": { "type": "collection", "settings": { "label": "New Arrival" } },
+        "col_4": { "type": "collection", "settings": { "label": "Top Sales" } },
+        "col_5": { "type": "collection", "settings": { "label": "Winter Fashion" } }
+      },
+      "block_order": ["col_1", "col_2", "col_3", "col_4", "col_5"],
+      "settings": {
+        "title": "Shop by Category",
+        "subtitle": "Browse our latest fashion and trending collections."
+      }
+    },
+    "trending_products": {
+      "type": "trending-products",
+      "settings": {
+        "title": "Trending product",
+        "subtitle": "Follow the most popular trends and get exclusive items from foesta.",
+        "collection": "all",
+        "products_to_show": 8
+      }
+    },
+    "marquee_ticker": {
+      "type": "marquee-ticker",
+      "settings": {}
+    },
+    "dual_banners": {
+      "type": "dual-banners",
+      "blocks": {
+        "b1": { "type": "banner", "settings": { "subheading": "Free Shipping Over Order $120", "title": "Spring Collection", "button_label": "Explore Now" } },
+        "b2": { "type": "banner", "settings": { "subheading": "New Weekend Sale Offer", "title": "-25% Off Items", "button_label": "Explore Now" } }
+      },
+      "block_order": ["b1", "b2"],
+      "settings": {}
+    },
+    "shop_lookbook": {
+      "type": "shop-lookbook",
+      "settings": {
+        "title": "Shop the Lookbook",
+        "subtitle": "Follow the most popular trends and get exclusive items from foesta."
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "review_1": {
+          "type": "testimonial",
+          "settings": {
+            "card_title": "Pocket Quality!",
+            "author_name": "Madic Warner",
+            "author_role": "Designer",
+            "quote": "I absolutely love shopping here! The selection is fantastic, the prices are competitive. Highly recommend!"
+          }
+        },
+        "review_2": {
+          "type": "testimonial",
+          "settings": {
+            "card_title": "Delivery Services!",
+            "author_name": "Kristin Watson",
+            "author_role": "Customer",
+            "quote": "I had a great experience shopping on this website. The interface is user-friendly, making it easy to find."
+          }
+        },
+        "review_3": {
+          "type": "testimonial",
+          "settings": {
+            "card_title": "Pocket Price!",
+            "author_name": "Esther Howard",
+            "author_role": "Designer",
+            "quote": "I'm so impressed with the level of customer service I received. I had an issue with my order, and the support."
+          }
+        }
+      },
+      "block_order": ["review_1", "review_2", "review_3"],
+      "settings": {
+        "title": "Customers Review",
+        "subtitle": "Share information about your brand with your customers."
+      }
+    },
+    "hot_deals_video": {
+      "type": "hot-deals-video",
+      "settings": {
+        "deal_title": "Hot Deals You Can't Miss",
+        "deal_subtext": "Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.",
+        "deal_button_label": "Discover Now"
+      }
+    },
+    "featured_blog": {
+      "type": "featured-blog",
+      "settings": {
+        "title": "Our Latest Blog",
+        "subtitle": "Follow the most popular trends and get exclusive items from foesta."
+      }
+    },
+    "brand_logos": {
+      "type": "brand-logos",
+      "blocks": {
+        "b1": { "type": "brand", "settings": { "title": "VERSACE" } },
+        "b2": { "type": "brand", "settings": { "title": "GUCCI" } },
+        "b3": { "type": "brand", "settings": { "title": "PRADA" } },
+        "b4": { "type": "brand", "settings": { "title": "CHANEL" } },
+        "b5": { "type": "brand", "settings": { "title": "ZARA" } },
+        "b6": { "type": "brand", "settings": { "title": "DIOR" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
+      "settings": {}
+    },
+    "promo_banner": {
+      "type": "promo-banner",
+      "settings": {
+        "eyebrow": "Limited Time Offer",
+        "heading": "Up to 50% Off Seasonal Favorites",
+        "subheading": "Discover curated deals on trending fashion, home décor, and accessories before stock runs out.",
+        "button_label": "Shop the Sale",
+        "button_url": "/collections/all",
+        "overlay_opacity": 45,
+        "min_height": 500
+      }
+    },
+    "email_signup": {
+      "type": "email-signup-banner",
+      "settings": {
+        "eyebrow": "Join the Family",
+        "heading": "Get 10% Off Your First Order",
+        "subheading": "Subscribe to receive exclusive deals, new collection drops, and insider style tips.",
+        "placeholder_text": "Enter your email address...",
+        "button_label": "Subscribe"
+      }
+    }
+  },
+  "order": [
+    "hero_banner",
+    "trust_bar",
+    "featured_collections",
+    "trending_products",
+    "marquee_ticker",
+    "dual_banners",
+    "shop_lookbook",
+    "testimonials",
+    "hot_deals_video",
+    "featured_blog",
+    "brand_logos",
+    "promo_banner",
+    "email_signup"
+  ]
+}

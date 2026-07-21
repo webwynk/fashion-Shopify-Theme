@@ -1,0 +1,91 @@
+{%- comment -%}
+  Snippet: wishlist-button
+  Renders a heart button for adding/removing products from wishlist.
+  Wishlist is stored in localStorage.
+  Accepts:
+    - product: {Object} Product Liquid object (required)
+{%- endcomment -%}
+
+<button
+  class="ds-wishlist-btn"
+  data-wishlist-id="{{ product.id }}"
+  aria-label="Add {{ product.title | escape }} to wishlist"
+  title="Save to wishlist"
+  type="button"
+>
+  <svg class="ds-wishlist-btn__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+  </svg>
+</button>
+
+<style>
+  .ds-wishlist-btn {
+    width: 34px;
+    height: 34px;
+    background: rgba(255,255,255,0.95);
+    border: none;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--transition-fast), transform var(--transition-fast);
+    box-shadow: var(--shadow-sm);
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .ds-wishlist-btn:hover {
+    background: #FFFFFF;
+    transform: scale(1.12);
+  }
+  .ds-wishlist-btn__icon {
+    width: 15px;
+    height: 15px;
+    color: var(--color-text-muted);
+    transition: fill var(--transition-fast), color var(--transition-fast);
+  }
+  .ds-wishlist-btn.is-active .ds-wishlist-btn__icon,
+  .ds-wishlist-btn:hover .ds-wishlist-btn__icon {
+    fill: var(--color-sale);
+    color: var(--color-sale);
+  }
+</style>
+
+<script>
+(function() {
+  function getWishlist() {
+    try { return JSON.parse(localStorage.getItem('ds_wishlist') || '[]'); } catch { return []; }
+  }
+  function saveWishlist(list) {
+    try { localStorage.setItem('ds_wishlist', JSON.stringify(list)); } catch {}
+  }
+  function syncWishlistBtns() {
+    const list = getWishlist();
+    document.querySelectorAll('[data-wishlist-id]').forEach(btn => {
+      const id = parseInt(btn.dataset.wishlistId, 10);
+      btn.classList.toggle('is-active', list.includes(id));
+      btn.setAttribute('aria-label',
+        list.includes(id)
+          ? btn.getAttribute('aria-label').replace('Add','Remove')
+          : btn.getAttribute('aria-label').replace('Remove','Add')
+      );
+    });
+    const countEl = document.querySelector('[data-wishlist-count]');
+    if (countEl) countEl.textContent = list.length;
+  }
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('[data-wishlist-id]');
+    if (!btn) return;
+    const id = parseInt(btn.dataset.wishlistId, 10);
+    let list = getWishlist();
+    if (list.includes(id)) {
+      list = list.filter(i => i !== id);
+    } else {
+      list.push(id);
+    }
+    saveWishlist(list);
+    syncWishlistBtns();
+  });
+  document.addEventListener('DOMContentLoaded', syncWishlistBtns);
+})();
+</script>
