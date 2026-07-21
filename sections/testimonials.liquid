@@ -35,84 +35,122 @@
     <div class="ds-reviews-light__track-wrapper">
       <div class="ds-reviews-light__track" id="ReviewsTrack-{{ section.id }}">
         
-        {%- assign default_reviews = "1,2,3,4,5,6" | split: ',' -%}
-        
-        {%- for item in default_reviews -%}
-          {%- case forloop.index -%}
-            {%- when 1 -%}
-              {% assign r_name = "Elena Rostova" %}
-              {% assign r_role = "Paris, France" %}
-              {% assign r_img = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" %}
-              {% assign r_title = "Immaculate Craftsmanship" %}
-              {% assign r_quote = "The quality surpassed all my expectations. The fabric weight, stitching, and fit are pure perfection. I've already received so many compliments." %}
-              {% assign r_item = "Signature Silk Trench Coat" %}
-            {%- when 2 -%}
-              {% assign r_name = "Marcus Vance" %}
-              {% assign r_role = "New York, USA" %}
-              {% assign r_img = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" %}
-              {% assign r_title = "Fast 2-Day Delivery" %}
-              {% assign r_quote = "Ordered on Tuesday, arrived Thursday morning in pristine luxury packaging. Customer support was incredibly responsive when I asked for sizing." %}
-              {% assign r_item = "Minimalist Leather Backpack" %}
-            {%- when 3 -%}
-              {% assign r_name = "Sophia Chen" %}
-              {% assign r_role = "Tokyo, Japan" %}
-              {% assign r_img = "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" %}
-              {% assign r_title = "My New Daily Essential" %}
-              {% assign r_quote = "I wear this almost every day now. The style is versatile enough for both work meetings and evening events. Absolutely worth every penny!" %}
-              {% assign r_item = "Oversized Cashmere Blazer" %}
-            {%- when 4 -%}
-              {% assign r_name = "David Miller" %}
-              {% assign r_role = "Sydney, Australia" %}
-              {% assign r_img = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" %}
-              {% assign r_title = "Premium Luxury Feel" %}
-              {% assign r_quote = "You can instantly tell the difference in material quality compared to other brands. Super comfortable and holds shape perfectly." %}
-              {% assign r_item = "Tailored Wool Trousers" %}
-            {%- when 5 -%}
-              {% assign r_name = "Amara Diop" %}
-              {% assign r_role = "London, UK" %}
-              {% assign r_img = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" %}
-              {% assign r_title = "Obsessed with Detail" %}
-              {% assign r_quote = "Everything down to the hardware buttons and inner lining screams luxury. Will definitely be purchasing the rest of the collection!" %}
-              {% assign r_item = "Gold Accent Handbag" %}
-            {%- when 6 -%}
-              {% assign r_name = "Lucas Meyer" %}
-              {% assign r_role = "Berlin, Germany" %}
-              {% assign r_img = "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80" %}
-              {% assign r_title = "10/10 Fit & Comfort" %}
-              {% assign r_quote = "True to size chart! The fit is flattering and tailored without feeling restrictive. Best online shopping experience I've had this year." %}
-              {% assign r_item = "Urban Edition Sunglasses" %}
-          {%- endcase -%}
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- assign img_idx = forloop.index0 | modulo: 6 -%}
+            {%- assign fallbacks = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80" | split: ',' -%}
+            {%- assign r_name = block.settings.author_name -%}
+            {%- assign r_role = block.settings.author_role -%}
+            {%- assign r_img = fallbacks[img_idx] -%}
+            {%- assign r_title = block.settings.card_title -%}
+            {%- assign r_quote = block.settings.quote -%}
+            {%- assign r_item = "Verified Buyer" -%}
 
-          {%- comment -%} PRISTINE LIGHT CARD {%- endcomment -%}
-          <div class="ds-review-card-light">
-            <span class="ds-review-card-light__watermark">“</span>
+            <div class="ds-review-card-light" {{ block.shopify_attributes }}>
+              <span class="ds-review-card-light__watermark">“</span>
 
-            <div class="ds-review-card-light__top">
-              <div class="ds-review-card-light__stars">★★★★★</div>
-              <span class="ds-review-card-light__verified-badge">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                Verified Buyer
-              </span>
-            </div>
+              <div class="ds-review-card-light__top">
+                <div class="ds-review-card-light__stars">★★★★★</div>
+                <span class="ds-review-card-light__verified-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  Verified Buyer
+                </span>
+              </div>
 
-            <h3 class="ds-review-card-light__title">"{{ r_title }}"</h3>
-            <p class="ds-review-card-light__quote">{{ r_quote }}</p>
+              <h3 class="ds-review-card-light__title">"{{ r_title }}"</h3>
+              <p class="ds-review-card-light__quote">{{ r_quote }}</p>
 
-            <div class="ds-review-card-light__item-tag">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-              <span>Purchased: {{ r_item }}</span>
-            </div>
+              <div class="ds-review-card-light__item-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>Purchased: {{ r_item }}</span>
+              </div>
 
-            <div class="ds-review-card-light__author">
-              <img src="{{ r_img }}" alt="{{ r_name }}" class="ds-review-card-light__avatar" loading="lazy">
-              <div class="ds-review-card-light__meta">
-                <h4 class="ds-review-card-light__name">{{ r_name }}</h4>
-                <p class="ds-review-card-light__role">{{ r_role }}</p>
+              <div class="ds-review-card-light__author">
+                <img src="{{ r_img }}" alt="{{ r_name }}" class="ds-review-card-light__avatar" loading="lazy">
+                <div class="ds-review-card-light__meta">
+                  <h4 class="ds-review-card-light__name">{{ r_name }}</h4>
+                  <p class="ds-review-card-light__role">{{ r_role }}</p>
+                </div>
               </div>
             </div>
-          </div>
-        {%- endfor -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign default_reviews = "1,2,3,4,5,6" | split: ',' -%}
+          {%- for item in default_reviews -%}
+            {%- case forloop.index -%}
+              {%- when 1 -%}
+                {% assign r_name = "Elena Rostova" %}
+                {% assign r_role = "Paris, France" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "Immaculate Craftsmanship" %}
+                {% assign r_quote = "The quality surpassed all my expectations. The fabric weight, stitching, and fit are pure perfection. I've already received so many compliments." %}
+                {% assign r_item = "Signature Silk Trench Coat" %}
+              {%- when 2 -%}
+                {% assign r_name = "Marcus Vance" %}
+                {% assign r_role = "New York, USA" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "Fast 2-Day Delivery" %}
+                {% assign r_quote = "Ordered on Tuesday, arrived Thursday morning in pristine luxury packaging. Customer support was incredibly responsive when I asked for sizing." %}
+                {% assign r_item = "Minimalist Leather Backpack" %}
+              {%- when 3 -%}
+                {% assign r_name = "Sophia Chen" %}
+                {% assign r_role = "Tokyo, Japan" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "My New Daily Essential" %}
+                {% assign r_quote = "I wear this almost every day now. The style is versatile enough for both work meetings and evening events. Absolutely worth every penny!" %}
+                {% assign r_item = "Oversized Cashmere Blazer" %}
+              {%- when 4 -%}
+                {% assign r_name = "David Miller" %}
+                {% assign r_role = "Sydney, Australia" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "Premium Luxury Feel" %}
+                {% assign r_quote = "You can instantly tell the difference in material quality compared to other brands. Super comfortable and holds shape perfectly." %}
+                {% assign r_item = "Tailored Wool Trousers" %}
+              {%- when 5 -%}
+                {% assign r_name = "Amara Diop" %}
+                {% assign r_role = "London, UK" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "Obsessed with Detail" %}
+                {% assign r_quote = "Everything down to the hardware buttons and inner lining screams luxury. Will definitely be purchasing the rest of the collection!" %}
+                {% assign r_item = "Gold Accent Handbag" %}
+              {%- when 6 -%}
+                {% assign r_name = "Lucas Meyer" %}
+                {% assign r_role = "Berlin, Germany" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "10/10 Fit & Comfort" %}
+                {% assign r_quote = "True to size chart! The fit is flattering and tailored without feeling restrictive. Best online shopping experience I've had this year." %}
+                {% assign r_item = "Urban Edition Sunglasses" %}
+            {%- endcase -%}
 
+            <div class="ds-review-card-light">
+              <span class="ds-review-card-light__watermark">“</span>
+
+              <div class="ds-review-card-light__top">
+                <div class="ds-review-card-light__stars">★★★★★</div>
+                <span class="ds-review-card-light__verified-badge">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                  Verified Buyer
+                </span>
+              </div>
+
+              <h3 class="ds-review-card-light__title">"{{ r_title }}"</h3>
+              <p class="ds-review-card-light__quote">{{ r_quote }}</p>
+
+              <div class="ds-review-card-light__item-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>Purchased: {{ r_item }}</span>
+              </div>
+
+              <div class="ds-review-card-light__author">
+                <img src="{{ r_img }}" alt="{{ r_name }}" class="ds-review-card-light__avatar" loading="lazy">
+                <div class="ds-review-card-light__meta">
+                  <h4 class="ds-review-card-light__name">{{ r_name }}</h4>
+                  <p class="ds-review-card-light__role">{{ r_role }}</p>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
       </div>
     </div>
 
@@ -474,6 +512,34 @@ document.addEventListener('DOMContentLoaded', function() {
       "id": "title",
       "label": "Section Title",
       "default": "Loved by Thousands Worldwide"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "text",
+          "id": "card_title",
+          "label": "Review Title"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author Name"
+        },
+        {
+          "type": "text",
+          "id": "author_role",
+          "label": "Author Sizing/Role"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review Text"
+        }
+      ]
     }
   ],
   "presets": [
