@@ -133,13 +133,7 @@
       "block_order": ["b1", "b2"],
       "settings": {}
     },
-    "shop_lookbook": {
-      "type": "shop-lookbook",
-      "settings": {
-        "title": "Shop the Lookbook",
-        "subtitle": "Follow the most popular trends and get exclusive items from foesta."
-      }
-    },
+
     "testimonials": {
       "type": "testimonials",
       "blocks": {
@@ -200,31 +194,45 @@
         "b3": { "type": "brand", "settings": { "title": "PRADA" } },
         "b4": { "type": "brand", "settings": { "title": "CHANEL" } },
         "b5": { "type": "brand", "settings": { "title": "ZARA" } },
-        "b6": { "type": "brand", "settings": { "title": "DIOR" } }
+        "b6": { "type": "brand", "settings": { "title": "DIOR" } },
+        "b7": { "type": "brand", "settings": { "title": "BALENCIAGA" } },
+        "b8": { "type": "brand", "settings": { "title": "BURBERRY" } }
       },
-      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
-      "settings": {}
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"],
+      "settings": {
+        "eyebrow": "WORLD'S MOST COVETED BRANDS",
+        "heading": "Featured Brand Partners",
+        "layout": "marquee",
+        "card_style": "pill",
+        "bg_preset": "soft",
+        "marquee_speed": 22
+      }
     },
     "promo_banner": {
       "type": "promo-banner",
       "settings": {
-        "eyebrow": "Limited Time Offer",
-        "heading": "Up to 50% Off Seasonal Favorites",
-        "subheading": "Discover curated deals on trending fashion, home décor, and accessories before stock runs out.",
+        "eyebrow": "LIMITED TIME OFFER — ENDS SOON",
+        "heading": "Up to <span>50% Off</span> Seasonal Favorites",
+        "subheading": "Discover curated deals on trending fashion, home décor, and luxury accessories before stock runs out.",
         "button_label": "Shop the Sale",
         "button_url": "/collections/all",
-        "overlay_opacity": 45,
+        "secondary_button_label": "Explore All Deals",
+        "secondary_button_url": "/collections",
+        "show_timer": true,
+        "bg_style": "dark_mesh",
         "min_height": 500
       }
     },
     "email_signup": {
       "type": "email-signup-banner",
       "settings": {
-        "eyebrow": "Join the Family",
-        "heading": "Get 10% Off Your First Order",
+        "eyebrow": "JOIN THE CLUB",
+        "heading": "Get <span>10% Off</span> Your First Order",
         "subheading": "Subscribe to receive exclusive deals, new collection drops, and insider style tips.",
         "placeholder_text": "Enter your email address...",
-        "button_label": "Subscribe"
+        "button_label": "Subscribe",
+        "card_style": "gradient",
+        "bg_preset": "page_bg"
       }
     }
   },
@@ -235,7 +243,6 @@
     "trending_products",
     "marquee_ticker",
     "dual_banners",
-    "shop_lookbook",
     "testimonials",
     "hot_deals_video",
     "featured_blog",

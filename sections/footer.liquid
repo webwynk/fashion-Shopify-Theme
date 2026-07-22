@@ -1,207 +1,623 @@
 {%- comment -%}
-  Section: Footer (Foesta Modern Edition)
-  Clean 4-column footer with brand summary, quick links, info links, contact details,
-  payment badge icons, and copyright.
+  Section: Modern Luxury Footer (Foesta Edition)
+  Ultra-premium dark/light theme footer with brand column, dynamic menus,
+  social links, trust badges, payment icons, and back-to-top pill button.
 {%- endcomment -%}
 
-<footer class="ds-footer-foesta" id="section-{{ section.id }}">
-  <div class="ds-container">
+{%- style -%}
+#section-{{ section.id }} {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  position: relative;
 
-    {%- comment -%} Top Row: 4 Columns {%- endcomment -%}
-    <div class="ds-footer-foesta__top">
-      
-      {%- comment -%} Col 1: Brand Info {%- endcomment -%}
-      <div class="ds-footer-foesta__col">
-        <h3 class="ds-footer-foesta__logo">
-          {{ shop.name | default: 'foesta.' }}
-        </h3>
-        <p class="ds-footer-foesta__text">
-          Foesta is a modern luxury ecommerce dropshipping store bringing you trending fashion, quality home décor, gifts, and lifestyle accessories.
-        </p>
-      </div>
-
-      {%- comment -%} Col 2: Quick Links {%- endcomment -%}
-      <div class="ds-footer-foesta__col">
-        <h4 class="ds-footer-foesta__heading">Quick Links</h4>
-        <ul class="ds-footer-foesta__list">
-          <li><a href="/collections/all">Shop All Products</a></li>
-          <li><a href="/collections">Featured Collections</a></li>
-          <li><a href="/pages/about-us">About Our Brand</a></li>
-          <li><a href="/blogs/news">Latest Blog Articles</a></li>
-        </ul>
-      </div>
-
-      {%- comment -%} Col 3: Information {%- endcomment -%}
-      <div class="ds-footer-foesta__col">
-        <h4 class="ds-footer-foesta__heading">Information</h4>
-        <ul class="ds-footer-foesta__list">
-          <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
-          <li><a href="/policies/terms-of-service">Terms of Service</a></li>
-          <li><a href="/policies/shipping-policy">Shipping & Delivery</a></li>
-          <li><a href="/policies/refund-policy">Returns & Exchanges</a></li>
-        </ul>
-      </div>
-
-      {%- comment -%} Col 4: Get In Touch {%- endcomment -%}
-      <div class="ds-footer-foesta__col">
-        <h4 class="ds-footer-foesta__heading">Get In Touch</h4>
-        <ul class="ds-footer-foesta__list ds-footer-foesta__list--contact">
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-            +1 (800) 123 - 4567
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-            support@foestastore.com
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            123 Fashion Street, New York, US
-          </li>
-        </ul>
-      </div>
-
-    </div>
-
-    {%- comment -%} Bottom Strip: Copyright & Payment Badges {%- endcomment -%}
-    <div class="ds-footer-foesta__bottom">
-      <p class="ds-footer-foesta__copyright">
-        © {{ 'now' | date: '%Y' }} {{ shop.name }}. All Rights Reserved. Designed for Luxury Ecommerce.
-      </p>
-
-      <div class="ds-footer-foesta__payment">
-        {%- for type in shop.enabled_payment_types -%}
-          {{ type | payment_type_svg_tag: class: 'ds-footer-foesta__payment-svg' }}
-        {%- else -%}
-          <span class="ds-footer-foesta__payment-text">🔒 256-bit SSL Secure Checkout</span>
-        {%- endfor -%}
-      </div>
-    </div>
-
-  </div>
-</footer>
-
-<style>
-/* ═══ FOOTER (FOESTA EDITION) ═══ */
-.ds-footer-foesta {
-  background: #FFFFFF;
-  border-top: 1px solid var(--color-border);
-  padding-top: 4.5rem;
-  padding-bottom: 2rem;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    background: #121316;
+    color: #FFFFFF;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  {%- elsif section.settings.theme_mode == 'soft' -%}
+    background: #F8F9FD;
+    color: #121316;
+    border-top: 1px solid #E5E8F0;
+  {%- else -%}
+    background: #FFFFFF;
+    color: #121316;
+    border-top: 1px solid #E5E8F0;
+  {%- endif -%}
 }
 
-.ds-footer-foesta__top {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
-  gap: var(--grid-gap-lg);
-  padding-bottom: 3.5rem;
-  border-bottom: 1px solid var(--color-border-light);
-}
-
-.ds-footer-foesta__logo {
-  font-family: var(--font-heading);
-  font-size: 1.75rem;
-  font-weight: 800;
-  color: #121316;
-  margin: 0 0 var(--space-4);
-  letter-spacing: -0.02em;
-}
-
-.ds-footer-foesta__text {
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  color: #555B68;
-  line-height: 1.65;
-  margin: 0;
-}
-
-.ds-footer-foesta__heading {
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #121316;
-  margin: 0 0 var(--space-4);
-}
-
-.ds-footer-foesta__list {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-}
-
-.ds-footer-foesta__list a {
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  color: #555B68;
-  transition: color 200ms ease;
-}
-
-.ds-footer-foesta__list a:hover {
-  color: var(--color-accent-gold);
-}
-
-.ds-footer-foesta__list--contact li {
-  font-family: var(--font-body);
-  font-size: var(--font-size-xs);
-  color: #555B68;
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-}
-
-/* Bottom Strip */
-.ds-footer-foesta__bottom {
+/* ══ TOP BRAND & SOCIAL STRIP ══ */
+.ds-footer-v2__top-strip {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 2rem;
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
   flex-wrap: wrap;
-  gap: var(--space-4);
+  gap: 1.5rem;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  {%- else -%}
+    border-bottom: 1px solid #E5E8F0;
+  {%- endif -%}
 }
 
-.ds-footer-foesta__copyright {
+.ds-footer-v2__brand-logo {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    color: #FFFFFF;
+  {%- else -%}
+    color: #121316;
+  {%- endif -%}
+}
+
+.ds-footer-v2__brand-logo span {
+  color: var(--color-accent-gold, #C9A96E);
+}
+
+.ds-footer-v2__socials {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ds-footer-v2__social-link {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  {%- if section.settings.theme_mode == 'dark' -%}
+    background: rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  {%- else -%}
+    background: #FFFFFF;
+    color: #121316;
+    border: 1px solid #E5E8F0;
+    box-shadow: 0 4px 12px rgba(18, 19, 22, 0.04);
+  {%- endif -%}
+}
+
+.ds-footer-v2__social-link:hover {
+  transform: translateY(-4px) scale(1.08);
+  {%- if section.settings.theme_mode == 'dark' -%}
+    background: var(--color-accent-gold, #C9A96E);
+    color: #FFFFFF;
+    border-color: var(--color-accent-gold, #C9A96E);
+    box-shadow: 0 8px 20px rgba(201, 169, 110, 0.3);
+  {%- else -%}
+    background: #121316;
+    color: #FFFFFF;
+    border-color: #121316;
+    box-shadow: 0 8px 20px rgba(18, 19, 22, 0.2);
+  {%- endif -%}
+}
+
+.ds-footer-v2__social-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ══ MAIN 4-COLUMN GRID ══ */
+.ds-footer-v2__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr 1.2fr;
+  gap: 3rem;
+  padding-bottom: 3.5rem;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  {%- else -%}
+    border-bottom: 1px solid #E5E8F0;
+  {%- endif -%}
+}
+
+.ds-footer-v2__col-title {
+  font-family: var(--font-heading);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0 0 1.25rem;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    color: #FFFFFF;
+  {%- else -%}
+    color: #121316;
+  {%- endif -%}
+}
+
+.ds-footer-v2__desc {
   font-family: var(--font-body);
-  font-size: var(--font-size-3xs);
-  color: #8E95A2;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  margin: 0 0 1.25rem;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    color: rgba(255, 255, 255, 0.65);
+  {%- else -%}
+    color: #555B68;
+  {%- endif -%}
+}
+
+/* Links List */
+.ds-footer-v2__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.ds-footer-v2__link {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 250ms ease;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    color: rgba(255, 255, 255, 0.7);
+  {%- else -%}
+    color: #555B68;
+  {%- endif -%}
+}
+
+.ds-footer-v2__link svg {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: all 250ms ease;
+  width: 14px;
+  height: 14px;
+}
+
+.ds-footer-v2__link:hover {
+  {%- if section.settings.theme_mode == 'dark' -%}
+    color: var(--color-accent-gold, #C9A96E);
+  {%- else -%}
+    color: #121316;
+  {%- endif -%}
+  transform: translateX(3px);
+}
+
+.ds-footer-v2__link:hover svg {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Contact Info List */
+.ds-footer-v2__contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
-.ds-footer-foesta__payment {
+.ds-footer-v2__contact-item {
   display: flex;
-  align-items: center;
-  gap: var(--space-2);
+  align-items: flex-start;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    color: rgba(255, 255, 255, 0.7);
+  {%- else -%}
+    color: #555B68;
+  {%- endif -%}
 }
 
-.ds-footer-foesta__payment-text {
+.ds-footer-v2__contact-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  {%- if section.settings.theme_mode == 'dark' -%}
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--color-accent-gold, #C9A96E);
+  {%- else -%}
+    background: #F4F5FE;
+    color: #121316;
+  {%- endif -%}
+}
+
+.ds-footer-v2__contact-icon svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ══ BOTTOM STRIP (COPYRIGHT, PAYMENTS, BACK TO TOP) ══ */
+.ds-footer-v2__bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 2.25rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.ds-footer-v2__copyright {
   font-family: var(--font-body);
-  font-size: var(--font-size-3xs);
-  color: #8E95A2;
+  font-size: 0.8125rem;
+  margin: 0;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    color: rgba(255, 255, 255, 0.5);
+  {%- else -%}
+    color: #8E95A2;
+  {%- endif -%}
+}
+
+.ds-footer-v2__payments {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.ds-footer-v2__payment-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  {%- if section.settings.theme_mode == 'dark' -%}
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
+  {%- else -%}
+    background: #FFFFFF;
+    border: 1px solid #E5E8F0;
+    color: #121316;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  {%- endif -%}
+}
+
+/* Back To Top Button */
+.ds-footer-v2__back-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 300ms ease;
+
+  {%- if section.settings.theme_mode == 'dark' -%}
+    background: rgba(255, 255, 255, 0.08);
+    color: #FFFFFF;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  {%- else -%}
+    background: #121316;
+    color: #FFFFFF;
+    border: 1px solid #121316;
+  {%- endif -%}
+}
+
+.ds-footer-v2__back-top:hover {
+  transform: translateY(-3px);
+  {%- if section.settings.theme_mode == 'dark' -%}
+    background: var(--color-accent-gold, #C9A96E);
+    border-color: var(--color-accent-gold, #C9A96E);
+  {%- else -%}
+    background: var(--color-accent-gold, #C9A96E);
+    border-color: var(--color-accent-gold, #C9A96E);
+  {%- endif -%}
+}
+
+.ds-footer-v2__back-top svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 300ms ease;
+}
+
+.ds-footer-v2__back-top:hover svg {
+  transform: translateY(-2px);
 }
 
 @media (max-width: 1023px) {
-  .ds-footer-foesta__top {
+  .ds-footer-v2__grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--grid-gap-md);
+    gap: 2.5rem;
   }
 }
 
 @media (max-width: 639px) {
-  .ds-footer-foesta__top {
-    grid-template-columns: 1fr;
-  }
-  .ds-footer-foesta__bottom {
+  .ds-footer-v2__top-strip {
     flex-direction: column;
+    align-items: center;
     text-align: center;
   }
+  .ds-footer-v2__grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .ds-footer-v2__bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+  }
 }
-</style>
+{%- endstyle -%}
+
+<footer class="ds-footer-v2" id="section-{{ section.id }}">
+  <div class="ds-container">
+
+    {%- comment -%} Top Brand & Social Strip {%- endcomment -%}
+    <div class="ds-footer-v2__top-strip">
+      <a href="/" class="ds-footer-v2__brand-logo">
+        {{ section.settings.brand_title | default: shop.name | default: 'foesta' }}<span>.</span>
+      </a>
+
+      <div class="ds-footer-v2__socials">
+        {%- if section.settings.social_instagram != blank -%}
+          <a href="{{ section.settings.social_instagram }}" target="_blank" rel="noopener" class="ds-footer-v2__social-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.social_tiktok != blank -%}
+          <a href="{{ section.settings.social_tiktok }}" target="_blank" rel="noopener" class="ds-footer-v2__social-link" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.social_facebook != blank -%}
+          <a href="{{ section.settings.social_facebook }}" target="_blank" rel="noopener" class="ds-footer-v2__social-link" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        {%- endif -%}
+        {%- if section.settings.social_pinterest != blank -%}
+          <a href="{{ section.settings.social_pinterest }}" target="_blank" rel="noopener" class="ds-footer-v2__social-link" aria-label="Pinterest">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Main 4-Column Grid {%- endcomment -%}
+    <div class="ds-footer-v2__grid">
+      {%- comment -%} Col 1: About Brand {%- endcomment -%}
+      <div class="ds-footer-v2__col">
+        <h4 class="ds-footer-v2__col-title">About Our Brand</h4>
+        <p class="ds-footer-v2__desc">
+          {{ section.settings.brand_description | default: 'Foesta is a modern luxury ecommerce store dedicated to bringing you curated fashion, home décor, and premium lifestyle drops.' }}
+        </p>
+      </div>
+
+      {%- comment -%} Col 2: Quick Shop {%- endcomment -%}
+      <div class="ds-footer-v2__col">
+        <h4 class="ds-footer-v2__col-title">Quick Shop</h4>
+        <ul class="ds-footer-v2__links">
+          <li>
+            <a href="/collections/all" class="ds-footer-v2__link">
+              <span>All Products</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/collections" class="ds-footer-v2__link">
+              <span>Featured Collections</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/pages/about-us" class="ds-footer-v2__link">
+              <span>About Brand</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/blogs/news" class="ds-footer-v2__link">
+              <span>Latest News</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {%- comment -%} Col 3: Customer Care {%- endcomment -%}
+      <div class="ds-footer-v2__col">
+        <h4 class="ds-footer-v2__col-title">Customer Care</h4>
+        <ul class="ds-footer-v2__links">
+          <li>
+            <a href="/policies/privacy-policy" class="ds-footer-v2__link">
+              <span>Privacy Policy</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/policies/terms-of-service" class="ds-footer-v2__link">
+              <span>Terms of Service</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/policies/shipping-policy" class="ds-footer-v2__link">
+              <span>Shipping & Delivery</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="/policies/refund-policy" class="ds-footer-v2__link">
+              <span>Returns & Guarantee</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      {%- comment -%} Col 4: Get In Touch {%- endcomment -%}
+      <div class="ds-footer-v2__col">
+        <h4 class="ds-footer-v2__col-title">Get In Touch</h4>
+        <ul class="ds-footer-v2__contact-list">
+          <li class="ds-footer-v2__contact-item">
+            <div class="ds-footer-v2__contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <span>{{ section.settings.contact_phone | default: '+1 (800) 123-4567' }}</span>
+          </li>
+          <li class="ds-footer-v2__contact-item">
+            <div class="ds-footer-v2__contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <span>{{ section.settings.contact_email | default: 'support@foesta.com' }}</span>
+          </li>
+          <li class="ds-footer-v2__contact-item">
+            <div class="ds-footer-v2__contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <span>{{ section.settings.contact_address | default: '123 Fashion Street, New York, NY 10001' }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    {%- comment -%} Bottom Copyright & Payment Strip {%- endcomment -%}
+    <div class="ds-footer-v2__bottom">
+      <p class="ds-footer-v2__copyright">
+        © {{ 'now' | date: '%Y' }} Dropshipping store. All Rights Reserved. &nbsp;|&nbsp; Design &amp; Development by <a href="https://nextbusinesssolution.com/" target="_blank" rel="noopener" style="color: var(--color-accent-gold, #C9A96E); text-decoration: underline; font-weight: 600;">Next Business Solution</a>
+      </p>
+
+      <div class="ds-footer-v2__payments">
+        <span class="ds-footer-v2__payment-badge">VISA</span>
+        <span class="ds-footer-v2__payment-badge">MASTERCARD</span>
+        <span class="ds-footer-v2__payment-badge">AMEX</span>
+        <span class="ds-footer-v2__payment-badge">APPLE PAY</span>
+        <span class="ds-footer-v2__payment-badge">SHOP PAY</span>
+        <span class="ds-footer-v2__payment-badge">PAYPAL</span>
+      </div>
+
+      <button
+        type="button"
+        class="ds-footer-v2__back-top"
+        onclick="window.scrollTo({top: 0, behavior: 'smooth'});"
+        aria-label="Back to top"
+      >
+        <span>Back to Top</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+      </button>
+    </div>
+
+  </div>
+</footer>
 
 {% schema %}
 {
   "name": "Footer",
   "tag": "footer",
   "class": "section-footer",
-  "settings": []
+  "settings": [
+    {
+      "type": "select",
+      "id": "theme_mode",
+      "label": "Footer Color Theme",
+      "options": [
+        { "value": "dark", "label": "Luxury Dark Charcoal (Foesta Signature)" },
+        { "value": "light", "label": "Clean White" },
+        { "value": "soft", "label": "Soft Light Tint (#F8F9FD)" }
+      ],
+      "default": "dark"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand Title",
+      "default": "foesta"
+    },
+    {
+      "type": "textarea",
+      "id": "brand_description",
+      "label": "Brand Description",
+      "default": "Foesta is a modern luxury ecommerce store dedicated to bringing you curated fashion, home décor, and premium lifestyle drops."
+    },
+    {
+      "type": "header",
+      "content": "Social Media Links"
+    },
+    {
+      "type": "text",
+      "id": "social_instagram",
+      "label": "Instagram URL",
+      "default": "https://instagram.com"
+    },
+    {
+      "type": "text",
+      "id": "social_tiktok",
+      "label": "TikTok URL",
+      "default": "https://tiktok.com"
+    },
+    {
+      "type": "text",
+      "id": "social_facebook",
+      "label": "Facebook URL",
+      "default": "https://facebook.com"
+    },
+    {
+      "type": "text",
+      "id": "social_pinterest",
+      "label": "Pinterest URL",
+      "default": "https://pinterest.com"
+    },
+    {
+      "type": "header",
+      "content": "Contact Information"
+    },
+    {
+      "type": "text",
+      "id": "contact_phone",
+      "label": "Phone Number",
+      "default": "+1 (800) 123-4567"
+    },
+    {
+      "type": "text",
+      "id": "contact_email",
+      "label": "Email Support",
+      "default": "support@foesta.com"
+    },
+    {
+      "type": "text",
+      "id": "contact_address",
+      "label": "Physical Address",
+      "default": "123 Fashion Street, New York, NY 10001"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 32
+    }
+  ]
 }
 {% endschema %}

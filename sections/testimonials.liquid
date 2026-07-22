@@ -120,6 +120,27 @@
                 {% assign r_title = "10/10 Fit & Comfort" %}
                 {% assign r_quote = "True to size chart! The fit is flattering and tailored without feeling restrictive. Best online shopping experience I've had this year." %}
                 {% assign r_item = "Urban Edition Sunglasses" %}
+              {%- when 7 -%}
+                {% assign r_name = "Priya Sharma" %}
+                {% assign r_role = "Mumbai, India" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "Wearing My Devotion" %}
+                {% assign r_quote = "This t-shirt feels like a prayer in fabric form. The design is subtle yet deeply meaningful — I get asked about it everywhere I go." %}
+                {% assign r_item = "Devotion Tee" %}
+              {%- when 8 -%}
+                {% assign r_name = "James Okafor" %}
+                {% assign r_role = "Lagos, Nigeria" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "Faith Over Fashion" %}
+                {% assign r_quote = "I've tried many spiritual brands but nothing compares. The quality is premium and every purchase genuinely supports a charitable cause." %}
+                {% assign r_item = "Karma Collection Tee" %}
+              {%- when 9 -%}
+                {% assign r_name = "Fatima Al-Rashid" %}
+                {% assign r_role = "Dubai, UAE" %}
+                {% assign r_img = "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80" %}
+                {% assign r_title = "A Shirt With a Soul" %}
+                {% assign r_quote = "Not just clothing — it's a statement of values. Beautifully made, ethically sourced, and the message resonates with my spirit every day." %}
+                {% assign r_item = "Purpose Tee" %}
             {%- endcase -%}
 
             <div class="ds-review-card-light">
@@ -150,6 +171,7 @@
               </div>
             </div>
           {%- endfor -%}
+          {%- assign total_default = 9 -%}
         {%- endif -%}
       </div>
     </div>
@@ -261,23 +283,22 @@
 .ds-reviews-light__track-wrapper {
   position: relative;
   width: 100%;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  overflow: hidden;
   padding: 1.5rem 0 2rem 0;
+  cursor: grab;
 }
 
-.ds-reviews-light__track-wrapper::-webkit-scrollbar {
-  display: none;
+.ds-reviews-light__track-wrapper:active {
+  cursor: grabbing;
 }
 
 .ds-reviews-light__track {
   display: flex;
   gap: 1.75rem;
   width: max-content;
+  will-change: transform;
 }
+
 
 /* ━━ PRISTINE LIGHT CARD ━━ */
 .ds-review-card-light {
@@ -471,34 +492,96 @@
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const wrapper = document.querySelector('.ds-reviews-light__track-wrapper');
-  const prevBtn = document.getElementById('PrevBtn-{{ section.id }}');
-  const nextBtn = document.getElementById('NextBtn-{{ section.id }}');
+(function() {
+  function initReviewSlider() {
+    const wrapper = document.querySelector('#section-{{ section.id }} .ds-reviews-light__track-wrapper');
+    const track   = document.querySelector('#section-{{ section.id }} .ds-reviews-light__track');
+    const prevBtn = document.getElementById('PrevBtn-{{ section.id }}');
+    const nextBtn = document.getElementById('NextBtn-{{ section.id }}');
 
-  if (!wrapper || !prevBtn || !nextBtn) return;
+    if (!wrapper || !track) return;
 
-  const cardWidth = 380 + 28;
+    /* 1. Clone all original cards for seamless infinite loop */
+    const origCards = Array.from(track.children);
+    origCards.forEach(function(card) {
+      var clone = card.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      track.appendChild(clone);
+    });
 
-  nextBtn.addEventListener('click', function() {
-    wrapper.scrollBy({ left: cardWidth, behavior: 'smooth' });
-  });
+    var SPEED  = 0.6;        /* px per frame — ~36px/s @ 60fps */
+    var CARD_W = 380 + 28;   /* card width + gap */
+    var pos    = 0;          /* how far left we've scrolled */
+    var paused = false;
+    var target = null;       /* eased-scroll destination, or null */
 
-  prevBtn.addEventListener('click', function() {
-    wrapper.scrollBy({ left: -cardWidth, behavior: 'smooth' });
-  });
+    function half() { return track.scrollWidth / 2; }
+    function apply() { track.style.transform = 'translateX(' + (-pos) + 'px)'; }
 
-  let autoScroll = setInterval(() => {
-    if (wrapper.scrollLeft + wrapper.clientWidth >= wrapper.scrollWidth - 10) {
-      wrapper.scrollTo({ left: 0, behavior: 'smooth' });
-    } else {
-      wrapper.scrollBy({ left: cardWidth, behavior: 'smooth' });
+    /* Main RAF loop */
+    function tick() {
+      if (!paused) {
+        if (target !== null) {
+          var diff = target - pos;
+          if (Math.abs(diff) < 0.5) { pos = target; target = null; }
+          else                       { pos += diff * 0.12; }
+        } else {
+          pos += SPEED;
+        }
+        var h = half();
+        if (pos >= h) pos -= h;
+        if (pos <  0) pos += h;
+        apply();
+      }
+      requestAnimationFrame(tick);
     }
-  }, 4500);
+    requestAnimationFrame(tick);
 
-  wrapper.addEventListener('mouseenter', () => clearInterval(autoScroll));
-  wrapper.addEventListener('touchstart', () => clearInterval(autoScroll), { passive: true });
-});
+    /* 2. Arrow buttons — set eased target */
+    if (nextBtn) {
+      nextBtn.addEventListener('click', function() {
+        var h = half();
+        target = (pos + CARD_W) % h;
+      });
+    }
+    if (prevBtn) {
+      prevBtn.addEventListener('click', function() {
+        var h = half();
+        target = ((pos - CARD_W) % h + h) % h;
+      });
+    }
+
+    /* 3. Hover pause */
+    wrapper.addEventListener('mouseenter', function() { paused = true; });
+    wrapper.addEventListener('mouseleave', function() { paused = false; });
+
+    /* 4. Touch drag */
+    var touchStartX = 0, touchStartPos = 0;
+    wrapper.addEventListener('touchstart', function(e) {
+      touchStartX   = e.touches[0].clientX;
+      touchStartPos = pos;
+      paused = true;
+      target = null;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchmove', function(e) {
+      var dx = touchStartX - e.touches[0].clientX;
+      var h  = half();
+      pos    = ((touchStartPos + dx) % h + h) % h;
+      apply();
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', function() {
+      paused = false;
+    }, { passive: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReviewSlider);
+  } else {
+    initReviewSlider();
+  }
+})();
 </script>
 
 {% schema %}

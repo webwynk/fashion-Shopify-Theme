@@ -1,92 +1,371 @@
 {%- comment -%}
-  Section: Brand Partner Logos (Foesta Edition)
-  Monochromatic brand partner logos carousel/row.
+  Section: Luxury Brand Partner Logos (Foesta Modern Edition)
+  Ultra-premium infinite ticker & glassmorphism brand partner section.
 {%- endcomment -%}
 
-<section class="ds-brands-foesta" id="section-{{ section.id }}">
-  <div class="ds-container">
-    <div class="ds-brands-foesta__row">
-      {%- if section.blocks.size > 0 -%}
-        {%- for block in section.blocks -%}
-          <div class="ds-brands-foesta__item" {{ block.shopify_attributes }}>
-            {%- if block.settings.image != blank -%}
-              {{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: block.settings.title | escape }}
-            {%- else -%}
-              <span class="ds-brands-foesta__text-logo">{{ block.settings.title | default: 'BRAND' }}</span>
-            {%- endif -%}
-          </div>
-        {%- endfor -%}
-      {%- else -%}
-        {%- assign brand_names = 'VERSACE,GUCCI,PRADA,CHANEL,ZARA,DIOR' | split: ',' -%}
-        {%- for b in brand_names -%}
-          <div class="ds-brands-foesta__item">
-            <span class="ds-brands-foesta__text-logo">{{ b }}</span>
-          </div>
-        {%- endfor -%}
-      {%- endif -%}
-    </div>
-  </div>
-</section>
+{%- style -%}
+#section-{{ section.id }} {
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+  {%- if section.settings.bg_preset == 'soft' -%}
+    background: linear-gradient(180deg, #F8F9FD 0%, #FFFFFF 100%);
+  {%- elsif section.settings.bg_preset == 'dark' -%}
+    background: #121316;
+    color: #FFFFFF;
+  {%- elsif section.settings.bg_preset == 'lavender' -%}
+    background: linear-gradient(135deg, #EAEBFB 0%, #F4F5FE 100%);
+  {%- else -%}
+    background: #FFFFFF;
+  {%- endif -%}
 
-<style>
-/* ═══ BRAND LOGOS (FOESTA EDITION) ═══ */
-.ds-brands-foesta {
-  padding: 3rem 0;
-  background: #FFFFFF;
-  border-top: 1px solid var(--color-border-light);
-  border-bottom: 1px solid var(--color-border-light);
+  {%- if section.settings.show_borders -%}
+    {%- if section.settings.bg_preset == 'dark' -%}
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    {%- else -%}
+      border-top: 1px solid #E5E8F0;
+      border-bottom: 1px solid #E5E8F0;
+    {%- endif -%}
+  {%- endif -%}
 }
 
-.ds-brands-foesta__row {
+.ds-brands-v2__header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1.5rem;
+}
+
+.ds-brands-v2__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  {%- if section.settings.bg_preset == 'dark' -%}
+    color: var(--color-accent-gold);
+  {%- else -%}
+    color: #555B68;
+  {%- endif -%}
+  margin-bottom: 0.5rem;
+}
+
+.ds-brands-v2__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  {%- if section.settings.bg_preset == 'dark' -%}
+    color: #FFFFFF;
+  {%- else -%}
+    color: #121316;
+  {%- endif -%}
+}
+
+/* ══ MARQUEE INFINITE TICKER ══ */
+.ds-brands-v2__marquee-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 0.5rem 0;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.ds-brands-v2__track {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--space-8);
-  flex-wrap: wrap;
+  width: max-content;
+  gap: {{ section.settings.logo_gap }}px;
+  animation: dsBrandScroll {{ section.settings.marquee_speed }}s linear infinite;
 }
 
-.ds-brands-foesta__item {
+.ds-brands-v2__marquee-wrapper:hover .ds-brands-v2__track {
+  animation-play-state: paused;
+}
+
+@keyframes dsBrandScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ══ GRID MODE ══ */
+.ds-brands-v2__grid {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.55;
-  filter: grayscale(100%);
-  transition: opacity 250ms ease, filter 250ms ease;
+  flex-wrap: wrap;
+  gap: {{ section.settings.logo_gap }}px;
 }
 
-.ds-brands-foesta__item:hover {
-  opacity: 1;
-  filter: grayscale(0%);
+/* ══ BRAND ITEM CARDS ══ */
+.ds-brands-v2__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 2rem;
+  text-decoration: none;
+  border-radius: var(--radius-pill);
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  white-space: nowrap;
+
+  {%- if section.settings.card_style == 'pill' -%}
+    {%- if section.settings.bg_preset == 'dark' -%}
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    {%- else -%}
+      background: #FFFFFF;
+      border: 1px solid #E5E8F0;
+      box-shadow: 0 4px 14px rgba(18, 19, 22, 0.04);
+    {%- endif -%}
+  {%- elsif section.settings.card_style == 'glass' -%}
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(229, 232, 240, 0.8);
+    box-shadow: 0 4px 20px rgba(18, 19, 22, 0.05);
+  {%- else -%}
+    background: transparent;
+    border: 1px solid transparent;
+  {%- endif -%}
 }
 
-.ds-brands-foesta__item img {
-  max-height: 36px;
+.ds-brands-v2__item:hover {
+  transform: translateY(-4px) scale(1.04);
+  {%- if section.settings.bg_preset == 'dark' -%}
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--color-accent-gold);
+    box-shadow: 0 8px 24px rgba(201, 169, 110, 0.25);
+  {%- else -%}
+    background: #121316;
+    border-color: #121316;
+    box-shadow: 0 10px 28px rgba(18, 19, 22, 0.15);
+  {%- endif -%}
+}
+
+.ds-brands-v2__item img {
+  max-height: 38px;
   width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  opacity: 0.7;
+  transition: all 300ms ease;
 }
 
-.ds-brands-foesta__text-logo {
+.ds-brands-v2__item:hover img {
+  filter: grayscale(0%);
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.ds-brands-v2__text-logo {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 800;
-  letter-spacing: 0.15em;
-  color: #121316;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: color 300ms ease;
+  {%- if section.settings.bg_preset == 'dark' -%}
+    color: #E2E4E9;
+  {%- else -%}
+    color: #121316;
+  {%- endif -%}
 }
 
-@media (max-width: 767px) {
-  .ds-brands-foesta__row {
-    justify-content: center;
-    gap: var(--space-6);
-  }
+.ds-brands-v2__item:hover .ds-brands-v2__text-logo {
+  {%- if section.settings.bg_preset == 'dark' -%}
+    color: var(--color-accent-gold);
+  {%- else -%}
+    color: #FFFFFF;
+  {%- endif -%}
 }
-</style>
+
+.ds-brands-v2__dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-accent-gold);
+}
+{%- endstyle -%}
+
+<section class="ds-brands-v2" id="section-{{ section.id }}">
+  {%- if section.settings.eyebrow != blank or section.settings.heading != blank -%}
+    <div class="ds-brands-v2__header">
+      {%- if section.settings.eyebrow != blank -%}
+        <div class="ds-brands-v2__eyebrow">
+          <span class="ds-brands-v2__dot"></span>
+          <span>{{ section.settings.eyebrow | escape }}</span>
+          <span class="ds-brands-v2__dot"></span>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h3 class="ds-brands-v2__heading">{{ section.settings.heading | escape }}</h3>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+
+  {%- if section.settings.layout == 'marquee' -%}
+    <div class="ds-brands-v2__marquee-wrapper">
+      <div class="ds-brands-v2__track">
+        {%- capture brand_items -%}
+          {%- if section.blocks.size > 0 -%}
+            {%- for block in section.blocks -%}
+              {%- assign logo_url = block.settings.url | default: '#' -%}
+              <a href="{{ logo_url }}" class="ds-brands-v2__item" {{ block.shopify_attributes }}>
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: block.settings.title | escape }}
+                {%- else -%}
+                  <span class="ds-brands-v2__text-logo">{{ block.settings.title | default: 'BRAND' }}</span>
+                {%- endif -%}
+              </a>
+            {%- endfor -%}
+          {%- else -%}
+            {%- assign brand_names = 'VERSACE,GUCCI,PRADA,CHANEL,ZARA,DIOR,BALENCIAGA,SAINT LAURENT' | split: ',' -%}
+            {%- for b in brand_names -%}
+              <a href="#" class="ds-brands-v2__item">
+                <span class="ds-brands-v2__text-logo">{{ b }}</span>
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endcapture -%}
+
+        {{ brand_items }}
+        {{ brand_items }}
+      </div>
+    </div>
+  {%- else -%}
+    <div class="ds-container">
+      <div class="ds-brands-v2__grid">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- assign logo_url = block.settings.url | default: '#' -%}
+            <a href="{{ logo_url }}" class="ds-brands-v2__item" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 300 | image_tag: loading: 'lazy', alt: block.settings.title | escape }}
+              {%- else -%}
+                <span class="ds-brands-v2__text-logo">{{ block.settings.title | default: 'BRAND' }}</span>
+              {%- endif -%}
+            </a>
+          {%- endfor -%}
+        {%- else -%}
+          {%- assign brand_names = 'VERSACE,GUCCI,PRADA,CHANEL,ZARA,DIOR' | split: ',' -%}
+          {%- for b in brand_names -%}
+            <a href="#" class="ds-brands-v2__item">
+              <span class="ds-brands-v2__text-logo">{{ b }}</span>
+            </a>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+</section>
 
 {% schema %}
 {
   "name": "Brand Partner Logos",
   "tag": "section",
   "class": "section-brand-logos",
-  "max_blocks": 8,
-  "settings": [],
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "WORLD'S MOST COVETED BRANDS"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading (Optional)",
+      "default": "Featured Brand Partners"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Display Layout",
+      "options": [
+        { "value": "marquee", "label": "Infinite Marquee Ticker" },
+        { "value": "grid", "label": "Centered Flex Grid" }
+      ],
+      "default": "marquee"
+    },
+    {
+      "type": "select",
+      "id": "card_style",
+      "label": "Logo Card Style",
+      "options": [
+        { "value": "pill", "label": "Pill Badge Tiles (Foesta Modern)" },
+        { "value": "glass", "label": "Glassmorphism Card" },
+        { "value": "minimal", "label": "Minimal Clean Text" }
+      ],
+      "default": "pill"
+    },
+    {
+      "type": "select",
+      "id": "bg_preset",
+      "label": "Background Palette",
+      "options": [
+        { "value": "white", "label": "Clean White" },
+        { "value": "soft", "label": "Soft Gradient Light" },
+        { "value": "lavender", "label": "Pastel Lavender (Hero Tint)" },
+        { "value": "dark", "label": "Luxury Dark Charcoal" }
+      ],
+      "default": "soft"
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "min": 10,
+      "max": 60,
+      "step": 2,
+      "unit": "s",
+      "label": "Marquee Scroll Speed (seconds)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "logo_gap",
+      "min": 12,
+      "max": 64,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between logos",
+      "default": 24
+    },
+    {
+      "type": "checkbox",
+      "id": "show_borders",
+      "label": "Show top & bottom divider lines",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 48
+    }
+  ],
   "blocks": [
     {
       "type": "brand",
@@ -102,6 +381,11 @@
           "type": "image_picker",
           "id": "image",
           "label": "Brand logo image"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Brand collection link"
         }
       ]
     }

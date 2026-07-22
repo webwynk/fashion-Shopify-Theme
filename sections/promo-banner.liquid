@@ -1,17 +1,314 @@
 {%- comment -%}
-  Section: Promotional Banner
-  Full-width promotional banner with background image, gradient overlay,
-  eyebrow, high-impact headline, subtext, and CTA button.
+  Section: Promotional Banner (Foesta Modern Luxury Edition)
+  High-impact promotional banner with glassmorphism cards, ambient light glows,
+  countdown timer, discount badges, and high-converting CTA.
 {%- endcomment -%}
 
-<section
-  class="ds-promo-banner"
-  id="section-{{ section.id }}"
-  style="min-height: {{ section.settings.min_height }}px;"
->
-  {%- comment -%} Background Image {%- endcomment -%}
-  <div class="ds-promo-banner__media">
-    {%- if section.settings.image != blank -%}
+{%- style -%}
+#section-{{ section.id }} {
+  min-height: {{ section.settings.min_height }}px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: {{ section.settings.padding_top }}px;
+  padding-bottom: {{ section.settings.padding_bottom }}px;
+
+  {%- if section.settings.bg_style == 'dark_mesh' -%}
+    background: radial-gradient(circle at 20% 20%, rgba(201, 169, 110, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(255, 77, 77, 0.12) 0%, transparent 45%),
+                #121316;
+  {%- elsif section.settings.bg_style == 'gold_dark' -%}
+    background: radial-gradient(circle at 50% 30%, #2A251D 0%, #121316 80%);
+  {%- elsif section.settings.bg_style == 'lavender' -%}
+    background: linear-gradient(135deg, #EAEBFB 0%, #F4F5FE 100%);
+    color: #121316;
+  {%- else -%}
+    background: #121316;
+  {%- endif -%}
+}
+
+/* Ambient Animated Blobs */
+.ds-promo-banner__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+}
+.ds-promo-banner__blob--1 {
+  top: -10%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: var(--color-accent-gold, #C9A96E);
+  animation: dsFloatBlob 12s ease-in-out infinite alternate;
+}
+.ds-promo-banner__blob--2 {
+  bottom: -10%;
+  right: -5%;
+  width: 450px;
+  height: 450px;
+  background: var(--color-sale, #FF4D4D);
+  animation: dsFloatBlob 14s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes dsFloatBlob {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.1); }
+}
+
+/* Background Image & Overlay */
+.ds-promo-banner__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.ds-promo-banner__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.ds-promo-banner__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(18, 19, 22, 0.4) 0%, rgba(18, 19, 22, 0.75) 100%);
+}
+
+/* Content Layout */
+.ds-promo-banner__inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Glassmorphism Card Container */
+.ds-promo-banner__glass-card {
+  width: 100%;
+  max-width: 780px;
+  padding: 3.5rem 3rem;
+  border-radius: 28px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+
+  {%- if section.settings.bg_style == 'lavender' -%}
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 20px 50px rgba(18, 19, 22, 0.08);
+  {%- else -%}
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  {%- endif -%}
+}
+
+/* Eyebrow Badge */
+.ds-promo-banner__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(255, 77, 77, 0.15);
+  color: #FF4D4D;
+  border: 1px solid rgba(255, 77, 77, 0.3);
+}
+
+.ds-promo-banner__flame {
+  display: inline-block;
+  animation: dsPulseFlame 1.5s ease-in-out infinite alternate;
+}
+@keyframes dsPulseFlame {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.25); }
+}
+
+/* Heading & Subheading */
+.ds-promo-banner__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0;
+  {%- if section.settings.bg_style == 'lavender' -%}
+    color: #121316;
+  {%- else -%}
+    color: #FFFFFF;
+  {%- endif -%}
+}
+
+.ds-promo-banner__heading span {
+  background: linear-gradient(135deg, #FF4D4D 0%, #C9A96E 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ds-promo-banner__subheading {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.8vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 580px;
+  margin: 0;
+  {%- if section.settings.bg_style == 'lavender' -%}
+    color: #555B68;
+  {%- else -%}
+    color: rgba(255, 255, 255, 0.82);
+  {%- endif -%}
+}
+
+/* Countdown Timer */
+.ds-promo-banner__timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0.75rem 0;
+}
+
+.ds-promo-timer__unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  {%- if section.settings.bg_style == 'lavender' -%}
+    background: #FFFFFF;
+    border: 1px solid #E5E8F0;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+  {%- else -%}
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+  {%- endif -%}
+}
+
+.ds-promo-timer__num {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1;
+  {%- if section.settings.bg_style == 'lavender' -%}
+    color: #121316;
+  {%- else -%}
+    color: #FFFFFF;
+  {%- endif -%}
+}
+
+.ds-promo-timer__label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 4px;
+  {%- if section.settings.bg_style == 'lavender' -%}
+    color: #8E95A2;
+  {%- else -%}
+    color: rgba(255, 255, 255, 0.6);
+  {%- endif -%}
+}
+
+.ds-promo-timer__sep {
+  font-size: 1.25rem;
+  font-weight: 800;
+  opacity: 0.5;
+  {%- if section.settings.bg_style == 'lavender' -%}
+    color: #121316;
+  {%- else -%}
+    color: #FFFFFF;
+  {%- endif -%}
+}
+
+/* CTAs Group */
+.ds-promo-banner__ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+.ds-btn--promo-primary {
+  background: linear-gradient(135deg, #121316 0%, #2A251D 100%);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.95rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-btn--promo-primary:hover {
+  background: #C9A96E;
+  color: #FFFFFF !important;
+  border-color: #C9A96E;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(201, 169, 110, 0.35);
+}
+
+.ds-btn--promo-secondary {
+  background: rgba(255, 255, 255, 0.15);
+  color: #FFFFFF !important;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 0.95rem 2.25rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  transition: all 300ms ease;
+}
+
+.ds-btn--promo-secondary:hover {
+  background: #FFFFFF;
+  color: #121316 !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 767px) {
+  .ds-promo-banner__glass-card {
+    padding: 2.5rem 1.5rem;
+    border-radius: 20px;
+  }
+  .ds-promo-timer__unit {
+    min-width: 52px;
+    height: 54px;
+  }
+  .ds-promo-timer__num { font-size: 1.15rem; }
+}
+{%- endstyle -%}
+
+<section class="ds-promo-banner" id="section-{{ section.id }}">
+  {%- comment -%} Ambient Light Blobs (if no custom image) {%- endcomment -%}
+  {%- if section.settings.image == blank -%}
+    <div class="ds-promo-banner__blob ds-promo-banner__blob--1"></div>
+    <div class="ds-promo-banner__blob ds-promo-banner__blob--2"></div>
+  {%- endif -%}
+
+  {%- comment -%} Custom Background Image & Overlay {%- endcomment -%}
+  {%- if section.settings.image != blank -%}
+    <div class="ds-promo-banner__media">
       {{
         section.settings.image
         | image_url: width: 2000
@@ -20,26 +317,20 @@
           loading: 'lazy',
           alt: section.settings.image.alt | default: section.settings.heading | escape
       }}
-    {%- else -%}
-      <div class="ds-promo-banner__placeholder">
-        {{ 'lifestyle-2' | placeholder_svg_tag: 'ds-promo-banner__placeholder-svg' }}
-      </div>
-    {%- endif -%}
+      <div
+        class="ds-promo-banner__overlay"
+        style="background: rgba(18, 19, 22, {{ section.settings.overlay_opacity | divided_by: 100.0 }});"
+      ></div>
+    </div>
+  {%- endif -%}
 
-    {%- comment -%} Dark Overlay {%- endcomment -%}
-    <div
-      class="ds-promo-banner__overlay"
-      style="background: rgba(15, 15, 15, {{ section.settings.overlay_opacity | divided_by: 100.0 }});"
-    ></div>
-  </div>
-
-  {%- comment -%} Content {%- endcomment -%}
   <div class="ds-container ds-promo-banner__inner">
-    <div class="ds-promo-banner__content" data-animate>
+    <div class="ds-promo-banner__glass-card">
       {%- if section.settings.eyebrow != blank -%}
-        <span class="ds-promo-banner__eyebrow">
-          {{ section.settings.eyebrow }}
-        </span>
+        <div class="ds-promo-banner__badge">
+          <span class="ds-promo-banner__flame">🔥</span>
+          <span>{{ section.settings.eyebrow | escape }}</span>
+        </div>
       {%- endif -%}
 
       {%- if section.settings.heading != blank -%}
@@ -50,130 +341,88 @@
 
       {%- if section.settings.subheading != blank -%}
         <p class="ds-promo-banner__subheading">
-          {{ section.settings.subheading }}
+          {{ section.settings.subheading | escape }}
         </p>
       {%- endif -%}
 
-      {%- if section.settings.button_label != blank -%}
-        <div class="ds-promo-banner__cta">
-          <a
-            href="{{ section.settings.button_url | default: '/collections/all' }}"
-            class="ds-btn ds-btn--outline-white ds-btn--lg"
-          >
-            {{ section.settings.button_label }}
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
+      {%- if section.settings.show_timer -%}
+        <div class="ds-promo-banner__timer" id="promo-timer-{{ section.id }}">
+          <div class="ds-promo-timer__unit">
+            <span class="ds-promo-timer__num" id="timer-hours-{{ section.id }}">08</span>
+            <span class="ds-promo-timer__label">Hours</span>
+          </div>
+          <span class="ds-promo-timer__sep">:</span>
+          <div class="ds-promo-timer__unit">
+            <span class="ds-promo-timer__num" id="timer-mins-{{ section.id }}">45</span>
+            <span class="ds-promo-timer__label">Mins</span>
+          </div>
+          <span class="ds-promo-timer__sep">:</span>
+          <div class="ds-promo-timer__unit">
+            <span class="ds-promo-timer__num" id="timer-secs-{{ section.id }}">12</span>
+            <span class="ds-promo-timer__label">Secs</span>
+          </div>
         </div>
       {%- endif -%}
+
+      <div class="ds-promo-banner__ctas">
+        {%- if section.settings.button_label != blank -%}
+          <a
+            href="{{ section.settings.button_url | default: '/collections/all' }}"
+            class="ds-btn ds-btn--promo-primary"
+          >
+            {{ section.settings.button_label | escape }}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.secondary_button_label != blank -%}
+          <a
+            href="{{ section.settings.secondary_button_url | default: '/collections' }}"
+            class="ds-btn ds-btn--promo-secondary"
+          >
+            {{ section.settings.secondary_button_label | escape }}
+          </a>
+        {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
 
-<style>
-/* ═══ PROMOTIONAL BANNER ═══ */
-.ds-promo-banner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--color-bg-dark);
-  min-height: 480px;
-}
+{%- if section.settings.show_timer -%}
+<script>
+(function() {
+  function startPromoTimer() {
+    let hoursEl = document.getElementById('timer-hours-{{ section.id }}');
+    let minsEl = document.getElementById('timer-mins-{{ section.id }}');
+    let secsEl = document.getElementById('timer-secs-{{ section.id }}');
+    if (!hoursEl || !minsEl || !secsEl) return;
 
-.ds-promo-banner__media {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
+    let totalSeconds = (8 * 3600) + (45 * 60) + 12;
 
-.ds-promo-banner__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-}
+    setInterval(function() {
+      if (totalSeconds <= 0) {
+        totalSeconds = 8 * 3600;
+      } else {
+        totalSeconds--;
+      }
 
-.ds-promo-banner__placeholder {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #1f1f1f;
-}
+      let h = Math.floor(totalSeconds / 3600);
+      let m = Math.floor((totalSeconds % 3600) / 60);
+      let s = totalSeconds % 60;
 
-.ds-promo-banner__placeholder-svg {
-  width: 100%;
-  height: 100%;
-  opacity: 0.25;
-}
-
-.ds-promo-banner__overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-}
-
-.ds-promo-banner__inner {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  justify-content: center;
-  padding-top: var(--space-16);
-  padding-bottom: var(--space-16);
-}
-
-.ds-promo-banner__content {
-  max-width: 680px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--space-4);
-}
-
-.ds-promo-banner__eyebrow {
-  font-family: var(--font-body);
-  font-size: var(--font-size-3xs);
-  font-weight: var(--weight-semibold);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: var(--color-accent-light);
-  display: inline-block;
-}
-
-.ds-promo-banner__heading {
-  font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 5vw, 4rem);
-  font-weight: var(--weight-bold);
-  line-height: var(--line-height-heading);
-  letter-spacing: var(--tracking-tight);
-  color: #FFFFFF;
-  margin: 0;
-}
-
-.ds-promo-banner__subheading {
-  font-family: var(--font-body);
-  font-size: var(--font-size-lg);
-  font-weight: var(--weight-light);
-  line-height: var(--line-height-relaxed);
-  color: rgba(255, 255, 255, 0.88);
-  margin: 0;
-  max-width: 540px;
-}
-
-.ds-promo-banner__cta {
-  margin-top: var(--space-4);
-}
-
-@media (max-width: 767px) {
-  .ds-promo-banner { min-height: 380px !important; }
-  .ds-promo-banner__inner { padding-top: var(--space-10); padding-bottom: var(--space-10); }
-  .ds-promo-banner__subheading { font-size: var(--font-size-base); }
-}
-</style>
+      hoursEl.textContent = String(h).padStart(2, '0');
+      minsEl.textContent = String(m).padStart(2, '0');
+      secsEl.textContent = String(s).padStart(2, '0');
+    }, 1000);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', startPromoTimer);
+  } else {
+    startPromoTimer();
+  }
+})();
+</script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -185,55 +434,107 @@
       "type": "text",
       "id": "eyebrow",
       "label": "Eyebrow text",
-      "default": "Limited Time Offer"
+      "default": "LIMITED TIME OFFER — ENDS SOON"
     },
     {
-      "type": "textarea",
+      "type": "html",
       "id": "heading",
-      "label": "Heading",
-      "default": "Up to 50% Off Seasonal Favorites"
+      "label": "Heading (supports HTML <span> for gradient)",
+      "default": "Up to <span>50% Off</span> Seasonal Favorites"
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Discover curated deals on trending fashion, home décor, and accessories before stock runs out."
+      "default": "Discover curated deals on trending fashion, home décor, and luxury accessories before stock runs out."
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Button label",
+      "label": "Primary Button label",
       "default": "Shop the Sale"
     },
     {
       "type": "url",
       "id": "button_url",
-      "label": "Button link"
+      "label": "Primary Button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_button_label",
+      "label": "Secondary Button label",
+      "default": "Explore All Deals"
+    },
+    {
+      "type": "url",
+      "id": "secondary_button_url",
+      "label": "Secondary Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_timer",
+      "label": "Show Live Countdown Timer",
+      "default": true
+    },
+    {
+      "type": "select",
+      "id": "bg_style",
+      "label": "Background Preset Style (when no image uploaded)",
+      "options": [
+        { "value": "dark_mesh", "label": "Dark Charcoal & Glowing Ambient Blobs" },
+        { "value": "gold_dark", "label": "Luxury Dark Charcoal & Gold Radial" },
+        { "value": "lavender", "label": "Pastel Lavender Light (Foesta)" }
+      ],
+      "default": "dark_mesh"
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Background image"
+      "label": "Custom Background image"
     },
     {
       "type": "range",
       "id": "overlay_opacity",
       "min": 10,
-      "max": 80,
+      "max": 90,
       "step": 5,
       "unit": "%",
-      "label": "Overlay darkness",
-      "default": 45
+      "label": "Image Overlay darkness",
+      "default": 55
     },
     {
       "type": "range",
       "id": "min_height",
       "min": 350,
-      "max": 700,
+      "max": 750,
       "step": 50,
       "unit": "px",
       "label": "Minimum section height",
       "default": 500
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Top Padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom Padding",
+      "default": 64
     }
   ],
   "presets": [

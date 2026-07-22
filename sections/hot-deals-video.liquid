@@ -1,101 +1,88 @@
 {%- comment -%}
-  Section: Hot Deals & Editorial Showcase (4-Card Modern Mosaic Edition)
-  Features:
-  - 4-Card Asymmetric Luxury Grid with high-res Unsplash editorial photography
-  - Card 1: Hot Deals Main Feature (-20% OFF)
-  - Card 2: Lookbook Video Reel (Pulse Play Button)
-  - Card 3: New Drop Highlight (Spring Collection)
-  - Card 4: Best Sellers Showcase (Top Rated)
+  Section: Exclusive Showcase — Hot Deals Bento Grid
+  Layout: Dark bento-style 4-card mosaic
+  Card 1: Large hero deal with discount badge (spans 2 rows)
+  Card 2: Wide video reel card with pulsing play button
+  Card 3: New arrivals drop card
+  Card 4: Best sellers card
+  Feel: Gymshark, Nike SNKRS, Ssense — bold, energetic, premium
 {%- endcomment -%}
 
-<section class="ds-deals-mosaic-section ds-section" id="section-{{ section.id }}">
+<section class="ds-bento-section ds-section" id="section-{{ section.id }}">
   <div class="ds-container">
-    
-    {%- comment -%} SECTION HEADER {%- endcomment -%}
-    <div class="ds-deals-mosaic__header">
-      <span class="ds-deals-mosaic__eyebrow">✦ EXCLUSIVE SHOWCASE ✦</span>
-      <h2 class="ds-deals-mosaic__main-title">Hot Deals & Lookbook Highlights</h2>
+
+    {%- comment -%} HEADER {%- endcomment -%}
+    <div class="ds-bento__header">
+      <span class="ds-bento__eyebrow">✶ EXCLUSIVE SHOWCASE ✶</span>
+      <h2 class="ds-bento__title">Hot Deals &amp; Lookbook Highlights</h2>
     </div>
 
-    {%- comment -%} 4-CARD MOSAIC GRID {%- endcomment -%}
-    <div class="ds-deals-mosaic__grid">
+    {%- comment -%} BENTO GRID {%- endcomment -%}
+    <div class="ds-bento__grid">
 
-      {%- comment -%} ━━━ CARD 1: MAIN HOT DEALS (LARGE FEATURE) ━━━ {%- endcomment -%}
-      <div class="ds-mosaic-card ds-mosaic-card--main" data-animate>
-        <div class="ds-mosaic-card__bg-wrapper">
-          <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=1200&auto=format&fit=crop&q=80" alt="Hot Deals Banner" class="ds-mosaic-card__bg" loading="lazy">
-          <div class="ds-mosaic-card__overlay"></div>
+      {%- comment -%} ━━━ CARD 1: HERO DEAL (large, spans 2 rows) ━━━ {%- endcomment -%}
+      <div class="ds-bento-card ds-bento-card--hero">
+        <div class="ds-bento-card__bg">
+          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=900&auto=format&fit=crop&q=85" alt="Hot Deals" class="ds-bento-card__img" loading="lazy">
+        </div>
+        <div class="ds-bento-card__gradient"></div>
+
+        {%- comment -%} Discount badge {%- endcomment -%}
+        <div class="ds-bento-disc">
+          <span class="ds-bento-disc__num">-20%</span>
+          <span class="ds-bento-disc__sub">OFF</span>
         </div>
 
-        <div class="ds-mosaic-card__badge-disc">
-          <span class="ds-mosaic-card__badge-num">-20%</span>
-          <span class="ds-mosaic-card__badge-sub">OFF</span>
-        </div>
-
-        <div class="ds-mosaic-card__content">
-          <div class="ds-mosaic-card__pill-tag">
-            <span>🔥 LIMITED TIME OFFER</span>
-          </div>
-          <h3 class="ds-mosaic-card__title">Hot Deals You Can't Miss</h3>
-          <p class="ds-mosaic-card__desc">Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.</p>
-          <a href="/collections/all" class="ds-mosaic-card__btn">
+        <div class="ds-bento-card__body">
+          <div class="ds-bento-card__pill">🔥 LIMITED TIME</div>
+          <h3 class="ds-bento-card__heading">Hot Deals You<br>Can't Miss.</h3>
+          <p class="ds-bento-card__desc">Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.</p>
+          <a href="/collections/all" class="ds-bento-card__btn">
             <span>Discover Now</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
         </div>
       </div>
 
-      {%- comment -%} ━━━ CARD 2: VIDEO REEL ━━━ {%- endcomment -%}
-      <div class="ds-mosaic-card ds-mosaic-card--video" data-animate>
-        <div class="ds-mosaic-card__bg-wrapper">
-          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=80" alt="Lookbook Reel Cover" class="ds-mosaic-card__bg" loading="lazy">
-          <div class="ds-mosaic-card__overlay ds-mosaic-card__overlay--dark"></div>
+      {%- comment -%} ━━━ CARD 2: VIDEO REEL (wide) ━━━ {%- endcomment -%}
+      <div class="ds-bento-card ds-bento-card--video">
+        <div class="ds-bento-card__bg">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1200&auto=format&fit=crop&q=85" alt="Lookbook Reel" class="ds-bento-card__img" loading="lazy">
         </div>
-
-        <div class="ds-mosaic-card__top-tag">
-          <span>✦ LOOKBOOK REEL</span>
-        </div>
-
-        <div class="ds-mosaic-card__video-center">
-          <button class="ds-mosaic-card__play-btn" aria-label="Play video" type="button">
-            <span class="ds-mosaic-card__pulse-ring"></span>
+        <div class="ds-bento-card__gradient ds-bento-card__gradient--full"></div>
+        <span class="ds-bento-card__tag">✶ LOOKBOOK REEL</span>
+        <div class="ds-bento-video-center">
+          <button class="ds-bento-play" aria-label="Play video" type="button">
+            <span class="ds-bento-play__ring"></span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 3 20 12 6 21 6 3"/></svg>
           </button>
-          <span class="ds-mosaic-card__video-caption">WATCH BRAND FILM</span>
+          <span class="ds-bento-video-label">WATCH BRAND FILM</span>
         </div>
       </div>
 
-      {%- comment -%} ━━━ CARD 3: NEW DROP ━━━ {%- endcomment -%}
-      <div class="ds-mosaic-card ds-mosaic-card--small" data-animate>
-        <div class="ds-mosaic-card__bg-wrapper">
-          <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80" alt="New Season Drop" class="ds-mosaic-card__bg" loading="lazy">
-          <div class="ds-mosaic-card__overlay"></div>
+      {%- comment -%} ━━━ CARD 3: NEW ARRIVALS ━━━ {%- endcomment -%}
+      <div class="ds-bento-card ds-bento-card--small">
+        <div class="ds-bento-card__bg">
+          <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&auto=format&fit=crop&q=85" alt="New Arrivals" class="ds-bento-card__img" loading="lazy">
         </div>
-
-        <div class="ds-mosaic-card__top-tag">
-          <span>✨ NEW ARRIVALS</span>
-        </div>
-
-        <div class="ds-mosaic-card__content">
-          <h4 class="ds-mosaic-card__sub-title">Spring / Summer '26</h4>
-          <a href="/collections/all" class="ds-mosaic-card__link-text">Explore Drop →</a>
+        <div class="ds-bento-card__gradient"></div>
+        <span class="ds-bento-card__tag">✨ NEW ARRIVALS</span>
+        <div class="ds-bento-card__body">
+          <h4 class="ds-bento-card__sub-heading">Home &amp; Living '26</h4>
+          <a href="/collections/all" class="ds-bento-card__text-link">Explore Drop &rarr;</a>
         </div>
       </div>
 
       {%- comment -%} ━━━ CARD 4: BEST SELLERS ━━━ {%- endcomment -%}
-      <div class="ds-mosaic-card ds-mosaic-card--small" data-animate>
-        <div class="ds-mosaic-card__bg-wrapper">
-          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=80" alt="Best Sellers Showcase" class="ds-mosaic-card__bg" loading="lazy">
-          <div class="ds-mosaic-card__overlay"></div>
+      <div class="ds-bento-card ds-bento-card--small">
+        <div class="ds-bento-card__bg">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&auto=format&fit=crop&q=85" alt="Best Sellers" class="ds-bento-card__img" loading="lazy">
         </div>
-
-        <div class="ds-mosaic-card__top-tag ds-mosaic-card__top-tag--gold">
-          <span>★ TOP RATED</span>
-        </div>
-
-        <div class="ds-mosaic-card__content">
-          <h4 class="ds-mosaic-card__sub-title">Community Favorites</h4>
-          <a href="/collections/all" class="ds-mosaic-card__link-text">Shop Best Sellers →</a>
+        <div class="ds-bento-card__gradient"></div>
+        <span class="ds-bento-card__tag ds-bento-card__tag--gold">★ TOP RATED</span>
+        <div class="ds-bento-card__body">
+          <h4 class="ds-bento-card__sub-heading">Community Favorites</h4>
+          <a href="/collections/all" class="ds-bento-card__text-link">Shop Best Sellers &rarr;</a>
         </div>
       </div>
 
@@ -103,13 +90,370 @@
   </div>
 </section>
 
+
 <style>
-/* ═════════════════════════════════════════════════════════════
-   4-CARD MODERN MOSAIC SHOWCASE
-   ═════════════════════════════════════════════════════════════ */
-.ds-deals-mosaic-section {
-  padding: 5rem 0;
+/* ═══════════════════════════════════════════════
+   EXCLUSIVE SHOWCASE — HOT DEALS BENTO GRID
+   Feel: Gymshark · Nike SNKRS · SSENSE
+   ═══════════════════════════════════════════════ */
+.ds-bento-section {
+  background: #0C0D10;
+  padding: 5.5rem 0;
+}
+
+/* ━━ HEADER ━━ */
+.ds-bento__header {
+  text-align: center;
+  margin-bottom: 2.75rem;
+}
+
+.ds-bento__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-orange, #E05A2B);
+  margin-bottom: 0.65rem;
+}
+
+.ds-bento__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+/* ━━ BENTO GRID ━━ */
+.ds-bento__grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  grid-template-rows: 270px 220px;
+  gap: 1rem;
+}
+
+/* ━━ CARD BASE ━━ */
+.ds-bento-card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.75rem;
+  color: #FFFFFF;
+  transition: transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-bento-card:hover {
+  transform: translateY(-4px);
+}
+
+.ds-bento-card__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.ds-bento-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-bento-card:hover .ds-bento-card__img {
+  transform: scale(1.07);
+}
+
+.ds-bento-card__gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.98) 0%,
+    rgba(0, 0, 0, 0.75) 40%,
+    rgba(0, 0, 0, 0.35) 70%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  transition: background 350ms ease;
+  pointer-events: none;
+}
+
+.ds-bento-card__gradient--full {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.92) 0%,
+    rgba(0, 0, 0, 0.72) 50%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+.ds-bento-card:hover .ds-bento-card__gradient {
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.99) 0%,
+    rgba(0, 0, 0, 0.8) 40%,
+    rgba(0, 0, 0, 0.4) 70%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+}
+
+/* Card body: text content */
+.ds-bento-card__body {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+/* Tag top-left */
+.ds-bento-card__tag {
+  position: absolute;
+  top: 1.1rem;
+  left: 1.1rem;
+  z-index: 3;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  padding: 0.35rem 0.8rem;
+  border-radius: 100px;
+}
+
+.ds-bento-card__tag--gold {
+  border-color: rgba(245, 158, 11, 0.45);
+  color: #FDE68A;
+}
+
+/* ━━ CARD 1: HERO (spans 2 rows) ━━ */
+.ds-bento-card--hero {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  justify-content: flex-end;
+  padding: 2.25rem 2rem;
+}
+
+/* Rotating discount badge */
+.ds-bento-disc {
+  position: absolute;
+  top: 1.75rem;
+  right: 1.75rem;
+  z-index: 3;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: rotate(8deg);
+  box-shadow: 0 6px 20px rgba(224, 90, 43, 0.45);
+}
+
+.ds-bento-disc__num {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ds-bento-disc__sub {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  opacity: 0.9;
+}
+
+.ds-bento-card__pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(224, 90, 43, 0.22);
+  border: 1px solid rgba(224, 90, 43, 0.6);
+  color: #FFD1C1;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0.85rem;
+  border-radius: 100px;
+}
+
+.ds-bento-card__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 2.5vw, 2rem);
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.ds-bento-card__desc {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 300px;
+}
+
+.ds-bento-card__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
   background: #FFFFFF;
+  color: #121316;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 0.75rem 1.65rem;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: background 250ms ease, color 250ms ease, gap 250ms ease, box-shadow 250ms ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ds-bento-card__btn:hover {
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+  gap: 0.8rem;
+  box-shadow: 0 6px 24px rgba(224, 90, 43, 0.4);
+}
+
+.ds-bento-card__btn svg { transition: transform 250ms ease; flex-shrink: 0; }
+.ds-bento-card__btn:hover svg { transform: translateX(3px); }
+
+/* ━━ CARD 2: VIDEO (wide, row 1, cols 2-3) ━━ */
+.ds-bento-card--video {
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+  align-items: center;
+  justify-content: center;
+}
+
+.ds-bento-video-center {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.ds-bento-play {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  color: var(--accent-orange, #E05A2B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  transition: transform 300ms ease, background 300ms ease, color 300ms ease;
+  padding-left: 3px; /* optical center for play icon */
+}
+
+.ds-bento-play:hover {
+  transform: scale(1.12);
+  background: var(--accent-orange, #E05A2B);
+  color: #FFFFFF;
+}
+
+/* Pulsing ring around play button */
+.ds-bento-play__ring {
+  position: absolute;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.65);
+  animation: ds-bento-pulse 2.2s ease-out infinite;
+}
+
+@keyframes ds-bento-pulse {
+  0%   { opacity: 1; transform: scale(1); }
+  70%  { opacity: 0; transform: scale(1.35); }
+  100% { opacity: 0; transform: scale(1.35); }
+}
+
+.ds-bento-video-label {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: #FFFFFF;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.5);
+}
+
+/* ━━ CARDS 3 & 4: SMALL (row 2, cols 2 and 3) ━━ */
+.ds-bento-card--small {
+  justify-content: flex-end;
+}
+
+.ds-bento-card__sub-heading {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.015em;
+}
+
+.ds-bento-card__text-link {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+
+.ds-bento-card__text-link:hover {
+  color: var(--accent-orange, #E05A2B);
+}
+
+/* ━━ TABLET (768–1023px) ━━ */
+@media (max-width: 1023px) {
+  .ds-bento__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+  .ds-bento-card--hero { grid-column: 1 / -1; grid-row: auto; min-height: 380px; }
+  .ds-bento-card--video { grid-column: 1 / -1; grid-row: auto; min-height: 260px; }
+  .ds-bento-card--small { min-height: 220px; }
+}
+
+/* ━━ MOBILE (≤767px) ━━ */
+@media (max-width: 767px) {
+  .ds-bento-section { padding: 3.5rem 0; }
+  .ds-bento__grid {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  .ds-bento-card--hero { grid-column: auto; min-height: 360px; padding: 1.5rem; }
+  .ds-bento-card--video { grid-column: auto; min-height: 240px; }
+  .ds-bento-card--small { min-height: 200px; }
+  .ds-bento-card__heading { font-size: 1.5rem; }
+  .ds-bento-disc { width: 58px; height: 58px; top: 1.25rem; right: 1.25rem; }
+  .ds-bento-disc__num { font-size: 0.9rem; }
 }
 
 .ds-deals-mosaic__header {
@@ -411,13 +755,26 @@
 
 {% schema %}
 {
-  "name": "Hot Deals Mosaic Showcase",
+  "name": "Exclusive Showcase",
   "tag": "section",
   "class": "section-hot-deals-mosaic",
-  "settings": [],
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Hot Deals & Lookbook Highlights"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Label",
+      "default": "EXCLUSIVE SHOWCASE"
+    }
+  ],
   "presets": [
     {
-      "name": "Hot Deals Mosaic Showcase"
+      "name": "Exclusive Showcase"
     }
   ]
 }

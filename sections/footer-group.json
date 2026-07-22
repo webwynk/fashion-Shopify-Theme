@@ -7,18 +7,17 @@
       "blocks": {},
       "block_order": [],
       "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "theme_mode": "dark",
+        "brand_title": "foesta",
+        "brand_description": "Foesta is a modern luxury ecommerce store bringing you trending fashion, quality home décor, gifts, and lifestyle accessories.",
+        "social_instagram": "https://instagram.com",
+        "social_tiktok": "https://tiktok.com",
+        "social_facebook": "https://facebook.com",
+        "contact_phone": "+1 (800) 123-4567",
+        "contact_email": "support@foestastore.com",
+        "contact_address": "123 Fashion Street, New York, NY 10001",
+        "padding_top": 64,
+        "padding_bottom": 32
       }
     }
   },
