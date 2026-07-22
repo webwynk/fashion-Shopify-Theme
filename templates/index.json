@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_banner": {
@@ -58,7 +67,11 @@
           }
         }
       },
-      "block_order": ["slide_1", "slide_2", "slide_3"],
+      "block_order": [
+        "slide_1",
+        "slide_2",
+        "slide_3"
+      ],
       "settings": {}
     },
     "trust_bar": {
@@ -93,19 +106,55 @@
           }
         }
       },
-      "block_order": ["trust_1", "trust_2", "trust_3", "trust_4"],
+      "block_order": [
+        "trust_1",
+        "trust_2",
+        "trust_3",
+        "trust_4"
+      ],
       "settings": {}
     },
     "featured_collections": {
       "type": "featured-collections",
       "blocks": {
-        "col_1": { "type": "collection", "settings": { "label": "Girls Fashion" } },
-        "col_2": { "type": "collection", "settings": { "label": "Men's Fashion" } },
-        "col_3": { "type": "collection", "settings": { "label": "New Arrival" } },
-        "col_4": { "type": "collection", "settings": { "label": "Top Sales" } },
-        "col_5": { "type": "collection", "settings": { "label": "Winter Fashion" } }
+        "col_1": {
+          "type": "collection",
+          "settings": {
+            "label": "Girls Fashion"
+          }
+        },
+        "col_2": {
+          "type": "collection",
+          "settings": {
+            "label": "Men's Fashion"
+          }
+        },
+        "col_3": {
+          "type": "collection",
+          "settings": {
+            "label": "New Arrival"
+          }
+        },
+        "col_4": {
+          "type": "collection",
+          "settings": {
+            "label": "Top Sales"
+          }
+        },
+        "col_5": {
+          "type": "collection",
+          "settings": {
+            "label": "Winter Fashion"
+          }
+        }
       },
-      "block_order": ["col_1", "col_2", "col_3", "col_4", "col_5"],
+      "block_order": [
+        "col_1",
+        "col_2",
+        "col_3",
+        "col_4",
+        "col_5"
+      ],
       "settings": {
         "title": "Shop by Category",
         "subtitle": "Browse our latest fashion and trending collections."
@@ -127,10 +176,27 @@
     "dual_banners": {
       "type": "dual-banners",
       "blocks": {
-        "b1": { "type": "banner", "settings": { "subheading": "Free Shipping Over Order $120", "title": "Spring Collection", "button_label": "Explore Now" } },
-        "b2": { "type": "banner", "settings": { "subheading": "New Weekend Sale Offer", "title": "-25% Off Items", "button_label": "Explore Now" } }
+        "b1": {
+          "type": "banner",
+          "settings": {
+            "title": "Spring Collection",
+            "subheading": "Free Shipping Over Order $120",
+            "button_label": "Explore Now"
+          }
+        },
+        "b2": {
+          "type": "banner",
+          "settings": {
+            "title": "-25% Off Items",
+            "subheading": "New Weekend Sale Offer",
+            "button_label": "Explore Now"
+          }
+        }
       },
-      "block_order": ["b1", "b2"],
+      "block_order": [
+        "b1",
+        "b2"
+      ],
       "settings": {}
     },
 
@@ -165,19 +231,18 @@
           }
         }
       },
-      "block_order": ["review_1", "review_2", "review_3"],
+      "block_order": [
+        "review_1",
+        "review_2",
+        "review_3"
+      ],
       "settings": {
-        "title": "Customers Review",
-        "subtitle": "Share information about your brand with your customers."
+        "title": "Customers Review"
       }
     },
     "hot_deals_video": {
       "type": "hot-deals-video",
-      "settings": {
-        "deal_title": "Hot Deals You Can't Miss",
-        "deal_subtext": "Upgrade your wardrobe with exclusive seasonal discounts before stock runs out.",
-        "deal_button_label": "Discover Now"
-      }
+      "settings": {}
     },
     "featured_blog": {
       "type": "featured-blog",
