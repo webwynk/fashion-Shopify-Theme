@@ -1,30 +1,29 @@
 {%- comment -%}
-  Section: Modern Email Signup Banner (Pixel-Perfect Foesta Edition)
+  Section: Modern Email Signup Banner (Full Width Background Edition)
 {%- endcomment -%}
 
 {%- style -%}
 #section-{{ section.id }} {
   padding-top: {{ section.settings.padding_top }}px;
   padding-bottom: {{ section.settings.padding_bottom }}px;
-  background: transparent;
-}
-
-.ds-newsletter-v2__card {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 4.5rem 3rem;
-  border-radius: 36px;
-  text-align: center;
+  background: linear-gradient(135deg, #F5F6FF 0%, #EDEFFC 100%);
+  border-top: 1px solid rgba(229, 232, 240, 0.8);
+  border-bottom: 1px solid rgba(229, 232, 240, 0.8);
+  width: 100%;
   position: relative;
   overflow: hidden;
+}
+
+.ds-newsletter-v2__content {
+  max-width: 820px;
+  margin: 0 auto;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.25rem;
-  background: linear-gradient(135deg, #F5F6FF 0%, #EDEFFC 100%);
-  border: 1px solid rgba(229, 232, 240, 0.9);
-  box-shadow: 0 20px 60px rgba(18, 19, 22, 0.04);
-  transition: transform 300ms ease, box-shadow 300ms ease;
+  position: relative;
+  z-index: 2;
 }
 
 /* Floating Icon Badge */
@@ -42,7 +41,7 @@
   transition: transform 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.ds-newsletter-v2__card:hover .ds-newsletter-v2__icon-badge {
+.ds-newsletter-v2__content:hover .ds-newsletter-v2__icon-badge {
   transform: scale(1.08) rotate(-4deg);
 }
 
@@ -221,10 +220,6 @@
 }
 
 @media (max-width: 639px) {
-  .ds-newsletter-v2__card {
-    padding: 3rem 1.5rem;
-    border-radius: 24px;
-  }
   .ds-newsletter-v2__pill-group {
     flex-direction: column;
     padding: 12px;
@@ -246,7 +241,7 @@
 
 <section class="ds-newsletter-v2" id="section-{{ section.id }}">
   <div class="ds-container">
-    <div class="ds-newsletter-v2__card">
+    <div class="ds-newsletter-v2__content">
       {%- comment -%} Floating Circular Icon Badge {%- endcomment -%}
       <div class="ds-newsletter-v2__icon-badge" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -383,21 +378,21 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Top Padding",
-      "default": 64
+      "default": 80
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
+      "max": 120,
       "step": 4,
       "unit": "px",
       "label": "Bottom Padding",
-      "default": 64
+      "default": 80
     }
   ],
   "presets": [
