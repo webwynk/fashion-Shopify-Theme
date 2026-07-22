@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_banner": {
@@ -10,6 +19,9 @@
             "eyebrow": "A DEVOTIONAL NON-PROFIT BRAND",
             "heading": "Wear Your <span>Faith.</span><br>Serve With <span>Purpose.</span>",
             "subheading": "Spiritual t-shirts inspired by devotion, karma, and kindness — created to spread goodness and support charitable causes.",
+            "point_1": "100% organic cotton, ethically made",
+            "point_2": "Every purchase funds a charitable cause",
+            "point_3": "Spiritual designs rooted in devotion",
             "button_1_label": "Shop Collection",
             "button_1_url": "/collections/all",
             "button_2_label": "Explore Meaning",
@@ -17,8 +29,8 @@
             "show_social_proof": true,
             "social_proof_text": "Join thousands of devotees who <strong>wear their faith</strong> with pride.",
             "badge_top_text": "100% Organic Cotton",
-            "bg_color_start": "#FFF4ED",
-            "bg_color_end": "#FDEEE4"
+            "bg_color_start": "#fff4ed",
+            "bg_color_end": "#fdeee4"
           }
         },
         "slide_2": {
@@ -28,6 +40,9 @@
             "eyebrow": "PREMIUM CURATED FASHION",
             "heading": "Discover <span>Elegance.</span><br>Define Your <span>Style.</span>",
             "subheading": "Handcrafted apparel and luxury accessories designed for timeless comfort and modern sophistication.",
+            "point_1": "100% organic cotton, ethically made",
+            "point_2": "Every purchase funds a charitable cause",
+            "point_3": "Spiritual designs rooted in devotion",
             "button_1_label": "Explore Apparel",
             "button_1_url": "/collections/all",
             "button_2_label": "View Lookbook",
@@ -35,8 +50,8 @@
             "show_social_proof": true,
             "social_proof_text": "Join over <strong>10,000+ fashion lovers</strong> worldwide.",
             "badge_top_text": "Limited Edition Drops",
-            "bg_color_start": "#EAEBFB",
-            "bg_color_end": "#F4F5FE"
+            "bg_color_start": "#eaebfb",
+            "bg_color_end": "#f4f5fe"
           }
         },
         "slide_3": {
@@ -46,6 +61,9 @@
             "eyebrow": "MODERN HOME & DECOR",
             "heading": "Transform Your <span>Space.</span><br>Elevate Your <span>Home.</span>",
             "subheading": "Curated Scandinavian ceramics, ambient LED lighting, and statement showpieces crafted for modern living.",
+            "point_1": "100% organic cotton, ethically made",
+            "point_2": "Every purchase funds a charitable cause",
+            "point_3": "Spiritual designs rooted in devotion",
             "button_1_label": "Shop Home Décor",
             "button_1_url": "/collections/all",
             "button_2_label": "Discover Showpieces",
@@ -53,8 +71,8 @@
             "show_social_proof": true,
             "social_proof_text": "Rated <strong>4.9 / 5 stars</strong> by happy homeowners.",
             "badge_top_text": "Scandinavian Craft",
-            "bg_color_start": "#EBFBEA",
-            "bg_color_end": "#F4FEF5"
+            "bg_color_start": "#ebfbea",
+            "bg_color_end": "#f4fef5"
           }
         }
       },
@@ -111,30 +129,35 @@
         "col_1": {
           "type": "collection",
           "settings": {
+            "collection": "",
             "label": "Girls Fashion"
           }
         },
         "col_2": {
           "type": "collection",
           "settings": {
+            "collection": "",
             "label": "Men's Fashion"
           }
         },
         "col_3": {
           "type": "collection",
           "settings": {
+            "collection": "",
             "label": "New Arrival"
           }
         },
         "col_4": {
           "type": "collection",
           "settings": {
+            "collection": "",
             "label": "Top Sales"
           }
         },
         "col_5": {
           "type": "collection",
           "settings": {
+            "collection": "",
             "label": "Winter Fashion"
           }
         }
@@ -149,6 +172,35 @@
       "settings": {
         "title": "Shop by Category",
         "subtitle": "Browse our latest fashion and trending collections."
+      }
+    },
+    "featured_collection_UJymdt": {
+      "type": "featured-collection",
+      "name": "t:sections.featured-collection.presets.name",
+      "settings": {
+        "collection": "",
+        "products_to_show": 4,
+        "title": "Featured collection",
+        "heading_size": "h1",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 4,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": true,
+        "view_all_style": "solid",
+        "color_scheme": "",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "trending_products": {
@@ -170,17 +222,21 @@
         "b1": {
           "type": "banner",
           "settings": {
+            "eyebrow": "New Arrival",
             "title": "Spring Collection",
-            "subheading": "Free Shipping Over Order $120",
-            "button_label": "Explore Now"
+            "description": "Spiritual t-shirts crafted with intention and care.",
+            "button_label": "Explore Now",
+            "button_url": ""
           }
         },
         "b2": {
           "type": "banner",
           "settings": {
+            "eyebrow": "New Arrival",
             "title": "-25% Off Items",
-            "subheading": "New Weekend Sale Offer",
-            "button_label": "Explore Now"
+            "description": "Spiritual t-shirts crafted with intention and care.",
+            "button_label": "Explore Now",
+            "button_url": ""
           }
         }
       },
@@ -190,7 +246,6 @@
       ],
       "settings": {}
     },
-
     "testimonials": {
       "type": "testimonials",
       "blocks": {
@@ -233,35 +288,100 @@
     },
     "hot_deals_video": {
       "type": "hot-deals-video",
-      "settings": {}
+      "settings": {
+        "title": "Hot Deals & Lookbook Highlights",
+        "eyebrow": "EXCLUSIVE SHOWCASE"
+      }
     },
     "featured_blog": {
       "type": "featured-blog",
       "settings": {
         "title": "Our Latest Blog",
-        "subtitle": "Follow the most popular trends and get exclusive items from foesta."
+        "subtitle": "Follow the most popular trends and get exclusive items from foesta.",
+        "blog": ""
       }
     },
     "brand_logos": {
       "type": "brand-logos",
       "blocks": {
-        "b1": { "type": "brand", "settings": { "title": "VERSACE" } },
-        "b2": { "type": "brand", "settings": { "title": "GUCCI" } },
-        "b3": { "type": "brand", "settings": { "title": "PRADA" } },
-        "b4": { "type": "brand", "settings": { "title": "CHANEL" } },
-        "b5": { "type": "brand", "settings": { "title": "ZARA" } },
-        "b6": { "type": "brand", "settings": { "title": "DIOR" } },
-        "b7": { "type": "brand", "settings": { "title": "BALENCIAGA" } },
-        "b8": { "type": "brand", "settings": { "title": "BURBERRY" } }
+        "b1": {
+          "type": "brand",
+          "settings": {
+            "title": "VERSACE",
+            "url": ""
+          }
+        },
+        "b2": {
+          "type": "brand",
+          "settings": {
+            "title": "GUCCI",
+            "url": ""
+          }
+        },
+        "b3": {
+          "type": "brand",
+          "settings": {
+            "title": "PRADA",
+            "url": ""
+          }
+        },
+        "b4": {
+          "type": "brand",
+          "settings": {
+            "title": "CHANEL",
+            "url": ""
+          }
+        },
+        "b5": {
+          "type": "brand",
+          "settings": {
+            "title": "ZARA",
+            "url": ""
+          }
+        },
+        "b6": {
+          "type": "brand",
+          "settings": {
+            "title": "DIOR",
+            "url": ""
+          }
+        },
+        "b7": {
+          "type": "brand",
+          "settings": {
+            "title": "BALENCIAGA",
+            "url": ""
+          }
+        },
+        "b8": {
+          "type": "brand",
+          "settings": {
+            "title": "BURBERRY",
+            "url": ""
+          }
+        }
       },
-      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8"],
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8"
+      ],
       "settings": {
         "eyebrow": "WORLD'S MOST COVETED BRANDS",
         "heading": "Featured Brand Partners",
         "layout": "marquee",
         "card_style": "pill",
         "bg_preset": "soft",
-        "marquee_speed": 22
+        "marquee_speed": 22,
+        "logo_gap": 24,
+        "show_borders": true,
+        "padding_top": 48,
+        "padding_bottom": 48
       }
     },
     "promo_banner": {
@@ -276,7 +396,10 @@
         "secondary_button_url": "/collections",
         "show_timer": true,
         "bg_style": "dark_mesh",
-        "min_height": 500
+        "overlay_opacity": 55,
+        "min_height": 500,
+        "padding_top": 64,
+        "padding_bottom": 64
       }
     },
     "email_signup": {
@@ -287,8 +410,8 @@
         "subheading": "Subscribe to receive exclusive deals, new collection drops, and insider style tips.",
         "placeholder_text": "Enter your email address...",
         "button_label": "Subscribe",
-        "card_style": "gradient",
-        "bg_preset": "page_bg"
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
@@ -296,6 +419,7 @@
     "hero_banner",
     "trust_bar",
     "featured_collections",
+    "featured_collection_UJymdt",
     "trending_products",
     "marquee_ticker",
     "dual_banners",
