@@ -34,32 +34,59 @@
     <div class="wm-drawer__tab-pane is-active" id="tab-pane-categories">
       <ul class="wm-drawer__menu-list">
         {%- assign cat_menu = section.settings.categories_menu | default: section.settings.menu -%}
-        {%- for link in cat_menu.links -%}
-          <li class="wm-drawer__menu-item">
-            <a href="{{ link.url }}" class="wm-drawer__menu-link">
-              <span class="wm-drawer__link-icon">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-              </span>
-              <span class="wm-drawer__link-text">{{ link.title | escape }}</span>
-              {%- if link.links.size > 0 -%}
-                <svg class="wm-drawer__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-              {%- endif -%}
-            </a>
-          </li>
-        {%- else -%}
-          {%- assign default_cats = 'Girls Fashion,Mens Fashion,New Arrivals,Top Sales,Winter Fashion,Home Decor,Accessories' | split: ',' -%}
-          {%- for cat in default_cats -%}
+        {%- if cat_menu != blank and cat_menu.links.size > 0 -%}
+          {%- for link in cat_menu.links -%}
             <li class="wm-drawer__menu-item">
-              <a href="/collections/all" class="wm-drawer__menu-link">
+              <a href="{{ link.url }}" class="wm-drawer__menu-link">
                 <span class="wm-drawer__link-icon">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  {%- render 'category-icon', title: link.title -%}
                 </span>
-                <span class="wm-drawer__link-text">{{ cat }}</span>
-                <svg class="wm-drawer__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                <span class="wm-drawer__link-text">{{ link.title | escape }}</span>
+                {%- if link.links.size > 0 -%}
+                  <svg class="wm-drawer__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                {%- endif -%}
               </a>
             </li>
           {%- endfor -%}
-        {%- endfor -%}
+        {%- else -%}
+          {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
+          {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies,Sports Equipment & Supplies' | split: ',' -%}
+
+          {%- for cat in default_cats -%}
+            {%- assign cat_handle = cat | handleize -%}
+            {%- assign matched_col = collections[cat_handle] -%}
+            {%- assign col_url = matched_col.url | default: '/collections/all' -%}
+            
+            <li class="wm-drawer__menu-item">
+              <a href="{{ col_url }}" class="wm-drawer__menu-link">
+                <span class="wm-drawer__link-icon">
+                  {%- render 'category-icon', title: cat -%}
+                </span>
+                <span class="wm-drawer__link-text">{{ cat }}</span>
+                {%- if cat contains 'Sports' -%}
+                  <svg class="wm-drawer__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+                {%- endif -%}
+              </a>
+              {%- if cat contains 'Sports' -%}
+                <ul class="wm-drawer__sublist" style="padding-left: 20px; list-style: none; margin: 4px 0 8px;">
+                  {%- for sub in sports_subs -%}
+                    {%- assign sub_handle = sub | handleize -%}
+                    {%- assign matched_sub = collections[sub_handle] -%}
+                    {%- assign sub_url = matched_sub.url | default: col_url -%}
+                    <li class="wm-drawer__subitem" style="padding: 6px 0;">
+                      <a href="{{ sub_url }}" class="wm-drawer__menu-link" style="font-size: 0.875rem;">
+                        <span class="wm-drawer__link-icon">
+                          {%- render 'category-icon', title: sub -%}
+                        </span>
+                        <span>{{ sub }}</span>
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </li>
+          {%- endfor -%}
+        {%- endif -%}
       </ul>
     </div>
 
