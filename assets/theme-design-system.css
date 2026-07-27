@@ -26,11 +26,12 @@
   --color-text-inverse-muted: #A0A7B5;
 
   /* —— ACCENTS & SEMANTICS —— */
-  --color-accent:         #121316;
-  --color-accent-gold:    #C9A96E;
-  --color-accent-light:   #EAEBFB;
-  --color-sale:           #FF4D4D;
-  --color-sale-bg:        #FFF0F0;
+  --color-accent:             #121316;
+  --color-accent-gold:        #C9A96E;
+  --color-accent-terracotta:  #E05A2B;
+  --color-accent-light:       #EAEBFB;
+  --color-sale:               #E05A2B;
+  --color-sale-bg:            #FFF2EE;
   --color-success:        #10B981;
   --color-success-bg:     #ECFDF5;
   --color-warning:        #F59E0B;
