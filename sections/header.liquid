@@ -497,57 +497,6 @@
 }
 
 /* CATEGORIES DROPDOWN BUTTON */
-.wm-categories-dropdown {
-  position: relative;
-}
-
-.wm-categories-btn {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 6px 20px 6px 6px;
-  background: #FFFFFF;
-  border: 1.5px solid #E5E8F0;
-  border-radius: var(--radius-pill);
-  font-family: var(--font-body);
-  font-size: 0.9375rem;
-  font-weight: 800;
-  color: #121316;
-  cursor: pointer;
-  box-shadow: 0 4px 14px rgba(18, 19, 22, 0.04);
-  transition: all 250ms ease;
-}
-
-.wm-categories-btn:hover {
-  border-color: #121316;
-  box-shadow: 0 6px 18px rgba(18, 19, 22, 0.08);
-}
-
-.wm-categories-btn__icon-bg {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: #121316;
-  color: #FFFFFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 200ms ease;
-}
-
-.wm-categories-btn:hover .wm-categories-btn__icon-bg {
-  background: var(--color-accent-gold, #C9A96E);
-}
-
-/* CATEGORIES PANEL */
-/* CATEGORIES PANEL - ULTRA MODERN GLASSMORPHISM MEGA DROPDOWN */
-.wm-categories-panel {
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  width: 310px;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
 /* MAIN NAV CAPSULE BAR CENTERED & INTEGRATED MEGA MENU */
 .wm-header__nav-container {
   display: flex;
@@ -619,8 +568,9 @@
   transform: rotate(180deg);
 }
 
-/* MEGA MENU PANEL ATTACHED TO CAPSULE BAR */
+/* MEGA MENU PANEL ATTACHED TO CAPSULE BAR - STRICT VISIBILITY */
 .wm-megamenu-panel {
+  display: none;
   position: absolute;
   top: calc(100% + 14px);
   left: 50%;
@@ -635,7 +585,8 @@
   box-shadow: 0 28px 70px rgba(18, 19, 22, 0.16);
   opacity: 0;
   visibility: hidden;
-  transition: all 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  transition: opacity 280ms cubic-bezier(0.16, 1, 0.3, 1), transform 280ms cubic-bezier(0.16, 1, 0.3, 1), visibility 280ms cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 900;
   padding: 24px;
 }
@@ -652,8 +603,10 @@
 }
 
 .wm-main-menu__item.has-megamenu:hover .wm-megamenu-panel {
+  display: block;
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateX(-50%) translateY(0) scale(1);
 }
 
@@ -849,10 +802,6 @@
   background: #FFFFFF;
   color: #121316;
   transform: translateY(-2px);
-}
-  border-radius: var(--radius-pill);
-  transition: all 250ms cubic-bezier(0.25, 1, 0.5, 1);
-  position: relative;
 }
 
 .wm-main-menu__link:hover {
