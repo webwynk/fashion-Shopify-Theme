@@ -79,7 +79,13 @@
           {%- comment -%} Vertical Dropdown Panel {%- endcomment -%}
           <div class="wm-categories-panel">
             <ul class="wm-categories-list">
-              {%- assign cat_menu = section.settings.categories_menu | default: section.settings.menu -%}
+              {%- assign cat_menu = linklists[section.settings.categories_menu] -%}
+              {%- if cat_menu == blank or cat_menu.links.size == 0 -%}
+                {%- assign cat_menu = linklists['categories-menu'] -%}
+              {%- endif -%}
+              {%- if cat_menu == blank or cat_menu.links.size == 0 -%}
+                {%- assign cat_menu = section.settings.categories_menu | default: section.settings.menu -%}
+              {%- endif -%}
               {%- if cat_menu != blank and cat_menu.links.size > 0 -%}
                 {%- for link in cat_menu.links -%}
                   <li class="wm-categories-item">
