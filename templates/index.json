@@ -155,7 +155,7 @@
       "type": "trending-products",
       "settings": {
         "title": "Trending product",
-        "subtitle": "Follow the most popular trends and get exclusive items from foesta.",
+        "subtitle": "Follow the most popular trends and get exclusive items from Luxidaq.",
         "collection": "all",
         "products_to_show": 8
       }
@@ -239,7 +239,7 @@
       "type": "featured-blog",
       "settings": {
         "title": "Our Latest Blog",
-        "subtitle": "Follow the most popular trends and get exclusive items from foesta."
+        "subtitle": "Follow the most popular trends and get exclusive items from Luxidaq."
       }
     },
     "brand_logos": {
