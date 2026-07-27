@@ -66,6 +66,16 @@
     {%- comment -%} BOTTOM NAVIGATION ROW {%- endcomment -%}
     <div class="wm-header__bottom-bar">
       <div class="ds-container wm-header__nav-container">
+
+        {%- comment -%} Left Side: Hot Deals Badge {%- endcomment -%}
+        <div class="wm-nav-left">
+          <a href="/collections/all" class="wm-deals-badge">
+            <span class="wm-deals-badge__fire">🔥</span>
+            <span class="wm-deals-badge__text">Hot Deals</span>
+            <span class="wm-deals-badge__pulse"></span>
+          </a>
+        </div>
+
         {%- comment -%} Main Navigation Menu Capsule Bar {%- endcomment -%}
         <nav class="wm-header__main-nav">
           <ul class="wm-main-menu">
@@ -487,27 +497,76 @@
   background: #F8F9FD;
   border-top: 1px solid #E5E8F0;
   border-bottom: 1px solid #E5E8F0;
-}
-
+/* 3-PART BALANCED HEADER CONTAINER */
 .wm-header__nav-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 56px;
+  position: relative;
 }
 
-/* CATEGORIES DROPDOWN BUTTON */
-/* MAIN NAV CAPSULE BAR CENTERED & INTEGRATED MEGA MENU */
-.wm-header__nav-container {
+/* LEFT SIDE HOT DEALS BADGE */
+.wm-nav-left {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 56px;
+  flex: 1;
+}
+
+.wm-deals-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: #FFF5F2;
+  border: 1.5px solid rgba(224, 90, 43, 0.2);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-size: 0.84375rem;
+  font-weight: 800;
+  color: #E05A2B;
+  transition: all 220ms ease;
   position: relative;
+}
+
+.wm-deals-badge:hover {
+  background: #E05A2B;
+  border-color: #E05A2B;
+  color: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(224, 90, 43, 0.25);
+}
+
+.wm-deals-badge__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #E05A2B;
+  box-shadow: 0 0 0 0 rgba(224, 90, 43, 0.6);
+  animation: wmPulse 1.8s infinite;
+}
+
+.wm-deals-badge:hover .wm-deals-badge__pulse {
+  background: #FFFFFF;
+  box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+}
+
+@keyframes wmPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(224, 90, 43, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(224, 90, 43, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(224, 90, 43, 0);
+  }
 }
 
 .wm-header__main-nav {
   position: relative;
+  flex: 0 0 auto;
 }
 
 .wm-main-menu {
@@ -818,21 +877,13 @@
   box-shadow: 0 4px 14px rgba(18, 19, 22, 0.18);
 }
 
-.wm-main-menu__link.is-active::after {
-  content: '';
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--color-accent-gold, #C9A96E);
-  display: inline-block;
-  margin-left: 2px;
-}
-
 /* ACTIONS AREA */
 .wm-header__actions {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  justify-content: flex-end;
+  gap: 1.15rem;
+  flex: 1;
 }
 
 .wm-header__selectors {
