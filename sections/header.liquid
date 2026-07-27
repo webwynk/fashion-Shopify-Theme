@@ -65,142 +65,195 @@
 
     {%- comment -%} BOTTOM NAVIGATION ROW {%- endcomment -%}
     <div class="wm-header__bottom-bar">
-      <div class="ds-container wm-header__nav-container">
-
-        {%- comment -%} All Categories Dropdown Button & Menu {%- endcomment -%}
-        <div class="wm-categories-dropdown">
-          <button type="button" class="wm-categories-btn" id="wm-categories-trigger">
-            <span class="wm-categories-btn__icon-bg">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            </span>
-            <span class="wm-categories-btn__text">All Categories</span>
-          </button>
-
-          {%- comment -%} Vertical Dropdown Panel {%- endcomment -%}
-          <div class="wm-categories-panel">
-            <ul class="wm-categories-list">
-              {%- assign cat_menu = linklists[section.settings.categories_menu] -%}
-              {%- if cat_menu == blank or cat_menu.links.size == 0 -%}
-                {%- assign cat_menu = linklists['categories-menu'] -%}
-              {%- endif -%}
-              {%- if cat_menu == blank or cat_menu.links.size == 0 -%}
-                {%- assign cat_menu = section.settings.categories_menu | default: section.settings.menu -%}
-              {%- endif -%}
-
-              {%- if cat_menu != blank and cat_menu.links.size > 0 -%}
-                {%- for link in cat_menu.links -%}
-                  <li class="wm-categories-item{% if link.links.size > 0 %} has-submenu{% endif %}">
-                    <a href="{{ link.url }}" class="wm-categories-link">
-                      <span class="wm-categories-link__icon">
-                        {%- render 'category-icon', title: link.title -%}
-                      </span>
-                      <span class="wm-categories-link__title">{{ link.title | escape }}</span>
-                      {%- if link.links.size > 0 -%}
-                        <span class="wm-categories-badge">
-                          <svg class="wm-categories-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
-                        </span>
-                      {%- endif -%}
-                    </a>
-
-                    {%- if link.links.size > 0 -%}
-                      <div class="wm-categories-submenu">
-                        <div class="wm-submenu-header">
-                          <span class="wm-submenu-eyebrow">✦ SUBCATEGORIES ✦</span>
-                          <h4 class="wm-submenu-title">{{ link.title | escape }}</h4>
-                        </div>
-                        <ul class="wm-submenu-list">
-                          {%- for child_link in link.links -%}
-                            <li class="wm-submenu-item">
-                              <a href="{{ child_link.url }}" class="wm-submenu-link">
-                                <span class="wm-categories-link__icon wm-categories-link__icon--sub">
-                                  {%- render 'category-icon', title: child_link.title -%}
-                                </span>
-                                <span class="wm-submenu-link__title">{{ child_link.title | escape }}</span>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                              </a>
-                            </li>
-                          {%- endfor -%}
-                        </ul>
-                      </div>
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-              {%- else -%}
-                {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
-                {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies,Sports Equipment & Supplies' | split: ',' -%}
-
-                {%- for cat in default_cats -%}
-                  {%- assign cat_handle = cat | handleize -%}
-                  {%- assign matched_col = collections[cat_handle] -%}
-                  {%- assign col_url = matched_col.url | default: '/collections/all' -%}
-                  {%- assign is_sports = false -%}
-                  {%- if cat contains 'Sports' -%}
-                    {%- assign is_sports = true -%}
-                  {%- endif -%}
-
-                  <li class="wm-categories-item{% if is_sports %} has-submenu{% endif %}">
-                    <a href="{{ col_url }}" class="wm-categories-link">
-                      <span class="wm-categories-link__icon">
-                        {%- render 'category-icon', title: cat -%}
-                      </span>
-                      <span class="wm-categories-link__title">{{ cat }}</span>
-                      {%- if is_sports -%}
-                        <span class="wm-categories-badge">
-                          <svg class="wm-categories-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="9 18 15 12 9 6"/></svg>
-                        </span>
-                      {%- endif -%}
-                    </a>
-
-                    {%- if is_sports -%}
-                      <div class="wm-categories-submenu">
-                        <div class="wm-submenu-header">
-                          <span class="wm-submenu-eyebrow">✦ SUBCATEGORIES ✦</span>
-                          <h4 class="wm-submenu-title">{{ cat }}</h4>
-                        </div>
-                        <ul class="wm-submenu-list">
-                          {%- for sub in sports_subs -%}
-                            {%- assign sub_handle = sub | handleize -%}
-                            {%- assign matched_sub = collections[sub_handle] -%}
-                            {%- assign sub_url = matched_sub.url | default: col_url -%}
-                            <li class="wm-submenu-item">
-                              <a href="{{ sub_url }}" class="wm-submenu-link">
-                                <span class="wm-categories-link__icon wm-categories-link__icon--sub">
-                                  {%- render 'category-icon', title: sub -%}
-                                </span>
-                                <span class="wm-submenu-link__title">{{ sub }}</span>
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                              </a>
-                            </li>
-                          {%- endfor -%}
-                        </ul>
-                      </div>
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-              {%- endif -%}
-            </ul>
-          </div>
-        </div>
-
-        {%- comment -%} Main Navigation Menu {%- endcomment -%}
+      <div class="ds-container wm-header__nav        {%- comment -%} Main Navigation Menu Capsule Bar {%- endcomment -%}
         <nav class="wm-header__main-nav">
           <ul class="wm-main-menu">
-            {%- for link in section.settings.menu.links -%}
-              <li class="wm-main-menu__item">
-                <a href="{{ link.url }}" class="wm-main-menu__link{% if link.current %} is-active{% endif %}">
-                  {{ link.title | escape }}
-                </a>
-              </li>
-            {%- else -%}
-              {%- assign default_nav = 'Home|Collections|New Arrivals|Best Sellers|About Us|Contact' | split: '|' -%}
-              {%- for item in default_nav -%}
-                <li class="wm-main-menu__item">
-                  <a href="/collections/all" class="wm-main-menu__link">
-                    {{ item }}
+            {%- assign cat_menu = linklists[section.settings.categories_menu] -%}
+            {%- if cat_menu == blank or cat_menu.links.size == 0 -%}
+              {%- assign cat_menu = linklists['categories-menu'] -%}
+            {%- endif -%}
+
+            {%- if section.settings.menu.links.size > 0 -%}
+              {%- for link in section.settings.menu.links -%}
+                {%- assign link_title_lower = link.title | downcase -%}
+                {%- assign is_megamenu = false -%}
+                {%- if link_title_lower contains 'cat' or link_title_lower contains 'collection' or link.links.size > 0 -%}
+                  {%- assign is_megamenu = true -%}
+                {%- endif -%}
+
+                <li class="wm-main-menu__item{% if is_megamenu %} has-megamenu{% endif %}">
+                  <a href="{{ link.url }}" class="wm-main-menu__link{% if link.current %} is-active{% endif %}">
+                    <span>{{ link.title | escape }}</span>
+                    {%- if link.current -%}
+                      <span class="wm-active-dot"></span>
+                    {%- endif -%}
+                    {%- if is_megamenu -%}
+                      <svg class="wm-menu-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    {%- endif -%}
                   </a>
+
+                  {%- if is_megamenu -%}
+                    {%- comment -%} DUAL-PANE GLASSMORPHISM MEGA MENU DROPDOWN {%- endcomment -%}
+                    <div class="wm-megamenu-panel">
+                      <div class="wm-megamenu-inner">
+                        {%- comment -%} LEFT/GRID COLUMN: Primary Categories {%- endcomment -%}
+                        <div class="wm-megamenu-col wm-megamenu-col--categories">
+                          <div class="wm-megamenu-col-header">
+                            <span class="wm-megamenu-eyebrow">✦ ALL CATEGORIES ✦</span>
+                            <h4 class="wm-megamenu-col-title">Explore Collections</h4>
+                          </div>
+
+                          <div class="wm-megamenu-grid">
+                            {%- if cat_menu != blank and cat_menu.links.size > 0 -%}
+                              {%- for cat_link in cat_menu.links -%}
+                                <a href="{{ cat_link.url }}" class="wm-megamenu-card">
+                                  <span class="wm-megamenu-card__icon">
+                                    {%- render 'category-icon', title: cat_link.title -%}
+                                  </span>
+                                  <span class="wm-megamenu-card__title">{{ cat_link.title | escape }}</span>
+                                </a>
+                              {%- endfor -%}
+                            {%- else -%}
+                              {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
+                              {%- for cat in default_cats -%}
+                                {%- assign cat_handle = cat | handleize -%}
+                                {%- assign matched_col = collections[cat_handle] -%}
+                                {%- assign col_url = matched_col.url | default: '/collections/all' -%}
+                                <a href="{{ col_url }}" class="wm-megamenu-card">
+                                  <span class="wm-megamenu-card__icon">
+                                    {%- render 'category-icon', title: cat -%}
+                                  </span>
+                                  <span class="wm-megamenu-card__title">{{ cat }}</span>
+                                </a>
+                              {%- endfor -%}
+                            {%- endif -%}
+                          </div>
+                        </div>
+
+                        {%- comment -%} MIDDLE COLUMN: Subcategories Featured Panel {%- endcomment -%}
+                        <div class="wm-megamenu-col wm-megamenu-col--subcategories">
+                          <div class="wm-megamenu-col-header">
+                            <span class="wm-megamenu-eyebrow">✦ FEATURED SUBCATEGORIES ✦</span>
+                            <h4 class="wm-megamenu-col-title">Sports & Outdoor Supplies</h4>
+                          </div>
+
+                          <div class="wm-megamenu-sublist">
+                            {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies,Sports Equipment & Supplies' | split: ',' -%}
+                            {%- for sub in sports_subs -%}
+                              {%- assign sub_handle = sub | handleize -%}
+                              {%- assign matched_sub = collections[sub_handle] -%}
+                              {%- assign sub_url = matched_sub.url | default: '/collections/sports-outdoor-supplies' -%}
+                              <a href="{{ sub_url }}" class="wm-megamenu-sublink">
+                                <span class="wm-megamenu-card__icon wm-megamenu-card__icon--sub">
+                                  {%- render 'category-icon', title: sub -%}
+                                </span>
+                                <span class="wm-megamenu-sublink__text">{{ sub }}</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                              </a>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+
+                        {%- comment -%} RIGHT COLUMN: Luxury Visual Feature Tile {%- endcomment -%}
+                        <div class="wm-megamenu-col wm-megamenu-col--promo">
+                          <div class="wm-megamenu-promo-card">
+                            <span class="wm-promo-badge">✦ EXCLUSIVE ✦</span>
+                            <h4 class="wm-promo-title">New Season Drops</h4>
+                            <p class="wm-promo-desc">Discover curated luxury fashion, lifestyle accessories & home decor.</p>
+                            <a href="/collections/all" class="wm-promo-btn">Explore Shop →</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
                 </li>
               {%- endfor -%}
-            {%- endfor -%}
+            {%- else -%}
+              {%- comment -%} DEFAULT NAV CAPSULE ITEMS {%- endcomment -%}
+              {%- assign default_nav = 'Home|Categories|New Arrivals|Best Sellers|About Us|Contact' | split: '|' -%}
+              {%- for item in default_nav -%}
+                {%- assign is_megamenu = false -%}
+                {%- if item == 'Categories' -%}
+                  {%- assign is_megamenu = true -%}
+                {%- endif -%}
+
+                <li class="wm-main-menu__item{% if is_megamenu %} has-megamenu{% endif %}">
+                  <a href="{% if item == 'Home' %}/{% else %}/collections/all{% endif %}" class="wm-main-menu__link{% if item == 'Home' %} is-active{% endif %}">
+                    <span>{{ item }}</span>
+                    {%- if item == 'Home' -%}
+                      <span class="wm-active-dot"></span>
+                    {%- endif -%}
+                    {%- if is_megamenu -%}
+                      <svg class="wm-menu-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                    {%- endif -%}
+                  </a>
+
+                  {%- if is_megamenu -%}
+                    {%- comment -%} DUAL-PANE GLASSMORPHISM MEGA MENU DROPDOWN {%- endcomment -%}
+                    <div class="wm-megamenu-panel">
+                      <div class="wm-megamenu-inner">
+                        {%- comment -%} LEFT/GRID COLUMN: Primary Categories {%- endcomment -%}
+                        <div class="wm-megamenu-col wm-megamenu-col--categories">
+                          <div class="wm-megamenu-col-header">
+                            <span class="wm-megamenu-eyebrow">✦ ALL CATEGORIES ✦</span>
+                            <h4 class="wm-megamenu-col-title">Explore Collections</h4>
+                          </div>
+
+                          <div class="wm-megamenu-grid">
+                            {%- assign default_cats = 'Pet Supplies & Accessories,Health & Grooming,Skincare & Beauty,Auto Parts & Accessories,Home Organisation & Décor,Toys & Games,Office Equipment & Supplies,Cleaning Supplies,Sports & Outdoor Supplies' | split: ',' -%}
+                            {%- for cat in default_cats -%}
+                              {%- assign cat_handle = cat | handleize -%}
+                              {%- assign matched_col = collections[cat_handle] -%}
+                              {%- assign col_url = matched_col.url | default: '/collections/all' -%}
+                              <a href="{{ col_url }}" class="wm-megamenu-card">
+                                <span class="wm-megamenu-card__icon">
+                                  {%- render 'category-icon', title: cat -%}
+                                </span>
+                                <span class="wm-megamenu-card__title">{{ cat }}</span>
+                              </a>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+
+                        {%- comment -%} MIDDLE COLUMN: Subcategories Featured Panel {%- endcomment -%}
+                        <div class="wm-megamenu-col wm-megamenu-col--subcategories">
+                          <div class="wm-megamenu-col-header">
+                            <span class="wm-megamenu-eyebrow">✦ FEATURED SUBCATEGORIES ✦</span>
+                            <h4 class="wm-megamenu-col-title">Sports & Outdoor Supplies</h4>
+                          </div>
+
+                          <div class="wm-megamenu-sublist">
+                            {%- assign sports_subs = 'Hiking & Outdoor,Jogging & Exercise Supplies,Sports Equipment & Supplies' | split: ',' -%}
+                            {%- for sub in sports_subs -%}
+                              {%- assign sub_handle = sub | handleize -%}
+                              {%- assign matched_sub = collections[sub_handle] -%}
+                              {%- assign sub_url = matched_sub.url | default: '/collections/sports-outdoor-supplies' -%}
+                              <a href="{{ sub_url }}" class="wm-megamenu-sublink">
+                                <span class="wm-megamenu-card__icon wm-megamenu-card__icon--sub">
+                                  {%- render 'category-icon', title: sub -%}
+                                </span>
+                                <span class="wm-megamenu-sublink__text">{{ sub }}</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                              </a>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+
+                        {%- comment -%} RIGHT COLUMN: Luxury Visual Feature Tile {%- endcomment -%}
+                        <div class="wm-megamenu-col wm-megamenu-col--promo">
+                          <div class="wm-megamenu-promo-card">
+                            <span class="wm-promo-badge">✦ EXCLUSIVE ✦</span>
+                            <h4 class="wm-promo-title">New Season Drops</h4>
+                            <p class="wm-promo-desc">Discover curated luxury fashion, lifestyle accessories & home decor.</p>
+                            <a href="/collections/all" class="wm-promo-btn">Explore Shop →</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
           </ul>
         </nav>
 
@@ -494,217 +547,17 @@
   width: 310px;
   background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(18, 19, 22, 0.08);
-  border-radius: 22px;
-  box-shadow: 0 24px 60px rgba(18, 19, 22, 0.14);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(12px) scale(0.98);
-  transition: all 280ms cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 500;
-  padding: 10px 0;
-}
-
-.wm-categories-dropdown:hover .wm-categories-panel {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0) scale(1);
-}
-
-.wm-categories-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.wm-categories-item {
+/* MAIN NAV CAPSULE BAR CENTERED & INTEGRATED MEGA MENU */
+.wm-header__nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 56px;
   position: relative;
-  margin: 2px 8px;
-  border: none;
 }
 
-.wm-categories-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  font-family: var(--font-body);
-  font-size: 0.90625rem;
-  font-weight: 700;
-  color: #121316;
-  text-decoration: none;
-  border-radius: 14px;
-  transition: all 200ms ease;
-}
-
-.wm-categories-item:hover > .wm-categories-link {
-  background: #F4F5FE;
-  color: var(--color-accent-gold, #C9A96E);
-}
-
-/* LUXURY ICON BADGES */
-.wm-categories-link__icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 12px;
-  background: rgba(18, 19, 22, 0.04);
-  color: #121316;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 220ms ease;
-}
-
-.wm-categories-link__icon--sub {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  background: rgba(201, 169, 110, 0.1);
-  color: var(--color-accent-gold, #C9A96E);
-}
-
-.wm-categories-item:hover > .wm-categories-link .wm-categories-link__icon {
-  background: #121316;
-  color: var(--color-accent-gold, #C9A96E);
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(18, 19, 22, 0.15);
-}
-
-.wm-categories-link__title {
-  flex: 1;
-  line-height: 1.3;
-}
-
-.wm-categories-badge {
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  background: rgba(18, 19, 22, 0.04);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #8E95A2;
-  transition: all 200ms ease;
-}
-
-.wm-categories-item:hover > .wm-categories-link .wm-categories-badge {
-  background: var(--color-accent-gold, #C9A96E);
-  color: #FFFFFF;
-}
-
-/* SUBMENU FLYOUT PANEL ALIGNED BEAUTIFULLY TO TOP OF DROPDOWN */
-.wm-categories-submenu {
-  position: absolute;
-  top: -10px;
-  left: calc(100% + 8px);
-  width: 290px;
-  min-height: 100%;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(18, 19, 22, 0.08);
-  border-radius: 22px;
-  box-shadow: 0 24px 60px rgba(18, 19, 22, 0.14);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateX(10px);
-  transition: all 250ms cubic-bezier(0.16, 1, 0.3, 1);
-  z-index: 600;
-  padding: 16px 12px;
-}
-
-/* Invisible bridge preventing hover drop */
-.wm-categories-submenu::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -20px;
-  width: 25px;
-  height: 100%;
-  background: transparent;
-}
-
-.wm-categories-item.has-submenu:hover .wm-categories-submenu {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(0);
-}
-
-.wm-submenu-header {
-  padding: 4px 8px 12px;
-  border-bottom: 1px solid #E5E8F0;
-  margin-bottom: 8px;
-}
-
-.wm-submenu-eyebrow {
-  font-size: 0.6875rem;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  color: var(--color-accent-gold, #C9A96E);
-  display: block;
-  margin-bottom: 2px;
-}
-
-.wm-submenu-title {
-  font-family: var(--font-heading);
-  font-size: 0.9375rem;
-  font-weight: 800;
-  color: #121316;
-  margin: 0;
-}
-
-.wm-submenu-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.wm-submenu-item {
-  margin: 3px 0;
-}
-
-.wm-submenu-link {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: #121316;
-  text-decoration: none;
-  border-radius: 12px;
-  transition: all 180ms ease;
-}
-
-.wm-submenu-link svg {
-  color: #8E95A2;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition: all 180ms ease;
-}
-
-.wm-submenu-link:hover {
-  background: #F4F5FE;
-  color: var(--color-accent-gold, #C9A96E);
-  padding-left: 16px;
-}
-
-.wm-submenu-link:hover svg {
-  opacity: 1;
-  transform: translateX(0);
-  color: var(--color-accent-gold, #C9A96E);
-}
-
-.wm-submenu-link__title {
-  flex: 1;
-}
-
-/* MAIN NAV MENU — ULTRA-MODERN FOESTA CAPSULE BAR */
 .wm-header__main-nav {
-  display: flex;
-  align-items: center;
+  position: relative;
 }
 
 .wm-main-menu {
@@ -714,10 +567,10 @@
   list-style: none;
   padding: 4px 6px;
   margin: 0;
-  background: rgba(255, 255, 255, 0.75);
-  border: 1px solid rgba(229, 232, 240, 0.9);
+  background: #FFFFFF;
+  border: 1.5px solid #E5E8F0;
   border-radius: var(--radius-pill);
-  box-shadow: 0 2px 10px rgba(18, 19, 22, 0.03);
+  box-shadow: 0 4px 16px rgba(18, 19, 22, 0.04);
 }
 
 .wm-main-menu__item {
@@ -728,13 +581,274 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-body);
-  font-size: 0.9375rem;
+  font-size: 0.90625rem;
   font-weight: 700;
-  letter-spacing: 0.01em;
   color: #121316;
   text-decoration: none;
-  padding: 8px 18px;
+  transition: all 220ms ease;
+}
+
+.wm-main-menu__link.is-active {
+  background: #121316;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(18, 19, 22, 0.2);
+}
+
+.wm-active-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-accent-gold, #C9A96E);
+  display: inline-block;
+}
+
+.wm-main-menu__link:hover:not(.is-active) {
+  background: #F4F5FE;
+  color: var(--color-accent-gold, #C9A96E);
+}
+
+.wm-menu-caret {
+  transition: transform 200ms ease;
+}
+
+.wm-main-menu__item:hover .wm-menu-caret {
+  transform: rotate(180deg);
+}
+
+/* MEGA MENU PANEL ATTACHED TO CAPSULE BAR */
+.wm-megamenu-panel {
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px) scale(0.98);
+  width: 960px;
+  max-width: calc(100vw - 40px);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(18, 19, 22, 0.08);
+  border-radius: 26px;
+  box-shadow: 0 28px 70px rgba(18, 19, 22, 0.16);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 280ms cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 900;
+  padding: 24px;
+}
+
+/* Invisible hover bridge */
+.wm-megamenu-panel::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: transparent;
+}
+
+.wm-main-menu__item.has-megamenu:hover .wm-megamenu-panel {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.wm-megamenu-inner {
+  display: grid;
+  grid-template-columns: 2.2fr 1.2fr 1fr;
+  gap: 24px;
+  text-align: left;
+}
+
+.wm-megamenu-col-header {
+  padding-bottom: 12px;
+  border-bottom: 1px solid #E5E8F0;
+  margin-bottom: 14px;
+}
+
+.wm-megamenu-eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-accent-gold, #C9A96E);
+  display: block;
+  margin-bottom: 3px;
+}
+
+.wm-megamenu-col-title {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 800;
+  color: #121316;
+  margin: 0;
+}
+
+/* CATEGORIES GRID (2-COL) */
+.wm-megamenu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
+}
+
+.wm-megamenu-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 14px;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.wm-megamenu-card:hover {
+  background: #F4F5FE;
+}
+
+.wm-megamenu-card__icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(18, 19, 22, 0.04);
+  color: #121316;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 200ms ease;
+}
+
+.wm-megamenu-card:hover .wm-megamenu-card__icon {
+  background: #121316;
+  color: var(--color-accent-gold, #C9A96E);
+  transform: scale(1.06);
+}
+
+.wm-megamenu-card__title {
+  font-size: 0.84375rem;
+  font-weight: 700;
+  color: #121316;
+  line-height: 1.25;
+  transition: color 200ms ease;
+}
+
+.wm-megamenu-card:hover .wm-megamenu-card__title {
+  color: var(--color-accent-gold, #C9A96E);
+}
+
+/* SUBCATEGORIES LIST */
+.wm-megamenu-sublist {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wm-megamenu-sublink {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #F8F9FD;
+  border: 1px solid #E5E8F0;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.wm-megamenu-sublink:hover {
+  background: #121316;
+  border-color: #121316;
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
+.wm-megamenu-card__icon--sub {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: rgba(201, 169, 110, 0.15);
+  color: var(--color-accent-gold, #C9A96E);
+}
+
+.wm-megamenu-sublink__text {
+  flex: 1;
+  font-size: 0.84375rem;
+  font-weight: 700;
+  color: #121316;
+  transition: color 200ms ease;
+}
+
+.wm-megamenu-sublink:hover .wm-megamenu-sublink__text {
+  color: #FFFFFF;
+}
+
+.wm-megamenu-sublink svg {
+  color: #8E95A2;
+  transition: all 200ms ease;
+}
+
+.wm-megamenu-sublink:hover svg {
+  color: var(--color-accent-gold, #C9A96E);
+  transform: translateX(2px);
+}
+
+/* PROMO VISUAL TILE */
+.wm-megamenu-promo-card {
+  height: 100%;
+  background: linear-gradient(135deg, #121316, #1A1C23);
+  border-radius: 20px;
+  padding: 24px 20px;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 12px 30px rgba(18, 19, 22, 0.2);
+}
+
+.wm-promo-badge {
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--color-accent-gold, #C9A96E);
+}
+
+.wm-promo-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 12px 0 6px;
+  color: #FFFFFF;
+}
+
+.wm-promo-desc {
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0 0 18px;
+}
+
+.wm-promo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-gold, #C9A96E);
+  color: #FFFFFF;
+  font-size: 0.8125rem;
+  font-weight: 800;
+  text-decoration: none;
+  transition: all 200ms ease;
+}
+
+.wm-promo-btn:hover {
+  background: #FFFFFF;
+  color: #121316;
+  transform: translateY(-2px);
+}
   border-radius: var(--radius-pill);
   transition: all 250ms cubic-bezier(0.25, 1, 0.5, 1);
   position: relative;
