@@ -65,7 +65,8 @@
 
     {%- comment -%} BOTTOM NAVIGATION ROW {%- endcomment -%}
     <div class="wm-header__bottom-bar">
-      <div class="ds-container wm-header__nav        {%- comment -%} Main Navigation Menu Capsule Bar {%- endcomment -%}
+      <div class="ds-container wm-header__nav-container">
+        {%- comment -%} Main Navigation Menu Capsule Bar {%- endcomment -%}
         <nav class="wm-header__main-nav">
           <ul class="wm-main-menu">
             {%- assign cat_menu = linklists[section.settings.categories_menu] -%}
