@@ -69,12 +69,16 @@
           src="{{ fallback_urls[img_idx] }}"
           alt="{{ product.title | default: 'Luxury Item' }}"
           class="ds-card-app__img ds-card-app__img--primary"
+          width="800"
+          height="800"
           loading="{{ img_loading }}"
         >
         <img
           src="{{ fallback_hovers[img_idx] }}"
           alt="{{ product.title | default: 'Luxury Item' }}"
           class="ds-card-app__img ds-card-app__img--hover"
+          width="800"
+          height="800"
           loading="lazy"
         >
       {%- endif -%}

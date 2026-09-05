@@ -6,6 +6,20 @@
 
 {%- liquid
   assign section_collection = collections[section.settings.collection]
+  if section_collection == blank or section_collection.products.size == 0
+    assign section_collection = collections['trending']
+  endif
+  if section_collection == blank or section_collection.products.size == 0
+    assign section_collection = collections['all']
+  endif
+  if section_collection == blank or section_collection.products.size == 0
+    for col in collections
+      if col.products.size > 0
+        assign section_collection = col
+        break
+      endif
+    endfor
+  endif
   assign product_limit = section.settings.products_to_show | default: 8
 -%}
 

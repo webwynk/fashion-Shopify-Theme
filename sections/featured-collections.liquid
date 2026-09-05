@@ -30,6 +30,10 @@
         {%- if section.blocks.size > 0 -%}
           {%- for block in section.blocks -%}
             {%- assign collection = collections[block.settings.collection] -%}
+            {%- if collection == blank and block.settings.label != blank -%}
+              {%- assign label_handle = block.settings.label | handleize -%}
+              {%- assign collection = collections[label_handle] -%}
+            {%- endif -%}
             {%- assign img_idx = forloop.index0 | modulo: 5 -%}
             
             <a
@@ -48,6 +52,8 @@
                   <img
                     src="{{ block.settings.image | image_url: width: 800 }}"
                     class="ds-cat-arch-card__img"
+                    width="800"
+                    height="1000"
                     loading="lazy"
                     alt="{{ block.settings.label | default: collection.title | escape }}"
                     onerror="this.onerror=null; this.src='{{ fallback_images[img_idx] }}';"
@@ -56,6 +62,8 @@
                   <img
                     src="{{ collection.image | image_url: width: 800 }}"
                     class="ds-cat-arch-card__img"
+                    width="800"
+                    height="1000"
                     loading="lazy"
                     alt="{{ collection.title | escape }}"
                     onerror="this.onerror=null; this.src='{{ fallback_images[img_idx] }}';"
@@ -64,6 +72,8 @@
                   <img
                     src="{{ collection.featured_image | image_url: width: 800 }}"
                     class="ds-cat-arch-card__img"
+                    width="800"
+                    height="1000"
                     loading="lazy"
                     alt="{{ collection.title | escape }}"
                     onerror="this.onerror=null; this.src='{{ fallback_images[img_idx] }}';"
@@ -73,6 +83,8 @@
                     src="{{ fallback_images[img_idx] }}"
                     alt="{{ block.settings.label | default: 'Category' }}"
                     class="ds-cat-arch-card__img"
+                    width="800"
+                    height="1000"
                     loading="lazy"
                   >
                 {%- endif -%}
