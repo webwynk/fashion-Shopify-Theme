@@ -120,36 +120,43 @@
         "col_1": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Girls Fashion"
+            "collection": "storage",
+            "label": "Storage & Cabinets"
           }
         },
         "col_2": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Men's Fashion"
+            "collection": "handmade-rugs",
+            "label": "Runner Rugs"
           }
         },
         "col_3": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "New Arrival"
+            "collection": "table",
+            "label": "Artisan Tables"
           }
         },
         "col_4": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Top Sales"
+            "collection": "small-rugs",
+            "label": "Oushak Rugs"
           }
         },
         "col_5": {
           "type": "collection",
           "settings": {
-            "collection": "",
-            "label": "Winter Fashion"
+            "collection": "office-chairs",
+            "label": "Office Chairs"
+          }
+        },
+        "col_6": {
+          "type": "collection",
+          "settings": {
+            "collection": "executive-desks",
+            "label": "Executive Desks"
           }
         }
       },
@@ -158,20 +165,22 @@
         "col_2",
         "col_3",
         "col_4",
-        "col_5"
+        "col_5",
+        "col_6"
       ],
       "settings": {
-        "title": "Shop by Category",
-        "subtitle": "Browse our latest fashion and trending collections."
+        "title": "Explore Popular Categories",
+        "subtitle": "Discover handcrafted rugs & artisan furniture curated for modern living"
       }
     },
     "trending_products": {
       "type": "trending-products",
       "settings": {
-        "title": "Trending product",
-        "subtitle": "Follow the most popular trends and get exclusive items from Luxidaq.",
-        "collection": "all",
-        "products_to_show": 8
+        "title": "Special Collection Deals",
+        "subtitle": "Curated selection of handcrafted rugs and premium executive office furniture",
+        "collection": "special-collection",
+        "products_to_show": 10,
+        "show_view_all": true
       }
     },
     "marquee_ticker": {

@@ -1,140 +1,184 @@
 {%- comment -%}
-  Section: Featured Categories Slider (Centered Header + Bottom Slider Controls)
+  Section: Explore Popular Categories (Curated Artisan Furniture & Rugs Slider)
   Features:
-  - Center-aligned Eyebrow, Title & Subheading
-  - Signature Foesta Arch Shape Cards
-  - Interactive Horizontal Touch & Button Slider with Bottom Arrow Controls
-  - Responsive: 5 items Desktop, 3 items Tablet, 2 items Mobile
+  - Header with title, subtitle, and top-right arrow controls (matching Screenshot 2)
+  - Soft cream/beige rounded cards with white square inset media boxes
+  - Dynamic collection images, titles, and real product count pill badges ("XX+ Items")
+  - Automatic fallback to all active store collections if blocks are unselected
 {%- endcomment -%}
 
-<section class="ds-cat-arch" id="section-{{ section.id }}">
+<section class="ds-pop-cats" id="section-{{ section.id }}">
   <div class="ds-container">
 
-    {%- comment -%} Centered Section Header {%- endcomment -%}
-    {%- if section.settings.title != blank -%}
-      <div class="ds-cat-arch__header">
-        <span class="ds-cat-arch__eyebrow">✦ CURATED COLLECTIONS ✦</span>
-        <h2 class="ds-cat-arch__title">{{ section.settings.title }}</h2>
+    {%- comment -%} Header Row with Title & Slider Controls {%- endcomment -%}
+    <div class="ds-pop-cats__header-row">
+      <div class="ds-pop-cats__header-left">
         {%- if section.settings.subtitle != blank -%}
-          <p class="ds-cat-arch__subtitle">{{ section.settings.subtitle }}</p>
+          <p class="ds-pop-cats__subtitle">{{ section.settings.subtitle }}</p>
         {%- endif -%}
+        <h2 class="ds-pop-cats__title">
+          {{ section.settings.title | default: 'Explore Popular Categories' }}
+        </h2>
       </div>
-    {%- endif -%}
 
-    {%- comment -%} Arch Category Slider Track {%- endcomment -%}
-    <div class="ds-cat-arch__wrapper" data-cat-slider>
-      <div class="ds-cat-arch__track" data-cat-track>
-        {%- assign fallback_images = "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1488161628813-04466f872be2?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=800&auto=format&fit=crop&q=80" | split: ',' -%}
-        {%- assign fallback_tags = "✦ TRENDING,✦ NEW ARRIVAL,✦ BEST SELLER,✦ HOT SALE,✦ WINTER DROPS" | split: ',' -%}
+      <div class="ds-pop-cats__nav-controls">
+        <button
+          class="ds-pop-cats__arrow ds-pop-cats__arrow--prev"
+          aria-label="Previous categories"
+          data-cat-prev
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button
+          class="ds-pop-cats__arrow ds-pop-cats__arrow--next"
+          aria-label="Next categories"
+          data-cat-next
+          type="button"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
 
-        {%- if section.blocks.size > 0 -%}
+    {%- comment -%} Category Slider Wrapper & Track {%- endcomment -%}
+    <div class="ds-pop-cats__wrapper" data-cat-slider>
+      <div class="ds-pop-cats__track" data-cat-track>
+        {%- liquid
+          assign fallback_imgs = "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1616046229478-9901c5536a45?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1594026112284-02bb6f3352fe?w=800&auto=format&fit=crop&q=80,https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800&auto=format&fit=crop&q=80" | split: ','
+          assign has_valid_blocks = false
+          if section.blocks.size > 0
+            for block in section.blocks
+              if block.settings.collection != blank or block.settings.label != blank
+                assign has_valid_blocks = true
+                break
+              endif
+            endfor
+          endif
+        -%}
+
+        {%- if has_valid_blocks -%}
           {%- for block in section.blocks -%}
-            {%- assign collection = collections[block.settings.collection] -%}
-            {%- if collection == blank and block.settings.label != blank -%}
-              {%- assign label_handle = block.settings.label | handleize -%}
-              {%- assign collection = collections[label_handle] -%}
-            {%- endif -%}
-            {%- assign img_idx = forloop.index0 | modulo: 5 -%}
-            
-            <a
-              href="{{ collection.url | default: '/collections/all' }}"
-              class="ds-cat-arch-card"
-              {{ block.shopify_attributes }}
-            >
-              {%- comment -%} Top Floating Glass Tag {%- endcomment -%}
-              <span class="ds-cat-arch-card__badge">
-                {{ fallback_tags[img_idx] }}
-              </span>
+            {%- liquid
+              assign collection = collections[block.settings.collection]
+              if collection == blank and block.settings.label != blank
+                assign label_handle = block.settings.label | handleize
+                assign collection = collections[label_handle]
+              endif
 
-              {%- comment -%} Arch Media Image {%- endcomment -%}
-              <div class="ds-cat-arch-card__media">
-                {%- if block.settings.image != blank -%}
+              assign card_title = block.settings.label | default: collection.title | default: 'Category'
+              assign card_url   = collection.url | default: '/collections/all'
+              assign count_num  = collection.all_products_count | default: 15
+
+              assign card_img = nil
+              if block.settings.image != blank
+                assign card_img = block.settings.image
+              elsif collection.image != blank
+                assign card_img = collection.image
+              elsif collection.featured_image != blank
+                assign card_img = collection.featured_image
+              elsif collection.products.first.featured_image != blank
+                assign card_img = collection.products.first.featured_image
+              endif
+
+              assign img_idx = forloop.index0 | modulo: 6
+            -%}
+
+            <a href="{{ card_url }}" class="ds-pop-cat-card" {{ block.shopify_attributes }}>
+              <div class="ds-pop-cat-card__media-box">
+                {%- if card_img != blank -%}
                   <img
-                    src="{{ block.settings.image | image_url: width: 800 }}"
-                    class="ds-cat-arch-card__img"
-                    width="800"
-                    height="1000"
+                    src="{{ card_img | image_url: width: 600 }}"
+                    alt="{{ card_title | escape }}"
+                    class="ds-pop-cat-card__img"
+                    width="600"
+                    height="600"
                     loading="lazy"
-                    alt="{{ block.settings.label | default: collection.title | escape }}"
-                    onerror="this.onerror=null; this.src='{{ fallback_images[img_idx] }}';"
-                  >
-                {%- elsif collection.image != blank -%}
-                  <img
-                    src="{{ collection.image | image_url: width: 800 }}"
-                    class="ds-cat-arch-card__img"
-                    width="800"
-                    height="1000"
-                    loading="lazy"
-                    alt="{{ collection.title | escape }}"
-                    onerror="this.onerror=null; this.src='{{ fallback_images[img_idx] }}';"
-                  >
-                {%- elsif collection.featured_image != blank -%}
-                  <img
-                    src="{{ collection.featured_image | image_url: width: 800 }}"
-                    class="ds-cat-arch-card__img"
-                    width="800"
-                    height="1000"
-                    loading="lazy"
-                    alt="{{ collection.title | escape }}"
-                    onerror="this.onerror=null; this.src='{{ fallback_images[img_idx] }}';"
                   >
                 {%- else -%}
                   <img
-                    src="{{ fallback_images[img_idx] }}"
-                    alt="{{ block.settings.label | default: 'Category' }}"
-                    class="ds-cat-arch-card__img"
-                    width="800"
-                    height="1000"
+                    src="{{ fallback_imgs[img_idx] }}"
+                    alt="{{ card_title | escape }}"
+                    class="ds-pop-cat-card__img"
+                    width="600"
+                    height="600"
                     loading="lazy"
                   >
                 {%- endif -%}
-                
-                <div class="ds-cat-arch-card__overlay"></div>
               </div>
 
-              {%- comment -%} Card Bottom Info & Pill CTA Button {%- endcomment -%}
-              <div class="ds-cat-arch-card__info">
-                <h3 class="ds-cat-arch-card__title">
-                  {{ block.settings.label | default: collection.title | default: 'Category' }}
-                </h3>
-                <div class="ds-cat-arch-card__btn">
-                  <span>Shop Collection</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </div>
-              </div>
+              <h3 class="ds-pop-cat-card__title">{{ card_title }}</h3>
+
+              <span class="ds-pop-cat-card__badge">
+                {{ count_num }}+ Items
+              </span>
             </a>
           {%- endfor -%}
 
         {%- else -%}
-          {%- comment -%} Default 5 Arch Category Tiles {%- endcomment -%}
-          {%- assign cat_names = "Girls Fashion,Men's Fashion,New Arrival,Top Sales,Winter Fashion" | split: ',' -%}
-          {%- for name in cat_names -%}
-            <a href="/collections/all" class="ds-cat-arch-card">
-              <span class="ds-cat-arch-card__badge">{{ fallback_tags[forloop.index0] }}</span>
-              <div class="ds-cat-arch-card__media">
-                <img src="{{ fallback_images[forloop.index0] }}" alt="{{ name }}" class="ds-cat-arch-card__img" loading="lazy">
-                <div class="ds-cat-arch-card__overlay"></div>
-              </div>
-              <div class="ds-cat-arch-card__info">
-                <h3 class="ds-cat-arch-card__title">{{ name }}</h3>
-                <div class="ds-cat-arch-card__btn">
-                  <span>Shop Collection</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-                </div>
-              </div>
-            </a>
-          {%- endfor -%}
-        {%- endif -%}
-      </div>
+          {%- comment -%} Automatic Store Collections Detection {%- endcomment -%}
+          {%- assign rendered_count = 0 -%}
+          {%- for collection in collections -%}
+            {%- if collection.handle != 'frontpage' and collection.handle != 'home-page' and collection.all_products_count > 0 -%}
+              {%- assign rendered_count = rendered_count | plus: 1 -%}
+              {%- liquid
+                assign card_img = collection.image | default: collection.featured_image | default: collection.products.first.featured_image
+                assign img_idx = forloop.index0 | modulo: 6
+              -%}
 
-      {%- comment -%} Bottom Navigation Slider Arrows {%- endcomment -%}
-      <div class="ds-cat-arch__bottom-controls">
-        <button class="ds-cat-arch__arrow ds-cat-arch__arrow--prev" aria-label="Previous categories" data-cat-prev type="button">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-        </button>
-        <button class="ds-cat-arch__arrow ds-cat-arch__arrow--next" aria-label="Next categories" data-cat-next type="button">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
+              <a href="{{ collection.url }}" class="ds-pop-cat-card">
+                <div class="ds-pop-cat-card__media-box">
+                  {%- if card_img != blank -%}
+                    <img
+                      src="{{ card_img | image_url: width: 600 }}"
+                      alt="{{ collection.title | escape }}"
+                      class="ds-pop-cat-card__img"
+                      width="600"
+                      height="600"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    <img
+                      src="{{ fallback_imgs[img_idx] }}"
+                      alt="{{ collection.title | escape }}"
+                      class="ds-pop-cat-card__img"
+                      width="600"
+                      height="600"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </div>
+
+                <h3 class="ds-pop-cat-card__title">{{ collection.title }}</h3>
+
+                <span class="ds-pop-cat-card__badge">
+                  {{ collection.all_products_count }}+ Items
+                </span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if rendered_count == 0 -%}
+            {%- assign default_cats = "Storage & Cabinets,Runner Rugs,Artisan Tables,Oushak Rugs,Bookshelves,Desk Accessories" | split: ',' -%}
+            {%- assign default_counts = "18+,45+,20+,18+,15+,40+" | split: ',' -%}
+            {%- for name in default_cats -%}
+              <a href="/collections/all" class="ds-pop-cat-card">
+                <div class="ds-pop-cat-card__media-box">
+                  <img
+                    src="{{ fallback_imgs[forloop.index0] }}"
+                    alt="{{ name }}"
+                    class="ds-pop-cat-card__img"
+                    width="600"
+                    height="600"
+                    loading="lazy"
+                  >
+                </div>
+                <h3 class="ds-pop-cat-card__title">{{ name }}</h3>
+                <span class="ds-pop-cat-card__badge">{{ default_counts[forloop.index0] }} Items</span>
+              </a>
+            {%- endfor -%}
+          {%- endif -%}
+        {%- endif -%}
       </div>
     </div>
 
@@ -143,230 +187,55 @@
 
 <style>
 /* ═════════════════════════════════════════════════════════════
-   FEATURED CATEGORIES SLIDER (CENTERED HEADER & BOTTOM ARROWS)
+   EXPLORE POPULAR CATEGORIES (WARM LUXURY SLIDER — SCREENSHOT 2)
    ═════════════════════════════════════════════════════════════ */
-.ds-cat-arch {
+.ds-pop-cats {
   padding: 4.5rem 0 5rem;
   background: #FFFFFF;
 }
 
-.ds-cat-arch__header {
-  text-align: center;
-  margin-bottom: 2.75rem;
+.ds-pop-cats__header-row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.25rem;
+  gap: 1.5rem;
 }
 
-.ds-cat-arch__eyebrow {
+.ds-pop-cats__subtitle {
   font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  color: var(--accent-orange, #E05A2B);
-  text-transform: uppercase;
+  font-size: 1.0625rem;
+  color: #555B68;
+  margin: 0 0 0.4rem;
+  line-height: 1.4;
 }
 
-.ds-cat-arch__title {
+.ds-pop-cats__title {
   font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
   font-weight: 800;
   color: #121316;
   margin: 0;
   letter-spacing: -0.03em;
+  line-height: 1.15;
 }
 
-.ds-cat-arch__subtitle {
-  font-family: var(--font-body);
-  font-size: 1.0625rem;
-  color: #555B68;
-  margin: 0;
-  max-width: 520px;
-}
-
-.ds-cat-arch__wrapper {
-  position: relative;
-  width: 100%;
-}
-
-/* Slider Track */
-.ds-cat-arch__track {
-  display: flex;
-  gap: var(--space-5);
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 0.75rem 0.25rem 1.25rem;
-  scrollbar-width: none;
-}
-
-.ds-cat-arch__track::-webkit-scrollbar {
-  display: none;
-}
-
-/* Signature Arch Card Item sizing */
-.ds-cat-arch-card {
-  flex: 0 0 calc((100% - (var(--space-5) * 4)) / 5);
-  min-width: 210px;
-  scroll-snap-align: start;
-  position: relative;
-  border-radius: 140px 140px 24px 24px;
-  overflow: hidden;
-  height: 420px;
-  display: block;
-  text-decoration: none;
-  border: 1px solid rgba(18, 19, 22, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-  transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 450ms ease,
-              border-color 300ms ease;
-  background: #F4F5FE;
-}
-
-.ds-cat-arch-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.16);
-  border-color: rgba(224, 90, 43, 0.35);
-}
-
-/* Floating Glass Badge */
-.ds-cat-arch-card__badge {
-  position: absolute;
-  top: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 5;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  padding: 0.4rem 0.95rem;
-  border-radius: 9999px;
-  font-family: var(--font-body);
-  font-size: 0.6875rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  color: #121316;
-  text-transform: uppercase;
-  white-space: nowrap;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-}
-
-/* Media Photography */
-.ds-cat-arch-card__media {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.ds-cat-arch-card__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ds-cat-arch-card:hover .ds-cat-arch-card__img {
-  transform: scale(1.12);
-}
-
-.ds-cat-arch-card__overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(18, 19, 22, 0.92) 0%,
-    rgba(18, 19, 22, 0.5) 45%,
-    rgba(18, 19, 22, 0.05) 100%
-  );
-  transition: opacity 300ms ease;
-}
-
-/* Card Bottom Info */
-.ds-cat-arch-card__info {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 4;
-  padding: 1.75rem 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.85rem;
-  text-align: center;
-}
-
-.ds-cat-arch-card__title {
-  font-family: var(--font-heading);
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #FFFFFF;
-  margin: 0;
-  letter-spacing: -0.02em;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-  transition: transform 300ms ease;
-}
-
-.ds-cat-arch-card:hover .ds-cat-arch-card__title {
-  transform: translateY(-2px);
-}
-
-/* Pill Button */
-.ds-cat-arch-card__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: #FFFFFF;
-  color: #121316;
-  padding: 0.65rem 1.25rem;
-  border-radius: 9999px;
-  font-family: var(--font-body);
-  font-size: 0.8125rem;
-  font-weight: 700;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-  transition: all 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  white-space: nowrap;
-}
-
-.ds-cat-arch-card:hover .ds-cat-arch-card__btn {
-  background: var(--accent-orange, #E05A2B);
-  color: #FFFFFF;
-  transform: scale(1.06);
-  box-shadow: 0 10px 24px rgba(224, 90, 43, 0.42);
-}
-
-.ds-cat-arch-card__btn svg {
-  transition: transform 300ms ease;
-}
-
-.ds-cat-arch-card:hover .ds-cat-arch-card__btn svg {
-  transform: translateX(4px);
-}
-
-/* Bottom Navigation Slider Controls */
-.ds-cat-arch__bottom-controls {
+/* Arrow Navigation Buttons (Top-Right of Header) */
+.ds-pop-cats__nav-controls {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  margin-top: 1.75rem;
+  gap: 0.75rem;
+  flex-shrink: 0;
 }
 
-.ds-cat-arch__arrow {
-  width: 48px;
-  height: 48px;
+.ds-pop-cats__arrow {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: #FFFFFF;
   color: #121316;
-  border: 1.5px solid var(--color-border);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1.5px solid rgba(18, 19, 22, 0.12);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -374,48 +243,156 @@
   transition: all 250ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.ds-cat-arch__arrow:hover {
-  background: var(--accent-orange, #E05A2B);
+.ds-pop-cats__arrow:hover {
+  background: #121316;
   color: #FFFFFF;
-  border-color: var(--accent-orange, #E05A2B);
-  transform: scale(1.1);
-  box-shadow: 0 8px 22px rgba(224, 90, 43, 0.35);
+  border-color: #121316;
+  transform: scale(1.06);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Slider Track */
+.ds-pop-cats__wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.ds-pop-cats__track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 0.25rem 1.5rem;
+  scrollbar-width: none;
+}
+
+.ds-pop-cats__track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── WARM CREAM ROUNDED CATEGORY CARD ── */
+.ds-pop-cat-card {
+  flex: 0 0 calc((100% - (1.25rem * 5)) / 6);
+  min-width: 185px;
+  scroll-snap-align: start;
+  background: #FDF9F3;
+  border: 1.5px solid #F0E8DC;
+  border-radius: 20px;
+  padding: 1rem 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 350ms ease,
+              border-color 300ms ease;
+}
+
+.ds-pop-cat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.07);
+  border-color: #E2D2BE;
+}
+
+/* Inner White Square Box */
+.ds-pop-cat-card__media-box {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #FFFFFF;
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  box-shadow: inset 0 0 0 1px rgba(18, 19, 22, 0.04);
+}
+
+.ds-pop-cat-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ds-pop-cat-card:hover .ds-pop-cat-card__img {
+  transform: scale(1.08);
+}
+
+/* Category Title */
+.ds-pop-cat-card__title {
+  font-family: var(--font-heading);
+  font-size: 1.0625rem;
+  font-weight: 800;
+  color: #121316;
+  margin: 0.85rem 0 0.5rem;
+  text-align: center;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+/* Item Count Pill Badge */
+.ds-pop-cat-card__badge {
+  display: inline-block;
+  background: #F4EDE2;
+  color: #7E5B37;
+  font-family: var(--font-body);
+  font-size: 0.78125rem;
+  font-weight: 700;
+  padding: 0.25rem 0.85rem;
+  border-radius: 9999px;
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+  white-space: nowrap;
 }
 
 /* ── RESPONSIVE BREAKPOINTS ── */
-/* Laptop / Tablet (3 items visible) */
-@media (max-width: 1199px) {
-  .ds-cat-arch-card {
-    flex: 0 0 calc((100% - (var(--space-5) * 2)) / 3);
-    min-width: 220px;
+/* Laptop / Standard Desktop (4.5 items) */
+@media (max-width: 1279px) {
+  .ds-pop-cat-card {
+    flex: 0 0 calc((100% - (1.25rem * 4)) / 4.5);
+    min-width: 175px;
   }
 }
 
-/* Tablet Small (2.4 items visible) */
-@media (max-width: 899px) {
-  .ds-cat-arch { padding: 3.5rem 0 4rem; }
-  .ds-cat-arch-card {
-    flex: 0 0 calc((100% - var(--space-4)) / 2.4);
-    height: 360px;
-    border-radius: 110px 110px 20px 20px;
+/* Tablet (3.2 items) */
+@media (max-width: 989px) {
+  .ds-pop-cats { padding: 3.5rem 0 4rem; }
+  .ds-pop-cat-card {
+    flex: 0 0 calc((100% - (1rem * 2)) / 3.2);
+    min-width: 165px;
+    border-radius: 16px;
+    padding: 0.85rem 0.85rem 1rem;
   }
+  .ds-pop-cat-card__title { font-size: 0.95rem; }
 }
 
-/* Mobile (2 items visible) */
+/* Mobile (2.1 items) */
 @media (max-width: 639px) {
-  .ds-cat-arch { padding: 3rem 0 3.5rem; }
-  
-  .ds-cat-arch-card {
-    flex: 0 0 calc((100% - 0.75rem) / 2);
-    min-width: 155px;
-    height: 300px;
-    border-radius: 80px 80px 16px 16px;
+  .ds-pop-cats { padding: 3rem 0 3.25rem; }
+  .ds-pop-cats__header-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
-  
-  .ds-cat-arch-card__info { padding: 1.15rem 0.65rem; gap: 0.5rem; }
-  .ds-cat-arch-card__title { font-size: 1.05rem; }
-  .ds-cat-arch-card__btn { font-size: 0.75rem; padding: 0.5rem 0.95rem; }
-  .ds-cat-arch-card__badge { top: 16px; font-size: 0.625rem; padding: 0.3rem 0.75rem; }
+  .ds-pop-cats__nav-controls {
+    align-self: flex-end;
+  }
+  .ds-pop-cat-card {
+    flex: 0 0 calc((100% - 0.75rem) / 2.15);
+    min-width: 145px;
+    padding: 0.75rem 0.75rem 0.95rem;
+  }
+  .ds-pop-cat-card__title { font-size: 0.875rem; }
+  .ds-pop-cat-card__badge { font-size: 0.7rem; padding: 0.2rem 0.65rem; }
 }
 </style>
 
@@ -432,8 +409,8 @@
     if (!track) return;
 
     function getScrollAmount() {
-      const card = track.querySelector('.ds-cat-arch-card');
-      return card ? card.offsetWidth + 20 : 300;
+      const card = track.querySelector('.ds-pop-cat-card');
+      return card ? card.offsetWidth + 20 : 220;
     }
 
     prevBtn?.addEventListener('click', () => {
@@ -455,22 +432,22 @@
 
 {% schema %}
 {
-  "name": "Featured Categories",
+  "name": "Popular Categories",
   "tag": "section",
   "class": "section-featured-collections",
-  "max_blocks": 10,
+  "max_blocks": 12,
   "settings": [
     {
       "type": "text",
       "id": "title",
       "label": "Heading",
-      "default": "Shop by Category"
+      "default": "Explore Popular Categories"
     },
     {
       "type": "text",
       "id": "subtitle",
       "label": "Subheading",
-      "default": "Browse our latest fashion and trending collections."
+      "default": "Discover handcrafted rugs & artisan furniture curated for modern living"
     }
   ],
   "blocks": [
@@ -498,13 +475,14 @@
   ],
   "presets": [
     {
-      "name": "Featured Categories",
+      "name": "Explore Popular Categories",
       "blocks": [
-        { "type": "collection", "settings": { "label": "Girls Fashion" } },
-        { "type": "collection", "settings": { "label": "Men's Fashion" } },
-        { "type": "collection", "settings": { "label": "New Arrival" } },
-        { "type": "collection", "settings": { "label": "Top Sales" } },
-        { "type": "collection", "settings": { "label": "Winter Fashion" } }
+        { "type": "collection", "settings": { "label": "Storage" } },
+        { "type": "collection", "settings": { "label": "Handmade Rugs" } },
+        { "type": "collection", "settings": { "label": "Table" } },
+        { "type": "collection", "settings": { "label": "Small Rugs" } },
+        { "type": "collection", "settings": { "label": "Office Chairs" } },
+        { "type": "collection", "settings": { "label": "Executive Desks" } }
       ]
     }
   ]
